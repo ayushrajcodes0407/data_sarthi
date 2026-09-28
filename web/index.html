@@ -6,7 +6,7 @@
   <title>Data Sarthi — Enterprise Data Quality Platform & Smart EDA</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -508,178 +508,235 @@
 
 
       <!-- ========================================================
-           VIEW 5: SMART EDA & VISUAL ANALYTICS (NEW FEATURE)
+           VIEW 5: SMART EDA & VISUAL ANALYTICS (PREMIUM REDESIGN)
       ======================================================== -->
       <section id="viewSmartEda" class="app-view">
         
-        <!-- Smart EDA Control Panel -->
-        <div class="card glass eda-control-panel">
-          <div class="eda-control-top">
-            <div>
-              <h2 class="view-title">Smart Exploratory Data Analysis & Visual Analytics</h2>
-              <p class="view-subtitle">Automated target detection, statistical relationships, correlation heatmaps, and chart recommendation</p>
+        <!-- Smart EDA Header Bar -->
+        <div class="eda-header-card card glass">
+          <div class="eda-header-left">
+            <div class="eda-title-block">
+              <span class="eda-badge-label">PYTHON VISUAL ANALYTICS</span>
+              <h2 class="view-title">Smart EDA</h2>
+              <p class="view-subtitle">Automated exploratory analysis of your dataset</p>
             </div>
-            <div class="eda-mode-toggle">
-              <label class="radio-label">
-                <input type="radio" name="edaMode" value="smart" checked id="modeSmartRadio" />
-                <span>● Smart Analysis</span>
-              </label>
-              <label class="radio-label">
-                <input type="radio" name="edaMode" value="manual" id="modeManualRadio" />
-                <span>○ Manual Exploration</span>
-              </label>
+            <div class="eda-header-meta-chips">
+              <div class="eda-meta-chip">Dataset: <strong id="edaDatasetNameChip">ecommerce_orders.csv</strong></div>
+              <div class="eda-meta-chip">Rows: <strong id="edaRowsChip">12,430</strong></div>
+              <div class="eda-meta-chip">Cols: <strong id="edaColsChip">18</strong></div>
+              <div class="eda-meta-chip highlight" id="edaActiveTargetChip">Target: <strong>churned</strong></div>
             </div>
           </div>
 
-          <!-- Target & Feature Configuration -->
-          <div class="eda-config-grid mt-3">
-            
-            <!-- Target Selection Box -->
-            <div class="eda-config-box">
-              <div class="eda-config-box-header">
-                <strong class="config-label">Target Column(s):</strong>
-                <div class="target-quick-btns">
-                  <button class="btn btn-outline btn-xs" id="btnEdaAutoDetect">⚡ Auto Detect</button>
-                  <button class="btn btn-outline btn-xs" id="btnEdaNoTarget">No Target</button>
-                </div>
-              </div>
-              <div class="target-suggestion-alert" id="targetSuggestionBox">
-                <span id="targetSuggestionText">Suggested Target: <strong>churned</strong> — Binary feature with 2 distinct classes</span>
-              </div>
-              <div class="checkbox-options-scroll" id="edaTargetCheckboxes">
-                <!-- Checkboxes populated by app.js -->
-              </div>
-              <div class="problem-type-pill" id="edaProblemTypeBadge">
-                Problem Type: <strong>Binary Classification</strong>
-              </div>
+          <div class="eda-header-right">
+            <div class="eda-mode-pill-toggle">
+              <button class="eda-mode-btn active" id="btnModeSmart" data-mode="smart">● Smart Report</button>
+              <button class="eda-mode-btn" id="btnModeManual" data-mode="manual">○ Manual Studio</button>
             </div>
-
-            <!-- Feature Selection Box -->
-            <div class="eda-config-box">
-              <div class="eda-config-box-header">
-                <strong class="config-label">Feature Columns:</strong>
-                <div class="feature-quick-btns">
-                  <button class="btn btn-outline btn-xs" id="btnEdaSelectAllFeatures">All</button>
-                  <button class="btn btn-outline btn-xs" id="btnEdaAutoFeatures">Auto (Exclude IDs)</button>
-                  <button class="btn btn-outline btn-xs" id="btnEdaClearFeatures">Clear</button>
-                </div>
-              </div>
-              <div class="checkbox-options-scroll" id="edaFeatureCheckboxes">
-                <!-- Feature checkboxes populated by app.js -->
-              </div>
+            <div class="eda-actions-group">
+              <button class="btn btn-outline btn-sm" id="btnOpenEdaConfig" title="Configure Targets & Features">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="3"></circle>
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                </svg>
+                <span>Select Targets & Features</span>
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnGenerateEda">
+                <span>⚡ Regenerate Analysis</span>
+              </button>
+              <button class="btn btn-secondary btn-sm" id="btnExportEdaReport" title="Download standalone Jupyter/Seaborn styled report">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                <span>Generate Python EDA Report</span>
+              </button>
             </div>
-
-          </div>
-
-          <!-- Generate Button Row -->
-          <div class="eda-action-bar mt-3">
-            <button class="btn btn-primary" id="btnGenerateEda">
-              <span>⚡ Generate Smart EDA</span>
-            </button>
-            <button class="btn btn-secondary btn-sm" id="btnExportEdaReport">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-              </svg>
-              <span>Export EDA Report</span>
-            </button>
           </div>
         </div>
 
-        <!-- ================= SMART ANALYSIS SUB-VIEW ================= -->
+        <!-- Target Selector Tabs (for Multi-Target datasets) -->
+        <div class="eda-target-tabs-bar" id="edaTargetTabsBar" style="display: none;">
+          <span class="tabs-label">🎯 Active Target:</span>
+          <div class="target-tabs-list" id="edaTargetTabsList"></div>
+        </div>
+
+        <!-- ================= SMART ANALYSIS REPORT CONTAINER ================= -->
         <div id="edaSmartAnalysisContainer" class="eda-sub-container">
 
-          <!-- Section 1: Statistical Insights -->
-          <div class="card glass eda-section-card">
-            <div class="card-header-row mb-3">
-              <div>
-                <h3 class="card-header-title">Key Statistical Insights</h3>
-                <p class="card-header-sub">Non-causal statistical associations, distributions, and target relationships</p>
-              </div>
-              <span class="badge-pill" id="edaInsightsCountBadge">3 Key Insights</span>
-            </div>
-            <div class="insights-grid" id="edaInsightsContainer">
-              <!-- Populated by app.js -->
-            </div>
+          <!-- 1. Executive Summary KPI Row -->
+          <div class="eda-executive-summary" id="edaExecutiveSummary">
+            <!-- 8 compact KPI cards generated by app.js -->
           </div>
 
-          <!-- Section 2: Target Analysis -->
+          <!-- 2. Target Analysis Section (Primary Analytical Section) -->
           <div class="card glass eda-section-card" id="edaTargetSection">
-            <div class="card-header-row mb-3">
+            <div class="eda-card-header-banner">
               <div>
-                <h3 class="card-header-title">Target Analysis & Feature Relationships</h3>
-                <p class="card-header-sub">Bivariate breakdown of features vs selected target outcome</p>
+                <span class="eda-section-tag">PRIMARY ANALYTICS</span>
+                <h3 class="eda-section-title">TARGET ANALYSIS</h3>
+                <p class="eda-section-subtitle" id="edaTargetSubtitle">Target distribution & class breakdown</p>
               </div>
-              <span class="badge-pill" id="edaTargetHeaderPill">Target: churned</span>
-            </div>
-            <div class="target-analysis-grid" id="edaTargetChartsGrid">
-              <!-- Target charts populated by app.js -->
-            </div>
-          </div>
-
-          <!-- Section 3: Correlations Matrix & Heatmap -->
-          <div class="card glass eda-section-card">
-            <div class="card-header-row mb-3">
-              <div>
-                <h3 class="card-header-title">Numerical Correlation Heatmap (Pearson r)</h3>
-                <p class="card-header-sub">Linear relationships between numerical continuous features (-1.0 to +1.0)</p>
-              </div>
-              <span class="badge-pill">Pairwise Pearson</span>
+              <div class="eda-target-meta-badges" id="edaTargetMetaBadges"></div>
             </div>
             
-            <div class="correlation-dual-layout">
-              <div class="heatmap-visual-box" id="edaHeatmapVisual">
-                <!-- Heatmap SVG generated by app.js -->
+            <div class="eda-target-content-layout" id="edaTargetContentLayout">
+              <!-- Target distribution chart & class statistics populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 3. Key Insights Section -->
+          <div class="card glass eda-section-card" id="edaKeyInsightsSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">STATISTICAL SYNTHESIS</span>
+                <h3 class="eda-section-title">KEY INSIGHTS</h3>
+                <p class="eda-section-subtitle">Non-causal statistical observations across distributions, correlations, and target associations</p>
+              </div>
+              <span class="badge-pill" id="edaInsightsCountBadge">4 Key Insights</span>
+            </div>
+            <div class="eda-insights-numbered-grid" id="edaInsightsContainer">
+              <!-- Numbered 01, 02, 03 insight cards populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 4. Feature vs Target Relationships (2-column desktop grid) -->
+          <div class="card glass eda-section-card" id="edaFeatureRelationshipsSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">BIVARIATE ASSOCIATIONS</span>
+                <h3 class="eda-section-title">FEATURE RELATIONSHIPS</h3>
+                <p class="eda-section-subtitle" id="edaFeatureRelSubtitle">Feature associations and class breakdowns against selected target outcome</p>
+              </div>
+              <span class="badge-pill" id="edaBivariateCountBadge">4 Relationships</span>
+            </div>
+            <div class="eda-bivariate-grid" id="edaTargetChartsGrid">
+              <!-- 2-column Seaborn-styled bivariate charts populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 5. Numerical Distributions -->
+          <div class="card glass eda-section-card" id="edaNumericalDistributionsSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">CONTINUOUS DISTRIBUTIONS</span>
+                <h3 class="eda-section-title">NUMERICAL DISTRIBUTIONS</h3>
+                <p class="eda-section-subtitle">Histograms, 5-number box plots, and continuous statistical moments</p>
+              </div>
+              <button class="btn btn-outline btn-xs" id="btnToggleAllNumCharts">Show All Numerical Features</button>
+            </div>
+            <div class="eda-distributions-grid" id="edaNumericalGrid">
+              <!-- 2-column compact numerical distribution cards populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 6. Categorical Distributions -->
+          <div class="card glass eda-section-card" id="edaCategoricalDistributionsSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">DISCRETE FREQUENCIES</span>
+                <h3 class="eda-section-title">CATEGORICAL DISTRIBUTIONS</h3>
+                <p class="eda-section-subtitle">Horizontal frequency breakdowns across discrete category levels</p>
+              </div>
+              <button class="btn btn-outline btn-xs" id="btnToggleAllCatCharts">Show All Categorical Features</button>
+            </div>
+            <div class="eda-distributions-grid" id="edaCategoricalGrid">
+              <!-- 2-column compact horizontal bar charts populated by app.js -->
+            </div>
+          </div>
+
+          <!-- 7. Correlation Analysis -->
+          <div class="card glass eda-section-card" id="edaCorrelationSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">MULTIVARIATE MATRIX</span>
+                <h3 class="eda-section-title">CORRELATION ANALYSIS</h3>
+                <p class="eda-section-subtitle">Pairwise Pearson linear correlation (r) and Spearman rank correlation (ρ)</p>
+              </div>
+              <span class="badge-pill">Diverging [-1.0 ... +1.0]</span>
+            </div>
+            
+            <div class="eda-correlation-layout">
+              <div class="eda-heatmap-centered-box" id="edaHeatmapVisual">
+                <!-- Centered square heatmap SVG generated by app.js -->
               </div>
 
-              <div class="correlation-ranked-box">
-                <h4 style="font-size: 0.85rem; margin-bottom: 0.5rem;">Strongest Correlated Pairs</h4>
-                <div class="table-responsive" style="max-height: 280px; overflow-y: auto;">
-                  <table class="data-quality-table">
-                    <thead>
-                      <tr>
-                        <th>Feature Pair</th>
-                        <th>Correlation</th>
-                        <th>Strength</th>
-                      </tr>
-                    </thead>
-                    <tbody id="edaTopCorrelationsBody"></tbody>
+              <div class="eda-correlation-tables-row">
+                <div class="eda-corr-table-card">
+                  <div class="corr-table-header positive">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                    <span>Strongest Positive Relationships</span>
+                  </div>
+                  <table class="data-quality-table compact-table">
+                    <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
+                    <tbody id="edaPosCorrelationsBody"></tbody>
+                  </table>
+                </div>
+
+                <div class="eda-corr-table-card">
+                  <div class="corr-table-header negative">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    <span>Strongest Negative / Inverse Relationships</span>
+                  </div>
+                  <table class="data-quality-table compact-table">
+                    <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
+                    <tbody id="edaNegCorrelationsBody"></tbody>
                   </table>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Section 4: Feature Distributions Gallery -->
-          <div class="card glass eda-section-card">
-            <div class="card-header-row mb-3">
+          <!-- 8. Outlier Analysis -->
+          <div class="card glass eda-section-card" id="edaOutlierSection">
+            <div class="eda-card-header-banner">
               <div>
-                <h3 class="card-header-title">Feature Distributions & Cardinality</h3>
-                <p class="card-header-sub">Histograms, box plot summaries, and categorical frequency breakdowns</p>
+                <span class="eda-section-tag">ANOMALY AUDIT</span>
+                <h3 class="eda-section-title">OUTLIER ANALYSIS</h3>
+                <p class="eda-section-subtitle">Statistical outlier summary based on 1.5× Interquartile Range (IQR)</p>
               </div>
-              <button class="btn btn-outline btn-xs" id="btnToggleAllCharts">Show All Available Charts</button>
+              <button class="btn btn-outline btn-xs" id="btnToggleOutlierPlots">Toggle Outlier Box Plots</button>
             </div>
-            <div class="distributions-charts-grid" id="edaDistributionsGrid">
-              <!-- Distribution charts populated by app.js -->
+            <div class="table-responsive">
+              <table class="data-quality-table">
+                <thead><tr><th>Feature</th><th>Outliers Count</th><th>Percentage</th><th>IQR Range</th><th>Min Boundary</th><th>Max Boundary</th><th>Status</th></tr></thead>
+                <tbody id="edaOutlierTableBody"></tbody>
+              </table>
+            </div>
+            <div class="eda-outlier-charts-grid mt-3" id="edaOutlierChartsGrid" style="display: none;"></div>
+          </div>
+
+          <!-- 9. Missing Data Analysis -->
+          <div class="card glass eda-section-card" id="edaMissingnessSection">
+            <div class="eda-card-header-banner">
+              <div>
+                <span class="eda-section-tag">COMPLETENESS PROFILING</span>
+                <h3 class="eda-section-title">MISSING DATA ANALYSIS</h3>
+                <p class="eda-section-subtitle">Per-feature null count and missingness proportion across dataset records</p>
+              </div>
+            </div>
+            <div class="eda-missingness-layout" id="edaMissingnessContent">
+              <!-- Clean horizontal bars populated by app.js -->
             </div>
           </div>
 
         </div>
 
-        <!-- ================= MANUAL EXPLORATION SUB-VIEW ================= -->
+        <!-- ================= MANUAL EXPLORATION STUDIO SUB-VIEW ================= -->
         <div id="edaManualExplorationContainer" class="eda-sub-container" style="display: none;">
           <div class="card glass eda-section-card">
-            <div class="card-header-row mb-3">
+            <div class="eda-card-header-banner">
               <div>
-                <h3 class="card-header-title">Interactive Manual Chart Builder</h3>
-                <p class="card-header-sub">Custom bivariate, multivariate, and distribution visual explorer</p>
+                <span class="eda-section-tag">CUSTOM STUDIO</span>
+                <h3 class="eda-section-title">INTERACTIVE MANUAL CHART BUILDER</h3>
+                <p class="eda-section-subtitle">Custom bivariate, multivariate, and distribution visual explorer</p>
               </div>
             </div>
 
-            <div class="manual-builder-toolbar">
+            <div class="manual-builder-toolbar mt-3">
               <div class="builder-select-item">
                 <label>Chart Type:</label>
                 <select id="builderChartType" class="form-select-sm">
-                  <option value="scatter">Scatter Plot</option>
+                  <option value="scatter">Scatter Plot & Trend</option>
                   <option value="bar">Bar Chart</option>
                   <option value="histogram">Histogram Distribution</option>
                   <option value="boxplot">Box Plot</option>
@@ -707,14 +764,69 @@
               <button class="btn btn-primary btn-sm" id="btnRenderManualChart">Render Chart</button>
             </div>
 
-            <!-- Manual Chart Canvas Box -->
-            <div class="manual-chart-display-card mt-4" id="manualChartContainer">
+            <div class="manual-chart-display-card mt-3" id="manualChartContainer">
               <div class="chart-empty-placeholder">Select features and click "Render Chart" to generate visual analytics.</div>
             </div>
           </div>
         </div>
 
       </section>
+
+      <!-- Target & Feature Configuration Modal -->
+      <div class="modal-overlay" id="edaConfigModal">
+        <div class="modal-card modal-lg">
+          <div class="modal-header">
+            <div>
+              <h3 class="card-header-title">Configure Target & Feature Columns</h3>
+              <p class="modal-subtitle">Select target outcomes and filter analytical features for Smart EDA</p>
+            </div>
+            <button class="btn-close" id="closeEdaConfigModal">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div class="eda-config-modal-grid">
+              
+              <!-- Targets Column -->
+              <div class="eda-modal-col">
+                <div class="eda-modal-col-header">
+                  <strong>Target Columns (Multi-select)</strong>
+                  <div class="target-quick-btns">
+                    <button class="btn btn-outline btn-xs" id="btnEdaAutoDetect">⚡ Auto Detect</button>
+                    <button class="btn btn-outline btn-xs" id="btnEdaNoTarget">No Target</button>
+                  </div>
+                </div>
+                <div class="target-suggestion-alert mb-2" id="targetSuggestionBox">
+                  <span id="targetSuggestionText">Suggested Target: <strong>status</strong></span>
+                </div>
+                <div class="checkbox-options-scroll" id="edaTargetCheckboxes"></div>
+                <div class="problem-type-pill mt-2" id="edaProblemTypeBadge">
+                  Problem Type: <strong>Binary Classification</strong>
+                </div>
+              </div>
+
+              <!-- Features Column -->
+              <div class="eda-modal-col">
+                <div class="eda-modal-col-header">
+                  <strong>Feature Columns</strong>
+                  <div class="feature-quick-btns">
+                    <button class="btn btn-outline btn-xs" id="btnEdaSelectAllFeatures">All</button>
+                    <button class="btn btn-outline btn-xs" id="btnEdaAutoFeatures">Auto (Exclude IDs)</button>
+                    <button class="btn btn-outline btn-xs" id="btnEdaClearFeatures">Clear</button>
+                  </div>
+                </div>
+                <div class="search-input-wrap mb-2">
+                  <input type="text" id="edaFeatureFilterInput" placeholder="Filter feature names..." style="width: 100%;" />
+                </div>
+                <div class="checkbox-options-scroll" id="edaFeatureCheckboxes"></div>
+              </div>
+
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-secondary btn-sm" id="cancelEdaConfigBtn">Cancel</button>
+            <button class="btn btn-primary btn-sm" id="applyEdaConfigBtn">Apply & Regenerate</button>
+          </div>
+        </div>
+      </div>
 
 
       <!-- ========================================================
