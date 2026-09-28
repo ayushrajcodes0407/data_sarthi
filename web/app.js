@@ -138,34 +138,54 @@ const exportMdCard = document.getElementById("exportMdCard");
 const exportOrigCsvCard = document.getElementById("exportOrigCsvCard");
 const exportCleanCsvCard = document.getElementById("exportCleanCsvCard");
 
-// Smart EDA Elements
-const modeSmartRadio = document.getElementById("modeSmartRadio");
-const modeManualRadio = document.getElementById("modeManualRadio");
-const btnEdaAutoDetect = document.getElementById("btnEdaAutoDetect");
-const btnEdaNoTarget = document.getElementById("btnEdaNoTarget");
-const targetSuggestionBox = document.getElementById("targetSuggestionBox");
-const targetSuggestionText = document.getElementById("targetSuggestionText");
-const edaTargetCheckboxes = document.getElementById("edaTargetCheckboxes");
-const edaProblemTypeBadge = document.getElementById("edaProblemTypeBadge");
-const btnEdaSelectAllFeatures = document.getElementById("btnEdaSelectAllFeatures");
-const btnEdaAutoFeatures = document.getElementById("btnEdaAutoFeatures");
-const btnEdaClearFeatures = document.getElementById("btnEdaClearFeatures");
-const edaFeatureCheckboxes = document.getElementById("edaFeatureCheckboxes");
-const btnGenerateEda = document.getElementById("btnGenerateEda");
+// Smart EDA Redesigned DOM Elements
+const edaMetaDataset = document.getElementById("edaMetaDataset");
+const edaMetaRows = document.getElementById("edaMetaRows");
+const edaMetaCols = document.getElementById("edaMetaCols");
+const edaMetaTarget = document.getElementById("edaMetaTarget");
+const btnModeSmart = document.getElementById("btnModeSmart");
+const btnModeManual = document.getElementById("btnModeManual");
+const btnOpenEdaConfig = document.getElementById("btnOpenEdaConfig");
+const btnRegenerateEda = document.getElementById("btnRegenerateEda");
 const btnExportEdaReport = document.getElementById("btnExportEdaReport");
-const edaSmartAnalysisContainer = document.getElementById("edaSmartAnalysisContainer");
-const edaManualExplorationContainer = document.getElementById("edaManualExplorationContainer");
-const edaInsightsCountBadge = document.getElementById("edaInsightsCountBadge");
-const edaInsightsContainer = document.getElementById("edaInsightsContainer");
+const btnExportPythonEdaReport = document.getElementById("btnExportPythonEdaReport");
+
+const edaTargetTabsBar = document.getElementById("edaTargetTabsBar");
+const edaExecutiveSummary = document.getElementById("edaExecutiveSummary");
 const edaTargetSection = document.getElementById("edaTargetSection");
 const edaTargetHeaderPill = document.getElementById("edaTargetHeaderPill");
-const edaTargetChartsGrid = document.getElementById("edaTargetChartsGrid");
-const edaHeatmapVisual = document.getElementById("edaHeatmapVisual");
-const edaTopCorrelationsBody = document.getElementById("edaTopCorrelationsBody");
-const btnToggleAllCharts = document.getElementById("btnToggleAllCharts");
-const edaDistributionsGrid = document.getElementById("edaDistributionsGrid");
+const edaTargetDistChartPane = document.getElementById("edaTargetDistChartPane");
+const edaTargetStatsPane = document.getElementById("edaTargetStatsPane");
 
-// Manual Chart Builder Elements
+const edaKeyInsightsSection = document.getElementById("edaKeyInsightsSection");
+const edaKeyInsightsGrid = document.getElementById("edaKeyInsightsGrid");
+
+const edaFeatureRelationshipsSection = document.getElementById("edaFeatureRelationshipsSection");
+const edaBivariateGrid = document.getElementById("edaBivariateGrid");
+
+const edaNumericalDistributionsSection = document.getElementById("edaNumericalDistributionsSection");
+const edaNumDistributionsGrid = document.getElementById("edaNumDistributionsGrid");
+const btnToggleAllNumCharts = document.getElementById("btnToggleAllNumCharts");
+
+const edaCategoricalDistributionsSection = document.getElementById("edaCategoricalDistributionsSection");
+const edaCatDistributionsGrid = document.getElementById("edaCatDistributionsGrid");
+const btnToggleAllCatCharts = document.getElementById("btnToggleAllCatCharts");
+
+const edaCorrelationSection = document.getElementById("edaCorrelationSection");
+const edaHeatmapVisual = document.getElementById("edaHeatmapVisual");
+const edaPositiveCorrelationsBody = document.getElementById("edaPositiveCorrelationsBody");
+const edaNegativeCorrelationsBody = document.getElementById("edaNegativeCorrelationsBody");
+
+const edaOutlierSection = document.getElementById("edaOutlierSection");
+const edaOutlierTableBody = document.getElementById("edaOutlierTableBody");
+const btnToggleOutlierPlots = document.getElementById("btnToggleOutlierPlots");
+const edaOutlierPlotsGrid = document.getElementById("edaOutlierPlotsGrid");
+
+const edaMissingnessSection = document.getElementById("edaMissingnessSection");
+const edaMissingnessBars = document.getElementById("edaMissingnessBars");
+
+const edaSmartAnalysisContainer = document.getElementById("edaSmartAnalysisContainer");
+const edaManualExplorationContainer = document.getElementById("edaManualExplorationContainer");
 const builderChartType = document.getElementById("builderChartType");
 const builderXAxis = document.getElementById("builderXAxis");
 const builderYAxis = document.getElementById("builderYAxis");
@@ -173,12 +193,35 @@ const builderColorBy = document.getElementById("builderColorBy");
 const btnRenderManualChart = document.getElementById("btnRenderManualChart");
 const manualChartContainer = document.getElementById("manualChartContainer");
 
+// EDA Config Modal Elements
+const edaConfigModal = document.getElementById("edaConfigModal");
+const closeEdaConfigModal = document.getElementById("closeEdaConfigModal");
+const cancelEdaConfigBtn = document.getElementById("cancelEdaConfigBtn");
+const applyEdaConfigBtn = document.getElementById("applyEdaConfigBtn");
+const edaTargetCheckboxesList = document.getElementById("edaTargetCheckboxesList");
+const edaFeatureCheckboxesList = document.getElementById("edaFeatureCheckboxesList");
+const btnModalTargetAuto = document.getElementById("btnModalTargetAuto");
+const btnModalTargetNone = document.getElementById("btnModalTargetNone");
+const btnModalFeatSelectAll = document.getElementById("btnModalFeatSelectAll");
+const btnModalFeatAuto = document.getElementById("btnModalFeatAuto");
+const btnModalFeatClear = document.getElementById("btnModalFeatClear");
+const modalFeatFilterAll = document.getElementById("modalFeatFilterAll");
+const modalFeatFilterNum = document.getElementById("modalFeatFilterNum");
+const modalFeatFilterCat = document.getElementById("modalFeatFilterCat");
+const modalFeatFilterDate = document.getElementById("modalFeatFilterDate");
+const modalFeatSearch = document.getElementById("modalFeatSearch");
+
 // EDA State
 let edaState = {
   selectedTargets: [],
+  activeTargetTab: null,
   selectedFeatures: [],
-  showAllCharts: false,
-  mode: "smart"
+  showAllNumCharts: false,
+  showAllCatCharts: false,
+  showOutlierPlots: false,
+  mode: "smart",
+  featFilter: "all",
+  featSearch: ""
 };
 
 // Initialization
@@ -1273,835 +1316,992 @@ function escapeHtml(str) {
 }
 
 /* ==========================================================================
-   SMART EDA & VISUAL ANALYTICS MODULE
+   SMART EDA & VISUAL ANALYTICS MODULE (Python + Seaborn Aesthetic)
    ========================================================================== */
 
 function setupSmartEdaListeners() {
-  if (!modeSmartRadio) return;
-
-  // Mode radio toggle
-  modeSmartRadio.addEventListener("change", () => {
-    edaState.mode = "smart";
-    edaSmartAnalysisContainer.style.display = "block";
-    edaManualExplorationContainer.style.display = "none";
-  });
-
-  modeManualRadio.addEventListener("change", () => {
-    edaState.mode = "manual";
-    edaSmartAnalysisContainer.style.display = "none";
-    edaManualExplorationContainer.style.display = "block";
-    populateManualBuilderControls();
-  });
-
-  // Target quick buttons
-  btnEdaAutoDetect.addEventListener("click", () => {
-    autoDetectTargets();
-  });
-
-  btnEdaNoTarget.addEventListener("click", () => {
-    const tCheckboxes = edaTargetCheckboxes.querySelectorAll("input[type='checkbox']");
-    tCheckboxes.forEach((cb) => (cb.checked = false));
-    syncSelectedTargetsFromCheckboxes();
-  });
-
-  // Feature quick buttons
-  btnEdaSelectAllFeatures.addEventListener("click", () => {
-    const fCheckboxes = edaFeatureCheckboxes.querySelectorAll("input[type='checkbox']");
-    fCheckboxes.forEach((cb) => (cb.checked = true));
-  });
-
-  btnEdaAutoFeatures.addEventListener("click", () => {
-    autoSelectFeatures();
-  });
-
-  btnEdaClearFeatures.addEventListener("click", () => {
-    const fCheckboxes = edaFeatureCheckboxes.querySelectorAll("input[type='checkbox']");
-    fCheckboxes.forEach((cb) => (cb.checked = false));
-  });
-
-  // Generate EDA Action
-  btnGenerateEda.addEventListener("click", () => {
-    generateEdaAnalysis();
-  });
-
-  // Export EDA Report
-  btnExportEdaReport.addEventListener("click", () => {
-    exportEdaReport();
-  });
-
-  // Toggle all charts
-  btnToggleAllCharts.addEventListener("click", () => {
-    edaState.showAllCharts = !edaState.showAllCharts;
-    btnToggleAllCharts.textContent = edaState.showAllCharts
-      ? "Show Priority Recommended Only"
-      : "Show All Available Charts";
-    renderDistributionCharts();
-  });
-
-  // Manual Builder Render
-  btnRenderManualChart.addEventListener("click", () => {
-    renderManualChart();
-  });
-
-  // Auto-populate Y & Color depending on chart type
-  builderChartType.addEventListener("change", () => {
-    const type = builderChartType.value;
-    if (type === "histogram" || type === "pie") {
-      builderYAxis.disabled = true;
-    } else {
-      builderYAxis.disabled = false;
-    }
-  });
-}
-
-function autoDetectTargets() {
-  if (!currentScanResult) return;
-  const eda = currentScanResult.eda;
-  const suggested = eda && eda.suggested_targets ? eda.suggested_targets : [];
-  const tCheckboxes = edaTargetCheckboxes.querySelectorAll("input[type='checkbox']");
-
-  if (suggested.length > 0) {
-    const topCol = suggested[0].column;
-    tCheckboxes.forEach((cb) => {
-      cb.checked = cb.value === topCol;
+  // Mode switcher
+  if (btnModeSmart && btnModeManual) {
+    btnModeSmart.addEventListener("click", () => {
+      edaState.mode = "smart";
+      btnModeSmart.classList.add("active");
+      btnModeManual.classList.remove("active");
+      if (edaSmartAnalysisContainer) edaSmartAnalysisContainer.style.display = "block";
+      if (edaManualExplorationContainer) edaManualExplorationContainer.style.display = "none";
     });
-  } else {
-    tCheckboxes.forEach((cb) => (cb.checked = false));
-  }
-  syncSelectedTargetsFromCheckboxes();
-}
 
-function autoSelectFeatures() {
-  if (!currentScanResult) return;
-  const fCheckboxes = edaFeatureCheckboxes.querySelectorAll("input[type='checkbox']");
-  const eda = currentScanResult.eda;
-  const idCols = new Set();
-
-  currentScanResult.columns.forEach((c) => {
-    const nameLower = c.name.toLowerCase();
-    if (
-      nameLower.includes("id") ||
-      nameLower.includes("key") ||
-      nameLower.includes("uuid") ||
-      nameLower.includes("guid") ||
-      (c.unique_count / (currentScanResult.summary.total_rows || 1) >= 0.95 &&
-        c.type === "Categorical / Text" &&
-        currentScanResult.summary.total_rows >= 10)
-    ) {
-      idCols.add(c.name);
-    }
-  });
-
-  fCheckboxes.forEach((cb) => {
-    cb.checked = !idCols.has(cb.value);
-  });
-}
-
-function syncSelectedTargetsFromCheckboxes() {
-  const tCheckboxes = edaTargetCheckboxes.querySelectorAll("input[type='checkbox']");
-  const selected = [];
-  tCheckboxes.forEach((cb) => {
-    if (cb.checked) selected.push(cb.value);
-  });
-  edaState.selectedTargets = selected;
-  updateProblemTypeDisplay();
-}
-
-function updateProblemTypeDisplay() {
-  if (!currentScanResult) return;
-  const targets = edaState.selectedTargets;
-
-  if (targets.length === 0) {
-    edaProblemTypeBadge.innerHTML = `Problem Type: <strong>Unsupervised / Exploratory</strong>`;
-    edaProblemTypeBadge.className = "problem-type-pill";
-    return;
+    btnModeManual.addEventListener("click", () => {
+      edaState.mode = "manual";
+      btnModeManual.classList.add("active");
+      btnModeSmart.classList.remove("active");
+      if (edaSmartAnalysisContainer) edaSmartAnalysisContainer.style.display = "none";
+      if (edaManualExplorationContainer) edaManualExplorationContainer.style.display = "block";
+      populateManualBuilderControls();
+    });
   }
 
-  const firstCol = currentScanResult.columns.find((c) => c.name === targets[0]);
-  if (!firstCol) return;
-
-  let pType = "Classification";
-  const nameLower = firstCol.name.toLowerCase();
-  const regKeywords = ["price", "revenue", "amount", "cost", "salary", "sales", "fare", "fee", "val", "value", "total", "rate", "income"];
-
-  if (firstCol.type === "Date / Time") pType = "Time Series";
-  else if (firstCol.unique_count === 2 || firstCol.type === "Boolean") pType = "Binary Classification";
-  else if (firstCol.type === "Integer" || firstCol.type === "Float") {
-    if (firstCol.type === "Integer" && firstCol.unique_count <= 5 && !regKeywords.some((k) => nameLower.includes(k))) {
-      pType = "Multiclass Classification";
-    } else {
-      pType = "Regression";
-    }
-  } else if (firstCol.type === "Categorical / Text") pType = "Multiclass Classification";
-
-  if (targets.length > 1) {
-    pType = `Multi-Target (${targets.length}): ${pType}`;
+  // Config Modal open / close
+  if (btnOpenEdaConfig) {
+    btnOpenEdaConfig.addEventListener("click", () => {
+      populateEdaConfigModal();
+      if (edaConfigModal) edaConfigModal.classList.add("active");
+    });
+  }
+  if (closeEdaConfigModal) {
+    closeEdaConfigModal.addEventListener("click", () => {
+      if (edaConfigModal) edaConfigModal.classList.remove("active");
+    });
+  }
+  if (cancelEdaConfigBtn) {
+    cancelEdaConfigBtn.addEventListener("click", () => {
+      if (edaConfigModal) edaConfigModal.classList.remove("active");
+    });
   }
 
-  edaProblemTypeBadge.innerHTML = `Problem Type: <strong>${escapeHtml(pType)}</strong>`;
-  edaProblemTypeBadge.className = "problem-type-pill active";
+  // Modal Target actions
+  if (btnModalTargetAuto) {
+    btnModalTargetAuto.addEventListener("click", () => {
+      autoDetectTargetsInModal();
+    });
+  }
+  if (btnModalTargetNone) {
+    btnModalTargetNone.addEventListener("click", () => {
+      if (!edaTargetCheckboxesList) return;
+      const cbs = edaTargetCheckboxesList.querySelectorAll("input[type='checkbox']");
+      cbs.forEach((cb) => (cb.checked = false));
+    });
+  }
+
+  // Modal Feature actions
+  if (btnModalFeatSelectAll) {
+    btnModalFeatSelectAll.addEventListener("click", () => {
+      if (!edaFeatureCheckboxesList) return;
+      const cbs = edaFeatureCheckboxesList.querySelectorAll("input[type='checkbox']");
+      cbs.forEach((cb) => (cb.checked = true));
+    });
+  }
+  if (btnModalFeatAuto) {
+    btnModalFeatAuto.addEventListener("click", () => {
+      autoSelectFeaturesInModal();
+    });
+  }
+  if (btnModalFeatClear) {
+    btnModalFeatClear.addEventListener("click", () => {
+      if (!edaFeatureCheckboxesList) return;
+      const cbs = edaFeatureCheckboxesList.querySelectorAll("input[type='checkbox']");
+      cbs.forEach((cb) => (cb.checked = false));
+    });
+  }
+
+  // Modal Feature Filter Tabs
+  [modalFeatFilterAll, modalFeatFilterNum, modalFeatFilterCat, modalFeatFilterDate].forEach((btn) => {
+    if (!btn) return;
+    btn.addEventListener("click", () => {
+      [modalFeatFilterAll, modalFeatFilterNum, modalFeatFilterCat, modalFeatFilterDate].forEach((b) =>
+        b ? b.classList.remove("active") : null
+      );
+      btn.classList.add("active");
+      edaState.featFilter = btn.getAttribute("data-filter") || "all";
+      filterModalFeatureList();
+    });
+  });
+
+  // Modal Feature Search
+  if (modalFeatSearch) {
+    modalFeatSearch.addEventListener("input", (e) => {
+      edaState.featSearch = e.target.value.toLowerCase().trim();
+      filterModalFeatureList();
+    });
+  }
+
+  // Apply Modal Config
+  if (applyEdaConfigBtn) {
+    applyEdaConfigBtn.addEventListener("click", () => {
+      if (edaConfigModal) edaConfigModal.classList.remove("active");
+      syncModalSelectionsAndRecompute();
+    });
+  }
+
+  // Regenerate Analysis
+  if (btnRegenerateEda) {
+    btnRegenerateEda.addEventListener("click", () => {
+      generateEdaAnalysis();
+    });
+  }
+
+  // Export Buttons
+  if (btnExportEdaReport) {
+    btnExportEdaReport.addEventListener("click", exportPythonEdaReport);
+  }
+  if (btnExportPythonEdaReport) {
+    btnExportPythonEdaReport.addEventListener("click", exportPythonEdaReport);
+  }
+
+  // Toggles for distributions
+  if (btnToggleAllNumCharts) {
+    btnToggleAllNumCharts.addEventListener("click", () => {
+      edaState.showAllNumCharts = !edaState.showAllNumCharts;
+      btnToggleAllNumCharts.textContent = edaState.showAllNumCharts
+        ? "Show Top Priority"
+        : "Show All Features";
+      renderNumericalDistributions();
+    });
+  }
+
+  if (btnToggleAllCatCharts) {
+    btnToggleAllCatCharts.addEventListener("click", () => {
+      edaState.showAllCatCharts = !edaState.showAllCatCharts;
+      btnToggleAllCatCharts.textContent = edaState.showAllCatCharts
+        ? "Show Top Priority"
+        : "Show All Features";
+      renderCategoricalDistributions();
+    });
+  }
+
+  if (btnToggleOutlierPlots) {
+    btnToggleOutlierPlots.addEventListener("click", () => {
+      edaState.showOutlierPlots = !edaState.showOutlierPlots;
+      btnToggleOutlierPlots.textContent = edaState.showOutlierPlots
+        ? "Hide Outlier Charts"
+        : "View Outlier Charts";
+      if (edaOutlierPlotsGrid) {
+        edaOutlierPlotsGrid.style.display = edaState.showOutlierPlots ? "grid" : "none";
+      }
+    });
+  }
+
+  // Manual Studio Render
+  if (btnRenderManualChart) {
+    btnRenderManualChart.addEventListener("click", () => {
+      renderManualChart();
+    });
+  }
+
+  if (builderChartType) {
+    builderChartType.addEventListener("change", () => {
+      const type = builderChartType.value;
+      if (builderYAxis) {
+        builderYAxis.disabled = type === "histogram" || type === "pie" || type === "bar";
+      }
+    });
+  }
 }
+
+// -------------------------------------------------------------
+// MAIN RENDERER FOR SMART EDA
+// -------------------------------------------------------------
 
 function renderSmartEdaView() {
   if (!currentScanResult) return;
-  const eda = currentScanResult.eda || {};
+  const s = currentScanResult.summary || {};
   const columns = currentScanResult.columns || [];
+  const eda = currentScanResult.eda || {};
 
-  // 1. Suggestion Banner
+  // Initialize targets if empty
   const suggested = eda.suggested_targets || [];
-  if (suggested.length > 0) {
-    const top = suggested[0];
-    targetSuggestionBox.style.display = "block";
-    targetSuggestionText.innerHTML = `💡 Suggested Target: <strong>${escapeHtml(
-      top.column
-    )}</strong> (${escapeHtml(top.problem_type)}) — <span style="opacity: 0.85">${escapeHtml(
-      top.reason
-    )}</span>`;
-  } else {
-    targetSuggestionBox.style.display = "none";
+  if (edaState.selectedTargets.length === 0) {
+    if (suggested.length > 0) {
+      edaState.selectedTargets = [suggested[0].column];
+    } else {
+      edaState.selectedTargets = [];
+    }
   }
 
-  // 2. Render Target Checkboxes
-  const currentSelectedTargets = new Set(
-    edaState.selectedTargets.length > 0
-      ? edaState.selectedTargets
-      : suggested.length > 0
-      ? [suggested[0].column]
-      : []
-  );
-  edaState.selectedTargets = Array.from(currentSelectedTargets);
+  // Active target tab
+  if (edaState.selectedTargets.length > 0 && !edaState.selectedTargets.includes(edaState.activeTargetTab)) {
+    edaState.activeTargetTab = edaState.selectedTargets[0];
+  } else if (edaState.selectedTargets.length === 0) {
+    edaState.activeTargetTab = null;
+  }
 
-  edaTargetCheckboxes.innerHTML = columns
-    .map((c) => {
-      const isChecked = currentSelectedTargets.has(c.name) ? "checked" : "";
-      return `
-      <label class="checkbox-label">
-        <input type="checkbox" value="${escapeHtml(c.name)}" ${isChecked} onchange="syncSelectedTargetsFromCheckboxes()" />
-        <span class="chk-text">${escapeHtml(c.name)}</span>
-        <span class="chk-meta">${escapeHtml(c.type)} • ${c.unique_count} unq</span>
-      </label>
-    `;
-    })
-    .join("");
+  // 1. Header Meta Chips
+  if (edaMetaDataset) edaMetaDataset.textContent = s.filename || "dataset.csv";
+  if (edaMetaRows) edaMetaRows.textContent = (s.total_rows || 0).toLocaleString();
+  if (edaMetaCols) edaMetaCols.textContent = (s.total_cols || columns.length).toString();
+  if (edaMetaTarget) {
+    if (edaState.selectedTargets.length === 0) {
+      edaMetaTarget.textContent = "None (Exploratory)";
+    } else if (edaState.selectedTargets.length === 1) {
+      edaMetaTarget.textContent = edaState.selectedTargets[0];
+    } else {
+      edaMetaTarget.textContent = `${edaState.selectedTargets.length} targets (${edaState.activeTargetTab || 'All'})`;
+    }
+  }
 
-  // 3. Render Feature Checkboxes
-  const featureCols = columns.filter((c) => {
-    const nameLower = c.name.toLowerCase();
-    const isId =
-      nameLower.includes("id") ||
-      nameLower.includes("key") ||
-      nameLower.includes("uuid") ||
-      nameLower.includes("guid") ||
-      (c.unique_count / (currentScanResult.summary.total_rows || 1) >= 0.95 &&
-        c.type === "Categorical / Text" &&
-        currentScanResult.summary.total_rows >= 10);
-    return true; // render all but check default
-  });
+  // 2. Executive Summary KPI Cards
+  renderExecutiveSummaryKPIs();
 
-  edaFeatureCheckboxes.innerHTML = featureCols
-    .map((c) => {
-      const nameLower = c.name.toLowerCase();
-      const isId =
-        nameLower.includes("id") ||
-        nameLower.includes("key") ||
-        nameLower.includes("uuid") ||
-        nameLower.includes("guid") ||
-        (c.unique_count / (currentScanResult.summary.total_rows || 1) >= 0.95 &&
-          c.type === "Categorical / Text" &&
-          currentScanResult.summary.total_rows >= 10);
-      const isChecked = !isId ? "checked" : "";
-      return `
-      <label class="checkbox-label">
-        <input type="checkbox" value="${escapeHtml(c.name)}" ${isChecked} />
-        <span class="chk-text">${escapeHtml(c.name)}</span>
-        <span class="chk-meta">${escapeHtml(c.type)}${isId ? " (ID-like)" : ""}</span>
-      </label>
-    `;
-    })
-    .join("");
+  // 3. Multi-Target Switcher Tabs
+  renderTargetTabsBar();
 
-  updateProblemTypeDisplay();
-  renderEdaInsights();
+  // 4. Target Analysis Section
   renderTargetAnalysis();
-  renderCorrelationHeatmap();
-  renderDistributionCharts();
+
+  // 5. Key Non-Causal Insights (01, 02, 03...)
+  renderEdaInsights();
+
+  // 6. Feature Relationships (Bivariate 2-Column Grid)
+  renderBivariateGrid();
+
+  // 7. Numerical Distributions (2-Column Compact Cards)
+  renderNumericalDistributions();
+
+  // 8. Categorical Distributions (2-Column Compact Cards)
+  renderCategoricalDistributions();
+
+  // 9. Correlation Analysis (Centered Heatmap + Tables)
+  renderCorrelationSection();
+
+  // 10. Outlier Analysis (Table + Toggle Plots)
+  renderOutlierSection();
+
+  // 11. Missing Data Breakdown (Horizontal Bars)
+  renderMissingnessSection();
+
+  // 12. Manual Studio Controls
   populateManualBuilderControls();
 }
 
-window.syncSelectedTargetsFromCheckboxes = syncSelectedTargetsFromCheckboxes;
+// -------------------------------------------------------------
+// EXECUTIVE SUMMARY KPIS
+// -------------------------------------------------------------
 
-async function generateEdaAnalysis() {
-  if (!currentScanResult) return;
+function renderExecutiveSummaryKPIs() {
+  if (!edaExecutiveSummary || !currentScanResult) return;
+  const s = currentScanResult.summary || {};
+  const cols = currentScanResult.columns || [];
 
-  const tCheckboxes = edaTargetCheckboxes.querySelectorAll("input[type='checkbox']:checked");
-  const selectedTargets = Array.from(tCheckboxes).map((cb) => cb.value);
+  const numCount = cols.filter((c) => c.type === "Integer" || c.type === "Float").length;
+  const catCount = cols.filter((c) => c.type === "Categorical / Text" || c.type === "Boolean").length;
+  const dateCount = cols.filter((c) => c.type === "Date / Time").length;
+  const nullPct = s.total_null_pct !== undefined ? s.total_null_pct : 0;
+  const dupeCount = cols.reduce((max, c) => Math.max(max, c.duplicate_count || 0), 0);
+  const dupePct = s.total_rows > 0 ? ((dupeCount / s.total_rows) * 100).toFixed(1) : "0.0";
+  const targetLabel = edaState.selectedTargets.length > 0 ? edaState.selectedTargets.join(", ") : "None";
 
-  const fCheckboxes = edaFeatureCheckboxes.querySelectorAll("input[type='checkbox']:checked");
-  const selectedFeatures = Array.from(fCheckboxes).map((cb) => cb.value);
-
-  edaState.selectedTargets = selectedTargets;
-  edaState.selectedFeatures = selectedFeatures;
-
-  try {
-    btnGenerateEda.disabled = true;
-    btnGenerateEda.innerHTML = `<span>⚡ Generating Analytics...</span>`;
-
-    const res = await fetch("/api/eda", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        scan_result: currentScanResult,
-        targets: selectedTargets,
-        features: selectedFeatures,
-      }),
-    });
-
-    if (res.ok) {
-      const newEda = await res.json();
-      currentScanResult.eda = newEda;
-      renderEdaInsights();
-      renderTargetAnalysis();
-      renderCorrelationHeatmap();
-      renderDistributionCharts();
-    }
-  } catch (err) {
-    console.error("Failed to generate EDA", err);
-  } finally {
-    btnGenerateEda.disabled = false;
-    btnGenerateEda.innerHTML = `<span>⚡ Generate Smart EDA</span>`;
-  }
+  edaExecutiveSummary.innerHTML = `
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>📊</span> Dataset Size</div>
+      <div class="kpi-value">${(s.total_rows || 0).toLocaleString()}</div>
+      <div class="kpi-sub">Total Observations</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>📐</span> Features</div>
+      <div class="kpi-value">${s.total_cols || cols.length}</div>
+      <div class="kpi-sub">Total Dimensions</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>🔢</span> Numerical</div>
+      <div class="kpi-value">${numCount}</div>
+      <div class="kpi-sub">Continuous / Discrete</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>🏷️</span> Categorical</div>
+      <div class="kpi-value">${catCount}</div>
+      <div class="kpi-sub">Qualitative / Text</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>📅</span> Datetime</div>
+      <div class="kpi-value">${dateCount}</div>
+      <div class="kpi-sub">Temporal Fields</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>⚠️</span> Missing Values</div>
+      <div class="kpi-value" style="color: ${nullPct > 5 ? 'var(--color-amber)' : 'var(--text-main)'};">${nullPct}%</div>
+      <div class="kpi-sub">${(s.total_nulls || 0).toLocaleString()} Null Cells</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>🔁</span> Duplicate Rows</div>
+      <div class="kpi-value">${dupePct}%</div>
+      <div class="kpi-sub">${dupeCount} Duplicate Instances</div>
+    </div>
+    <div class="eda-summary-kpi-card">
+      <div class="kpi-label"><span>🎯</span> Target</div>
+      <div class="kpi-value" style="font-size: 0.95rem; color: #60a5fa; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(targetLabel)}">${escapeHtml(targetLabel)}</div>
+      <div class="kpi-sub">${edaState.selectedTargets.length > 1 ? 'Multi-Target Mode' : 'Supervised Focus'}</div>
+    </div>
+  `;
 }
 
-function renderEdaInsights() {
-  const eda = (currentScanResult && currentScanResult.eda) || {};
-  const insights = eda.smart_insights || [];
+// -------------------------------------------------------------
+// MULTI-TARGET TABS BAR
+// -------------------------------------------------------------
 
-  edaInsightsCountBadge.textContent = `${insights.length} Statistical Insights`;
+function renderTargetTabsBar() {
+  if (!edaTargetTabsBar) return;
+  const targets = edaState.selectedTargets;
 
-  if (insights.length === 0) {
-    edaInsightsContainer.innerHTML = `
-      <div class="insight-empty">No statistical anomalies or significant relationships detected with current feature selection.</div>
-    `;
+  if (targets.length <= 1) {
+    edaTargetTabsBar.style.display = "none";
     return;
   }
 
-  edaInsightsContainer.innerHTML = insights
-    .map((ins) => {
-      const sevClass = ins.severity || "INFO";
+  edaTargetTabsBar.style.display = "flex";
+  edaTargetTabsBar.innerHTML = targets
+    .map((t, idx) => {
+      const isActive = (edaState.activeTargetTab === t) || (!edaState.activeTargetTab && idx === 0);
       return `
-      <div class="insight-card-item sev-${sevClass}">
-        <div class="insight-card-header">
-          <div class="insight-type-tag">${escapeHtml(ins.type)}</div>
-          <span class="badge-sev ${sevClass}">${sevClass}</span>
-        </div>
-        <div class="insight-title">${escapeHtml(ins.title)}</div>
-        <p class="insight-text">${escapeHtml(ins.description)}</p>
-        <div class="insight-col-tag">${escapeHtml(ins.column)}</div>
-      </div>
+      <button class="target-tab-btn ${isActive ? 'active' : ''}" onclick="switchActiveTargetTab('${escapeHtml(t)}')">
+        <span>🎯 ${escapeHtml(t)}</span>
+        <span class="target-tab-badge">Target ${idx + 1}</span>
+      </button>
     `;
     })
     .join("");
 }
 
+window.switchActiveTargetTab = function(targetName) {
+  edaState.activeTargetTab = targetName;
+  renderTargetTabsBar();
+  renderTargetAnalysis();
+  renderBivariateGrid();
+  if (edaMetaTarget) {
+    edaMetaTarget.textContent = `${edaState.selectedTargets.length} targets (${targetName})`;
+  }
+};
+
+// -------------------------------------------------------------
+// TARGET ANALYSIS SECTION
+// -------------------------------------------------------------
+
 function renderTargetAnalysis() {
+  if (!edaTargetSection) return;
   const eda = (currentScanResult && currentScanResult.eda) || {};
   const targetAnalyses = eda.target_analyses || [];
 
-  if (targetAnalyses.length === 0) {
+  if (edaState.selectedTargets.length === 0 || targetAnalyses.length === 0) {
     edaTargetSection.style.display = "none";
     return;
   }
 
   edaTargetSection.style.display = "block";
-  const targetNames = targetAnalyses.map((t) => t.target_column).join(", ");
-  edaTargetHeaderPill.textContent = `Target(s): ${targetNames}`;
 
-  let html = "";
-  targetAnalyses.forEach((t) => {
-    const isClassification =
-      t.problem_type.includes("Classification") || t.distribution_type === "categorical";
+  // Pick active target analysis
+  const currentTarget = edaState.activeTargetTab || edaState.selectedTargets[0];
+  const tObj = targetAnalyses.find((t) => t.target_column === currentTarget) || targetAnalyses[0];
 
-    // Summary Card
-    let summaryHtml = "";
-    if (isClassification && t.class_distribution) {
-      summaryHtml = `
-        <div class="target-summary-row">
-          <div class="target-stat-item">
-            <span class="stat-label">Target Name</span>
-            <strong class="stat-val">${escapeHtml(t.target_column)}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Type</span>
-            <strong class="stat-val">${escapeHtml(t.problem_type)}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Distinct Classes</span>
-            <strong class="stat-val">${t.unique_classes}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Total Analyzed</span>
-            <strong class="stat-val">${t.total_count}</strong>
-          </div>
+  if (!tObj) {
+    edaTargetSection.style.display = "none";
+    return;
+  }
+
+  if (edaTargetHeaderPill) {
+    edaTargetHeaderPill.textContent = `${tObj.problem_type} • ${tObj.total_count.toLocaleString()} Observations`;
+  }
+
+  const isCategorical = tObj.distribution_type === "categorical" || tObj.problem_type.includes("Classification");
+
+  // Chart Pane
+  if (edaTargetDistChartPane) {
+    if (isCategorical && tObj.class_distribution) {
+      edaTargetDistChartPane.innerHTML = `
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+          <span>Class Proportion Distribution</span>
+          <span style="color: var(--text-muted);">${tObj.unique_classes} Distinct Classes</span>
         </div>
-        <div class="target-classes-bar mt-2">
-          ${t.class_distribution
-            .map(
-              (cd, idx) => `
-            <div class="class-segment" style="flex: ${cd.count}; background: ${
-                ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"][idx % 5]
-              };" title="${escapeHtml(String(cd.class))}: ${cd.count} (${cd.percentage}%)">
-              <span>${escapeHtml(String(cd.class))} (${cd.percentage}%)</span>
-            </div>
-          `
-            )
-            .join("")}
+        ${drawSvgHorizontalBarDistribution(tObj.class_distribution, tObj.target_column)}
+      `;
+    } else if (tObj.continuous_stats) {
+      const histData = (eda.numerical_distributions && eda.numerical_distributions[tObj.target_column] && eda.numerical_distributions[tObj.target_column].histogram) || [];
+      edaTargetDistChartPane.innerHTML = `
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.5rem; display: flex; justify-content: space-between;">
+          <span>Continuous Density Histogram</span>
+          <span style="color: var(--text-muted);">Range [${tObj.continuous_stats.min} — ${tObj.continuous_stats.max}]</span>
+        </div>
+        ${drawSvgHistogram(histData, tObj.target_column)}
+      `;
+    }
+  }
+
+  // Stats Pane
+  if (edaTargetStatsPane) {
+    if (isCategorical && tObj.class_distribution) {
+      const topClass = tObj.class_distribution[0] || {};
+      edaTargetStatsPane.innerHTML = `
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">Target Properties</div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Target Name</span>
+          <span class="eda-stat-val">${escapeHtml(tObj.target_column)}</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Inferred Problem</span>
+          <span class="eda-stat-val" style="color: #60a5fa;">${escapeHtml(tObj.problem_type)}</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Total Valid Observations</span>
+          <span class="eda-stat-val">${tObj.total_count.toLocaleString()}</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Majority Class</span>
+          <span class="eda-stat-val">${escapeHtml(String(topClass.class))} (${topClass.percentage}%)</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Class Balance Status</span>
+          <span class="eda-stat-val" style="color: ${topClass.percentage > 70 ? 'var(--color-amber)' : 'var(--color-emerald)'};">
+            ${topClass.percentage > 70 ? 'Imbalanced' : 'Balanced'}
+          </span>
         </div>
       `;
-    } else if (t.continuous_stats) {
-      const cs = t.continuous_stats;
-      summaryHtml = `
-        <div class="target-summary-row">
-          <div class="target-stat-item">
-            <span class="stat-label">Target Name</span>
-            <strong class="stat-val">${escapeHtml(t.target_column)}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Problem Type</span>
-            <strong class="stat-val">Regression</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Mean</span>
-            <strong class="stat-val">${cs.mean}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Median</span>
-            <strong class="stat-val">${cs.median}</strong>
-          </div>
-          <div class="target-stat-item">
-            <span class="stat-label">Range [Min - Max]</span>
-            <strong class="stat-val">${cs.min} - ${cs.max}</strong>
-          </div>
+    } else if (tObj.continuous_stats) {
+      const cs = tObj.continuous_stats;
+      edaTargetStatsPane.innerHTML = `
+        <div style="font-size: 0.78rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.25rem;">Target Properties</div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Target Name</span>
+          <span class="eda-stat-val">${escapeHtml(tObj.target_column)}</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Problem Type</span>
+          <span class="eda-stat-val" style="color: #60a5fa;">Regression (Continuous)</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Mean ± Std</span>
+          <span class="eda-stat-val">${cs.mean} ± ${cs.std !== undefined ? cs.std : '0.0'}</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Median (IQR)</span>
+          <span class="eda-stat-val">${cs.median} [${cs.q1 !== undefined ? cs.q1 : cs.min} — ${cs.q3 !== undefined ? cs.q3 : cs.max}]</span>
+        </div>
+        <div class="eda-stat-row">
+          <span class="eda-stat-label">Extreme Range</span>
+          <span class="eda-stat-val">${cs.min} to ${cs.max}</span>
         </div>
       `;
     }
+  }
+}
 
-    // Bivariate feature charts
-    const bivariateCharts = (t.bivariate_features || []).map((bf) => {
-      let chartSvg = "";
-      if (bf.chart_type === "grouped_bar" && bf.group_data) {
-        chartSvg = drawSvgGroupedBarChart(bf.feature, t.target_column, bf.group_data);
-      } else if (bf.chart_type === "scatter" && bf.scatter_sample) {
-        chartSvg = drawSvgScatterPlot(
-          bf.scatter_sample,
-          bf.feature,
-          t.target_column,
-          bf.correlation_with_target
-        );
-      } else if (bf.chart_type === "distribution_by_class" && bf.group_data) {
-        chartSvg = drawSvgClassDistributionBars(bf.feature, t.target_column, bf.group_data);
-      }
+// -------------------------------------------------------------
+// KEY INSIGHTS (Numbered 01, 02...)
+// -------------------------------------------------------------
 
+function renderEdaInsights() {
+  if (!edaKeyInsightsGrid) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const insights = eda.smart_insights || [];
+
+  if (insights.length === 0) {
+    edaKeyInsightsGrid.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 1rem; color: var(--text-dim); text-align: center;">
+        No critical statistical anomalies or dominant bivariate associations detected.
+      </div>
+    `;
+    return;
+  }
+
+  edaKeyInsightsGrid.innerHTML = insights
+    .slice(0, 6)
+    .map((ins, idx) => {
+      const numStr = (idx + 1).toString().padStart(2, "0");
       return `
-        <div class="target-bivariate-card">
-          <div class="bivariate-card-header">
-            <div>
-              <strong>${escapeHtml(bf.feature)}</strong> vs <strong>${escapeHtml(
-        t.target_column
-      )}</strong>
-              <span class="bivariate-type-pill">${escapeHtml(bf.feature_type)}</span>
-            </div>
-            ${
-              bf.correlation_with_target !== undefined && bf.correlation_with_target !== null
-                ? `<span class="badge-pill">r = ${bf.correlation_with_target}</span>`
-                : ""
-            }
-          </div>
-          <div class="bivariate-chart-canvas">
-            ${chartSvg}
-          </div>
-          ${
-            bf.insight
-              ? `<div class="bivariate-insight-note">💡 ${escapeHtml(bf.insight)}</div>`
-              : ""
-          }
-        </div>
-      `;
-    });
-
-    html += `
-      <div class="target-analysis-block mb-4">
-        <div class="target-meta-card glass p-3 mb-3">
-          ${summaryHtml}
-        </div>
-        <div class="bivariate-grid">
-          ${bivariateCharts.join("")}
+      <div class="eda-insight-item">
+        <div class="insight-num-badge">${numStr}</div>
+        <div class="insight-body">
+          <div class="insight-title">${escapeHtml(ins.title)}</div>
+          <div class="insight-text">${escapeHtml(ins.description)}</div>
         </div>
       </div>
     `;
-  });
-
-  edaTargetChartsGrid.innerHTML = html;
+    })
+    .join("");
 }
 
-function renderCorrelationHeatmap() {
+// -------------------------------------------------------------
+// FEATURE RELATIONSHIPS (2-Column Grid)
+// -------------------------------------------------------------
+
+function renderBivariateGrid() {
+  if (!edaBivariateGrid) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const targetAnalyses = eda.target_analyses || [];
+
+  if (edaState.selectedTargets.length === 0 || targetAnalyses.length === 0) {
+    edaFeatureRelationshipsSection.style.display = "none";
+    return;
+  }
+
+  edaFeatureRelationshipsSection.style.display = "block";
+
+  const currentTarget = edaState.activeTargetTab || edaState.selectedTargets[0];
+  const tObj = targetAnalyses.find((t) => t.target_column === currentTarget) || targetAnalyses[0];
+  const bivariate = (tObj && tObj.bivariate_features) || [];
+
+  if (bivariate.length === 0) {
+    edaBivariateGrid.innerHTML = `
+      <div style="grid-column: 1 / -1; padding: 1.5rem; color: var(--text-dim); text-align: center;">
+        No bivariate feature interactions computed for target <strong>${escapeHtml(currentTarget)}</strong>.
+      </div>
+    `;
+    return;
+  }
+
+  edaBivariateGrid.innerHTML = bivariate
+    .map((bf) => {
+      let chartSvg = "";
+      if (bf.chart_type === "scatter" && bf.scatter_sample) {
+        chartSvg = drawSvgScatterWithTrend(
+          bf.scatter_sample,
+          bf.feature,
+          tObj.target_column,
+          bf.correlation_with_target,
+          bf.spearman_rho,
+          bf.slope,
+          bf.intercept
+        );
+      } else if (bf.chart_type === "grouped_bar" && bf.group_data) {
+        chartSvg = drawSvgGroupedBarChart(bf.feature, tObj.target_column, bf.group_data);
+      } else if (bf.chart_type === "distribution_by_class" && bf.group_data) {
+        chartSvg = drawSvgClassDistributionBars(bf.feature, tObj.target_column, bf.group_data);
+      } else {
+        chartSvg = `<div class="chart-empty-placeholder">Interaction plot ready</div>`;
+      }
+
+      return `
+      <div class="eda-bivariate-card">
+        <div class="eda-bivariate-header">
+          <div>
+            <div class="eda-card-title">${escapeHtml(bf.feature)} <span style="color: var(--text-dim); font-weight: normal;">vs</span> ${escapeHtml(tObj.target_column)}</div>
+            <div class="eda-card-subtitle">${escapeHtml(bf.feature_type)} • ${escapeHtml(bf.chart_type.replace(/_/g, ' '))}</div>
+          </div>
+          <span class="eda-type-tag">${bf.correlation_with_target !== undefined && bf.correlation_with_target !== null ? `r = ${bf.correlation_with_target}` : 'Bivariate'}</span>
+        </div>
+        <div class="eda-chart-wrap">
+          ${chartSvg}
+        </div>
+        <div class="eda-card-footer">
+          <div class="eda-card-insight">
+            <span>💡</span> ${escapeHtml(bf.insight || `Statistical relationship between ${bf.feature} and ${tObj.target_column}.`)}
+          </div>
+        </div>
+      </div>
+    `;
+    })
+    .join("");
+}
+
+// -------------------------------------------------------------
+// NUMERICAL DISTRIBUTIONS (2-Column Grid)
+// -------------------------------------------------------------
+
+function renderNumericalDistributions() {
+  if (!edaNumDistributionsGrid) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const numDists = eda.numerical_distributions || {};
+  const cols = currentScanResult.columns || [];
+
+  const numCols = Object.keys(numDists);
+  if (numCols.length === 0) {
+    edaNumericalDistributionsSection.style.display = "none";
+    return;
+  }
+
+  edaNumericalDistributionsSection.style.display = "block";
+
+  let displayCols = numCols;
+  if (!edaState.showAllNumCharts) {
+    displayCols = numCols.slice(0, 4);
+  }
+
+  edaNumDistributionsGrid.innerHTML = displayCols
+    .map((colName) => {
+      const data = numDists[colName];
+      const stats = data.stats || {};
+      const hist = data.histogram || [];
+      const skew = data.skewness !== undefined ? data.skewness : 0;
+      let skewDesc = "symmetric";
+      if (skew > 0.5) skewDesc = "right-skewed";
+      else if (skew < -0.5) skewDesc = "left-skewed";
+
+      const chartSvg = drawSvgHistogram(hist, colName);
+
+      return `
+      <div class="eda-dist-card">
+        <div class="eda-dist-header">
+          <div>
+            <div class="eda-card-title">${escapeHtml(colName)}</div>
+            <div class="eda-card-subtitle">Continuous Numerical Distribution</div>
+          </div>
+          <span class="eda-type-tag">Histogram</span>
+        </div>
+        <div class="eda-chart-wrap">
+          ${chartSvg}
+        </div>
+        <div class="eda-dist-stats-bar">
+          <div class="eda-dist-stat-item">
+            <span>Mean</span>
+            <span>${stats.mean !== undefined ? stats.mean : '—'}</span>
+          </div>
+          <div class="eda-dist-stat-item">
+            <span>Median</span>
+            <span>${stats.median !== undefined ? stats.median : '—'}</span>
+          </div>
+          <div class="eda-dist-stat-item">
+            <span>Std Dev</span>
+            <span>${stats.std !== undefined ? stats.std : '—'}</span>
+          </div>
+          <div class="eda-dist-stat-item">
+            <span>Skewness</span>
+            <span>${skew} (${skewDesc})</span>
+          </div>
+        </div>
+      </div>
+    `;
+    })
+    .join("");
+}
+
+// -------------------------------------------------------------
+// CATEGORICAL DISTRIBUTIONS (2-Column Grid)
+// -------------------------------------------------------------
+
+function renderCategoricalDistributions() {
+  if (!edaCatDistributionsGrid) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const catDists = eda.categorical_distributions || {};
+
+  const catCols = Object.keys(catDists);
+  if (catCols.length === 0) {
+    edaCategoricalDistributionsSection.style.display = "none";
+    return;
+  }
+
+  edaCategoricalDistributionsSection.style.display = "block";
+
+  let displayCols = catCols;
+  if (!edaState.showAllCatCharts) {
+    displayCols = catCols.slice(0, 4);
+  }
+
+  edaCatDistributionsGrid.innerHTML = displayCols
+    .map((colName) => {
+      const data = catDists[colName];
+      const categories = (data && data.frequencies) || [];
+      const unqCount = data.unique_count || categories.length;
+
+      const chartSvg = drawSvgHorizontalBarDistribution(
+        categories.map((c) => ({ class: c.value, count: c.count, percentage: c.percentage })),
+        colName
+      );
+
+      return `
+      <div class="eda-dist-card">
+        <div class="eda-dist-header">
+          <div>
+            <div class="eda-card-title">${escapeHtml(colName)}</div>
+            <div class="eda-card-subtitle">${unqCount} Distinct Categories</div>
+          </div>
+          <span class="eda-type-tag">Categorical</span>
+        </div>
+        <div class="eda-chart-wrap">
+          ${chartSvg}
+        </div>
+        <div class="eda-card-footer">
+          <div style="font-size: 0.72rem; color: var(--text-dim);">
+            Top Category: <strong>${categories.length > 0 ? escapeHtml(String(categories[0].value)) : '—'}</strong> (${categories.length > 0 ? categories[0].percentage : 0}%)
+          </div>
+        </div>
+      </div>
+    `;
+    })
+    .join("");
+}
+
+// -------------------------------------------------------------
+// CORRELATION ANALYSIS (Centered Heatmap + Tables)
+// -------------------------------------------------------------
+
+function renderCorrelationSection() {
+  if (!edaCorrelationSection) return;
   const eda = (currentScanResult && currentScanResult.eda) || {};
   const corr = eda.correlations || {};
-  const matrix = corr.matrix || {};
   const numCols = corr.numerical_columns || [];
-  const ranked = corr.ranked_pairs || [];
+  const matrix = corr.matrix || {};
+  const positivePairs = corr.top_positive || [];
+  const negativePairs = corr.top_negative || [];
 
-  // Ranked table
-  if (ranked.length === 0) {
-    edaTopCorrelationsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: var(--text-dim); padding: 1rem;">Not enough continuous numeric columns to calculate correlations.</td></tr>`;
-  } else {
-    edaTopCorrelationsBody.innerHTML = ranked
-      .slice(0, 10)
-      .map((rp) => {
-        const rVal = rp.pearson_r;
-        const color =
-          rVal > 0.5
-            ? "var(--color-emerald)"
-            : rVal < -0.5
-            ? "var(--color-cyan)"
-            : "var(--text-main)";
+  if (numCols.length < 2) {
+    if (edaHeatmapVisual) {
+      edaHeatmapVisual.innerHTML = `<div class="chart-empty-placeholder">Correlation analysis requires at least 2 continuous numerical features.</div>`;
+    }
+    if (edaPositiveCorrelationsBody) {
+      edaPositiveCorrelationsBody.innerHTML = `<tr><td colspan="2" style="color: var(--text-dim); text-align: center;">Not enough numerical columns</td></tr>`;
+    }
+    if (edaNegativeCorrelationsBody) {
+      edaNegativeCorrelationsBody.innerHTML = `<tr><td colspan="2" style="color: var(--text-dim); text-align: center;">Not enough numerical columns</td></tr>`;
+    }
+    return;
+  }
+
+  // Render Heatmap SVG
+  if (edaHeatmapVisual) {
+    const cellSize = Math.min(56, Math.max(34, Math.floor(400 / numCols.length)));
+    const margin = 100;
+    const svgWidth = margin + numCols.length * cellSize + 20;
+    const svgHeight = margin + numCols.length * cellSize + 20;
+
+    let svg = `<svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="eda-chart-svg" style="max-width: ${svgWidth}px;">`;
+
+    // Column labels (top rotated)
+    numCols.forEach((col, i) => {
+      const x = margin + i * cellSize + cellSize / 2;
+      const y = margin - 10;
+      const short = col.length > 10 ? col.slice(0, 9) + "…" : col;
+      svg += `<text x="${x}" y="${y}" transform="rotate(-35 ${x} ${y})" text-anchor="start" font-size="10" fill="#9ca3af">${escapeHtml(short)}</text>`;
+    });
+
+    // Row labels (left)
+    numCols.forEach((rowCol, j) => {
+      const x = margin - 10;
+      const y = margin + j * cellSize + cellSize / 2 + 4;
+      const short = rowCol.length > 11 ? rowCol.slice(0, 10) + "…" : rowCol;
+      svg += `<text x="${x}" y="${y}" text-anchor="end" font-size="10" fill="#9ca3af">${escapeHtml(short)}</text>`;
+    });
+
+    // Cells
+    numCols.forEach((rCol, rIdx) => {
+      numCols.forEach((cCol, cIdx) => {
+        const x = margin + cIdx * cellSize;
+        const y = margin + rIdx * cellSize;
+        const rVal = (matrix[rCol] && matrix[rCol][cCol] !== undefined) ? matrix[rCol][cCol] : 0;
+
+        let fillColor = "#111827";
+        if (rVal > 0) {
+          const op = Math.min(1, Math.max(0.12, rVal));
+          fillColor = `rgba(16, 185, 129, ${op})`;
+        } else if (rVal < 0) {
+          const op = Math.min(1, Math.max(0.12, Math.abs(rVal)));
+          fillColor = `rgba(239, 68, 68, ${op})`;
+        }
+
+        svg += `
+          <rect x="${x}" y="${y}" width="${cellSize - 2}" height="${cellSize - 2}" rx="3" fill="${fillColor}">
+            <title>${escapeHtml(rCol)} ↔ ${escapeHtml(cCol)}: Pearson r = ${rVal}</title>
+          </rect>
+          <text x="${x + (cellSize - 2) / 2}" y="${y + (cellSize - 2) / 2 + 4}" text-anchor="middle" font-size="${cellSize < 40 ? '9' : '10'}" font-weight="700" fill="#f3f4f6">
+            ${rVal.toFixed(2)}
+          </text>
+        `;
+      });
+    });
+
+    svg += `</svg>`;
+    edaHeatmapVisual.innerHTML = svg;
+  }
+
+  // Positive Table
+  if (edaPositiveCorrelationsBody) {
+    if (positivePairs.length === 0) {
+      edaPositiveCorrelationsBody.innerHTML = `<tr><td colspan="2" style="color: var(--text-dim); text-align: center; padding: 0.5rem;">No significant positive associations</td></tr>`;
+    } else {
+      edaPositiveCorrelationsBody.innerHTML = positivePairs
+        .slice(0, 5)
+        .map((p) => `
+        <tr>
+          <td><strong>${escapeHtml(p.feature_a)}</strong> ↔ <strong>${escapeHtml(p.feature_b)}</strong></td>
+          <td style="text-align: right;"><span class="eda-corr-badge positive">r = +${p.pearson_r.toFixed(2)}</span></td>
+        </tr>
+      `)
+        .join("");
+    }
+  }
+
+  // Negative Table
+  if (edaNegativeCorrelationsBody) {
+    if (negativePairs.length === 0) {
+      edaNegativeCorrelationsBody.innerHTML = `<tr><td colspan="2" style="color: var(--text-dim); text-align: center; padding: 0.5rem;">No significant negative associations</td></tr>`;
+    } else {
+      edaNegativeCorrelationsBody.innerHTML = negativePairs
+        .slice(0, 5)
+        .map((p) => `
+        <tr>
+          <td><strong>${escapeHtml(p.feature_a)}</strong> ↔ <strong>${escapeHtml(p.feature_b)}</strong></td>
+          <td style="text-align: right;"><span class="eda-corr-badge negative">r = ${p.pearson_r.toFixed(2)}</span></td>
+        </tr>
+      `)
+        .join("");
+    }
+  }
+}
+
+// -------------------------------------------------------------
+// OUTLIER ANALYSIS (Summary Table + Plots)
+// -------------------------------------------------------------
+
+function renderOutlierSection() {
+  if (!edaOutlierSection) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const outliers = eda.outlier_analysis || {};
+  const cols = Object.keys(outliers);
+  const columns = currentScanResult.columns || [];
+
+  if (cols.length === 0) {
+    edaOutlierSection.style.display = "none";
+    return;
+  }
+
+  edaOutlierSection.style.display = "block";
+
+  if (edaOutlierTableBody) {
+    edaOutlierTableBody.innerHTML = cols
+      .map((colName) => {
+        const item = outliers[colName];
+        const count = item.outlier_count || 0;
+        const pct = item.outlier_percentage !== undefined ? item.outlier_percentage : 0;
+        const lower = item.lower_bound !== undefined ? item.lower_bound : '—';
+        const upper = item.upper_bound !== undefined ? item.upper_bound : '—';
+
         return `
         <tr>
-          <td><strong>${escapeHtml(rp.feature_a)}</strong> ↔ <strong>${escapeHtml(
-          rp.feature_b
-        )}</strong></td>
-          <td style="color: ${color}; font-weight: 600;">${rVal > 0 ? "+" : ""}${rVal.toFixed(
-          3
-        )}</td>
-          <td><span class="badge-pill">${escapeHtml(rp.strength)}</span></td>
+          <td><strong>${escapeHtml(colName)}</strong></td>
+          <td><span style="font-family: var(--font-mono); font-weight: 700; color: ${count > 0 ? '#f87171' : 'var(--text-main)'};">${count.toLocaleString()}</span></td>
+          <td><span style="font-family: var(--font-mono);">${pct}%</span></td>
+          <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 0.72rem;">[${lower} — ${upper}]</td>
         </tr>
       `;
       })
       .join("");
   }
 
-  // Heatmap SVG
-  if (numCols.length < 2) {
-    edaHeatmapVisual.innerHTML = `<div class="chart-empty-placeholder">Requires at least 2 numeric continuous columns for correlation matrix.</div>`;
-    return;
-  }
-
-  const cellSize = Math.min(65, Math.max(38, Math.floor(360 / numCols.length)));
-  const margin = 100;
-  const svgWidth = margin + numCols.length * cellSize + 20;
-  const svgHeight = margin + numCols.length * cellSize + 20;
-
-  let svg = `<svg viewBox="0 0 ${svgWidth} ${svgHeight}" class="heatmap-svg" style="width: 100%; max-width: ${svgWidth}px;">`;
-
-  // Col labels (top/rotated)
-  numCols.forEach((col, i) => {
-    const x = margin + i * cellSize + cellSize / 2;
-    const y = margin - 10;
-    const shortName = col.length > 10 ? col.slice(0, 9) + "…" : col;
-    svg += `<text x="${x}" y="${y}" transform="rotate(-40 ${x} ${y})" text-anchor="start" font-size="10" fill="var(--text-muted)">${escapeHtml(
-      shortName
-    )}</text>`;
-  });
-
-  // Row labels (left)
-  numCols.forEach((rowCol, j) => {
-    const x = margin - 10;
-    const y = margin + j * cellSize + cellSize / 2 + 4;
-    const shortName = rowCol.length > 11 ? rowCol.slice(0, 10) + "…" : rowCol;
-    svg += `<text x="${x}" y="${y}" text-anchor="end" font-size="10" fill="var(--text-muted)">${escapeHtml(
-      shortName
-    )}</text>`;
-  });
-
-  // Heatmap cells
-  numCols.forEach((rowCol, rIdx) => {
-    numCols.forEach((colCol, cIdx) => {
-      const x = margin + cIdx * cellSize;
-      const y = margin + rIdx * cellSize;
-      const rVal = matrix[rowCol] && matrix[rowCol][colCol] !== undefined ? matrix[rowCol][colCol] : 0;
-
-      // Color mapping (-1.0 to +1.0)
-      let fillColor = "#1e293b";
-      let textFill = "#f8fafc";
-      if (rVal > 0) {
-        const opacity = Math.min(1, Math.max(0.1, rVal));
-        fillColor = `rgba(16, 185, 129, ${opacity})`; // emerald
-      } else if (rVal < 0) {
-        const opacity = Math.min(1, Math.max(0.1, Math.abs(rVal)));
-        fillColor = `rgba(59, 130, 246, ${opacity})`; // blue/cyan
-      } else {
-        fillColor = "#1e293b";
-      }
-
-      svg += `
-        <rect x="${x}" y="${y}" width="${cellSize - 2}" height="${cellSize - 2}" rx="3" fill="${fillColor}">
-          <title>${escapeHtml(rowCol)} vs ${escapeHtml(colCol)}: Pearson r = ${rVal}</title>
-        </rect>
-        <text x="${x + (cellSize - 2) / 2}" y="${y + (cellSize - 2) / 2 + 4}" text-anchor="middle" font-size="${
-        cellSize < 45 ? "9" : "11"
-      }" font-weight="600" fill="${textFill}">
-          ${rVal.toFixed(2)}
-        </text>
-      `;
-    });
-  });
-
-  svg += `</svg>`;
-  edaHeatmapVisual.innerHTML = svg;
-}
-
-function renderDistributionCharts() {
-  const eda = (currentScanResult && currentScanResult.eda) || {};
-  const recs = eda.recommended_charts || [];
-  const columns = currentScanResult.columns || [];
-
-  let chartsToRender = recs;
-  if (!edaState.showAllCharts) {
-    chartsToRender = recs.slice(0, 6);
-  }
-
-  if (chartsToRender.length === 0) {
-    edaDistributionsGrid.innerHTML = `<div class="chart-empty-placeholder">No distribution charts to display.</div>`;
-    return;
-  }
-
-  edaDistributionsGrid.innerHTML = chartsToRender
-    .map((rc) => {
-      const colObj = columns.find((c) => c.name === rc.column) || {};
-      let chartSvg = "";
-
-      if (rc.chart_type === "histogram" && rc.histogram_data) {
-        chartSvg = drawSvgHistogram(rc.histogram_data, rc.column);
-      } else if (rc.chart_type === "bar" && rc.categories) {
-        chartSvg = drawSvgBarChart(rc.categories, rc.column);
-      } else if (rc.chart_type === "box_plot" && colObj.numeric_stats) {
-        chartSvg = drawSvgBoxPlot(colObj.numeric_stats, rc.column);
-      }
-
-      return `
-      <div class="distribution-chart-card glass">
-        <div class="dist-card-header">
-          <div>
-            <h4 class="dist-card-title">${escapeHtml(rc.column)}</h4>
-            <span class="dist-card-type">${escapeHtml(rc.column_type)} • ${escapeHtml(
-        rc.chart_type
-      )}</span>
+  if (edaOutlierPlotsGrid) {
+    edaOutlierPlotsGrid.innerHTML = cols
+      .slice(0, 4)
+      .map((colName) => {
+        const colObj = columns.find((c) => c.name === colName) || {};
+        const stats = colObj.numeric_stats || {};
+        return `
+        <div class="eda-dist-card">
+          <div class="eda-dist-header">
+            <div class="eda-card-title">${escapeHtml(colName)}</div>
+            <span class="eda-type-tag">IQR Box Plot</span>
           </div>
-          <span class="dist-card-priority">Priority #${rc.priority}</span>
+          <div class="eda-chart-wrap">
+            ${drawSvgBoxPlot(stats, colName)}
+          </div>
         </div>
-        <div class="dist-card-canvas">
-          ${chartSvg}
-        </div>
-        ${
-          rc.insight
-            ? `<div class="dist-card-insight">💡 ${escapeHtml(rc.insight)}</div>`
-            : ""
-        }
-      </div>
-    `;
-    })
-    .join("");
-}
-
-/* ==========================================================================
-   MANUAL CHART BUILDER LOGIC & RENDERER
-   ========================================================================== */
-
-function populateManualBuilderControls() {
-  if (!currentScanResult) return;
-  const cols = currentScanResult.columns || [];
-
-  const optHtml = cols
-    .map((c) => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)} (${c.type})</option>`)
-    .join("");
-
-  const optNoneHtml = `<option value="">-- None / Default --</option>` + optHtml;
-
-  builderXAxis.innerHTML = optHtml;
-  builderYAxis.innerHTML = optNoneHtml;
-  builderColorBy.innerHTML = optNoneHtml;
-
-  if (cols.length > 1) {
-    builderXAxis.selectedIndex = 0;
-    builderYAxis.selectedIndex = 1;
+      `;
+      })
+      .join("");
   }
 }
 
-function renderManualChart() {
-  if (!currentScanResult || !currentScanResult.preview_rows) return;
-  const chartType = builderChartType.value;
-  const xCol = builderXAxis.value;
-  const yCol = builderYAxis.value;
-  const colorCol = builderColorBy.value;
-  const rows = currentScanResult.preview_rows;
-  const cols = currentScanResult.columns;
+// -------------------------------------------------------------
+// MISSING DATA ANALYSIS (Horizontal Bars)
+// -------------------------------------------------------------
 
-  const xObj = cols.find((c) => c.name === xCol);
-  const yObj = cols.find((c) => c.name === yCol);
+function renderMissingnessSection() {
+  if (!edaMissingnessSection || !edaMissingnessBars) return;
+  const eda = (currentScanResult && currentScanResult.eda) || {};
+  const missingData = eda.missing_data || [];
 
-  // Incompatibility validation
-  if ((chartType === "scatter" || chartType === "line") && !yCol) {
-    manualChartContainer.innerHTML = `
-      <div class="chart-error-box">
-        ⚠️ <strong>Invalid Configuration:</strong> ${escapeHtml(
-          chartType
-        )} plot requires both an X-Axis feature and a Y-Axis numerical feature.
-      </div>
-    `;
+  if (missingData.length === 0) {
+    edaMissingnessSection.style.display = "none";
     return;
   }
 
-  let chartSvg = "";
-  let insightText = "";
+  edaMissingnessSection.style.display = "block";
 
-  if (chartType === "scatter") {
-    const points = rows
-      .filter((r) => r[xCol] !== null && r[yCol] !== null && !isNaN(Number(r[xCol])) && !isNaN(Number(r[yCol])))
-      .map((r) => ({
-        x: Number(r[xCol]),
-        y: Number(r[yCol]),
-        group: colorCol && r[colorCol] !== undefined ? String(r[colorCol]) : null,
-      }));
-
-    if (points.length < 2) {
-      manualChartContainer.innerHTML = `<div class="chart-error-box">Not enough valid numeric coordinates for Scatter plot.</div>`;
-      return;
-    }
-    chartSvg = drawSvgScatterPlotManual(points, xCol, yCol, colorCol);
-    insightText = `Scatter analysis visualizes individual record points along ${escapeHtml(
-      xCol
-    )} and ${escapeHtml(yCol)}.`;
-  } else if (chartType === "bar") {
-    const counts = {};
-    rows.forEach((r) => {
-      const v = r[xCol] !== undefined && r[xCol] !== null ? String(r[xCol]) : "<null>";
-      counts[v] = (counts[v] || 0) + 1;
-    });
-    const categories = Object.entries(counts)
-      .slice(0, 10)
-      .map(([value, count]) => ({ value, count, percentage: Math.round((count / rows.length) * 100) }));
-    chartSvg = drawSvgBarChart(categories, xCol);
-    insightText = `Frequency distribution for categories in ${escapeHtml(xCol)}.`;
-  } else if (chartType === "histogram") {
-    const nums = rows
-      .map((r) => Number(r[xCol]))
-      .filter((n) => !isNaN(n));
-    if (nums.length < 2) {
-      manualChartContainer.innerHTML = `<div class="chart-error-box">Histogram requires numeric values in X-Axis.</div>`;
-      return;
-    }
-    const min = Math.min(...nums);
-    const max = Math.max(...nums);
-    const binCount = 7;
-    const step = (max - min) / binCount || 1;
-    const bins = [];
-    for (let i = 0; i < binCount; i++) {
-      const bMin = min + i * step;
-      const bMax = bMin + step;
-      const count = nums.filter((n) => (i === binCount - 1 ? n >= bMin && n <= bMax : n >= bMin && n < bMax)).length;
-      bins.push({
-        bin_start: Math.round(bMin * 10) / 10,
-        bin_end: Math.round(bMax * 10) / 10,
-        count,
-      });
-    }
-    chartSvg = drawSvgHistogram(bins, xCol);
-    insightText = `Continuous distribution histogram of ${escapeHtml(xCol)} across ${binCount} bins.`;
-  } else if (chartType === "boxplot") {
-    if (!xObj || !xObj.numeric_stats) {
-      manualChartContainer.innerHTML = `<div class="chart-error-box">Box plot requires a numerical column for X-Axis.</div>`;
-      return;
-    }
-    chartSvg = drawSvgBoxPlot(xObj.numeric_stats, xCol);
-    insightText = `Five-number summary box plot displaying median, quartiles, and IQR boundaries for ${escapeHtml(
-      xCol
-    )}.`;
-  } else if (chartType === "pie") {
-    const counts = {};
-    rows.forEach((r) => {
-      const v = r[xCol] !== undefined && r[xCol] !== null ? String(r[xCol]) : "<null>";
-      counts[v] = (counts[v] || 0) + 1;
-    });
-    const slices = Object.entries(counts)
-      .slice(0, 6)
-      .map(([label, count]) => ({ label, count }));
-    chartSvg = drawSvgPieChart(slices, xCol);
-    insightText = `Proportional donut breakdown for ${escapeHtml(xCol)}.`;
-  } else {
-    // Fallback simple bar
-    chartSvg = `<div class="chart-empty-placeholder">Selected chart type rendering is ready.</div>`;
-  }
-
-  manualChartContainer.innerHTML = `
-    <div class="manual-chart-rendered-wrap">
-      <div class="rendered-chart-header mb-2">
-        <h3 style="font-size: 1rem; color: var(--text-main);">${escapeHtml(
-          chartType.toUpperCase()
-        )}: ${escapeHtml(xCol)} ${yCol ? `vs ` + escapeHtml(yCol) : ""}</h3>
-        ${colorCol ? `<span class="badge-pill">Grouped by: ${escapeHtml(colorCol)}</span>` : ""}
+  edaMissingnessBars.innerHTML = missingData
+    .map((item) => `
+    <div class="eda-missing-item">
+      <div style="font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;" title="${escapeHtml(item.column)}">${escapeHtml(item.column)}</div>
+      <div class="eda-bar-track">
+        <div class="eda-bar-fill" style="width: ${item.percentage}%;"></div>
       </div>
-      <div class="rendered-chart-body" style="background: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
-        ${chartSvg}
-      </div>
-      ${insightText ? `<div class="manual-chart-insight-bar mt-2">💡 ${escapeHtml(insightText)}</div>` : ""}
+      <div style="font-family: var(--font-mono); color: var(--text-dim); text-align: right;">${item.null_count.toLocaleString()} nulls</div>
+      <div style="font-family: var(--font-mono); font-weight: 700; color: #f87171; text-align: right;">${item.percentage}%</div>
     </div>
-  `;
+  `)
+    .join("");
 }
 
-/* ==========================================================================
-   SVG CHART DRAWING HELPERS
-   ========================================================================== */
+// -------------------------------------------------------------
+// SVG CHART ENGINE HELPERS (Seaborn / Matplotlib Aesthetic)
+// -------------------------------------------------------------
 
-function drawSvgScatterPlot(samplePoints, xLabel, yLabel, corrVal) {
-  if (!samplePoints || samplePoints.length === 0) return "<div class='no-data'>No points</div>";
+function drawSvgHorizontalBarDistribution(items, colName) {
+  if (!items || items.length === 0) return "<div class='chart-empty-placeholder'>No categories available</div>";
 
-  const width = 340;
-  const height = 190;
-  const pad = 35;
+  const width = 420;
+  const height = Math.min(220, Math.max(120, items.length * 28 + 30));
+  const padLeft = 85;
+  const padRight = 55;
+  const padTop = 15;
+  const padBottom = 20;
 
-  const xVals = samplePoints.map((p) => p.x);
-  const yVals = samplePoints.map((p) => p.y);
-  const minX = Math.min(...xVals);
-  const maxX = Math.max(...xVals) || minX + 1;
-  const minY = Math.min(...yVals);
-  const maxY = Math.max(...yVals) || minY + 1;
+  const barHeight = Math.min(18, Math.max(10, (height - padTop - padBottom) / items.length - 6));
+  const maxPct = Math.max(...items.map((i) => i.percentage || 1)) || 1;
 
-  const scaleX = (x) => pad + ((x - minX) / (maxX - minX)) * (width - pad * 2);
-  const scaleY = (y) => height - pad - ((y - minY) / (maxY - minY)) * (height - pad * 2);
-
-  let dots = samplePoints
-    .map((p) => {
-      const cx = scaleX(p.x);
-      const cy = scaleY(p.y);
-      return `<circle cx="${cx}" cy="${cy}" r="4" fill="var(--color-primary)" opacity="0.8">
-      <title>${escapeHtml(xLabel)}: ${p.x}, ${escapeHtml(yLabel)}: ${p.y}</title>
-    </circle>`;
+  let bars = items
+    .slice(0, 6)
+    .map((it, idx) => {
+      const y = padTop + idx * (barHeight + 6);
+      const w = Math.max(2, ((it.percentage / maxPct) * (width - padLeft - padRight)));
+      const label = String(it.class).length > 10 ? String(it.class).slice(0, 9) + "…" : String(it.class);
+      return `
+      <text x="${padLeft - 8}" y="${y + barHeight / 2 + 4}" text-anchor="end" font-size="10" fill="#9ca3af">${escapeHtml(label)}</text>
+      <rect x="${padLeft}" y="${y}" width="${w}" height="${barHeight}" rx="2" class="bar-rect">
+        <title>${escapeHtml(String(it.class))}: ${it.count} (${it.percentage}%)</title>
+      </rect>
+      <text x="${padLeft + w + 6}" y="${y + barHeight / 2 + 3.5}" font-size="9.5" font-family="monospace" fill="#d1d5db">${it.percentage}%</text>
+    `;
     })
     .join("");
 
   return `
     <svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">
-      <!-- Axes -->
-      <line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />
-      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />
-      
-      <!-- Axis Labels -->
-      <text x="${width / 2}" y="${height - 5}" text-anchor="middle" font-size="10" fill="var(--text-dim)">${escapeHtml(
-    xLabel
-  )}</text>
-      <text x="10" y="${height / 2}" transform="rotate(-90 10 ${height / 2})" text-anchor="middle" font-size="10" fill="var(--text-dim)">${escapeHtml(
-    yLabel
-  )}</text>
-      
-      <!-- Data Points -->
-      ${dots}
+      <line x1="${padLeft}" y1="${padTop - 5}" x2="${padLeft}" y2="${height - padBottom + 5}" class="axis-line" />
+      ${bars}
     </svg>
   `;
 }
 
-function drawSvgScatterPlotManual(points, xLabel, yLabel, groupCol) {
-  const width = 500;
-  const height = 260;
-  const pad = 45;
+function drawSvgHistogram(bins, colName) {
+  if (!bins || bins.length === 0) return "<div class='chart-empty-placeholder'>No numerical bins available</div>";
+
+  const width = 420;
+  const height = 180;
+  const padLeft = 35;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 30;
+
+  const maxCount = Math.max(...bins.map((b) => b.count)) || 1;
+  const barWidth = (width - padLeft - padRight) / bins.length;
+
+  let bars = bins
+    .map((b, idx) => {
+      const bx = padLeft + idx * barWidth;
+      const barH = ((b.count / maxCount) * (height - padTop - padBottom));
+      const by = height - padBottom - barH;
+      return `
+      <rect x="${bx + 1}" y="${by}" width="${Math.max(1, barWidth - 2)}" height="${barH}" rx="1.5" class="bar-rect" fill="#3b82f6">
+        <title>[${b.bin_start} — ${b.bin_end}]: ${b.count} records</title>
+      </rect>
+      <text x="${bx + barWidth / 2}" y="${height - 12}" text-anchor="middle" font-size="8" fill="#6b7280">${b.bin_start}</text>
+    `;
+    })
+    .join("");
+
+  return `
+    <svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">
+      <!-- Grid lines -->
+      <line x1="${padLeft}" y1="${padTop}" x2="${width - padRight}" y2="${padTop}" class="grid-line" />
+      <line x1="${padLeft}" y1="${(padTop + height - padBottom) / 2}" x2="${width - padRight}" y2="${(padTop + height - padBottom) / 2}" class="grid-line" />
+      <line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" class="axis-line" />
+      ${bars}
+    </svg>
+  `;
+}
+
+function drawSvgScatterWithTrend(points, xLabel, yLabel, corr, spearman, slope, intercept) {
+  if (!points || points.length === 0) return "<div class='chart-empty-placeholder'>No coordinate pairs</div>";
+
+  const width = 420;
+  const height = 210;
+  const padLeft = 45;
+  const padRight = 25;
+  const padTop = 20;
+  const padBottom = 35;
 
   const xVals = points.map((p) => p.x);
   const yVals = points.map((p) => p.y);
@@ -2110,103 +2310,63 @@ function drawSvgScatterPlotManual(points, xLabel, yLabel, groupCol) {
   const minY = Math.min(...yVals);
   const maxY = Math.max(...yVals) || minY + 1;
 
-  const scaleX = (x) => pad + ((x - minX) / (maxX - minX)) * (width - pad * 2);
-  const scaleY = (y) => height - pad - ((y - minY) / (maxY - minY)) * (height - pad * 2);
-
-  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
-  const groupMap = {};
-  let gIdx = 0;
+  const scaleX = (x) => padLeft + ((x - minX) / (maxX - minX)) * (width - padLeft - padRight);
+  const scaleY = (y) => height - padBottom - ((y - minY) / (maxY - minY)) * (height - padTop - padBottom);
 
   let dots = points
     .map((p) => {
-      let dotColor = "var(--color-primary)";
-      if (p.group) {
-        if (!groupMap[p.group]) {
-          groupMap[p.group] = colors[gIdx % colors.length];
-          gIdx++;
-        }
-        dotColor = groupMap[p.group];
-      }
       const cx = scaleX(p.x);
       const cy = scaleY(p.y);
-      return `<circle cx="${cx}" cy="${cy}" r="4.5" fill="${dotColor}" opacity="0.85">
-        <title>${p.group ? `${escapeHtml(groupCol)}: ${p.group}\n` : ""}${xLabel}: ${p.x}, ${yLabel}: ${p.y}</title>
+      return `<circle cx="${cx}" cy="${cy}" r="3.5" class="scatter-dot">
+        <title>${escapeHtml(xLabel)}: ${p.x}\n${escapeHtml(yLabel)}: ${p.y}</title>
       </circle>`;
     })
     .join("");
 
-  return `
-    <svg viewBox="0 0 ${width} ${height}" style="width: 100%; max-height: 280px;">
-      <line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />
-      <line x1="${pad}" y1="${pad}" x2="${pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />
-      <text x="${width / 2}" y="${height - 10}" text-anchor="middle" font-size="11" fill="var(--text-dim)">${escapeHtml(
-    xLabel
-  )}</text>
-      <text x="15" y="${height / 2}" transform="rotate(-90 15 ${height / 2})" text-anchor="middle" font-size="11" fill="var(--text-dim)">${escapeHtml(
-    yLabel
-  )}</text>
-      ${dots}
-    </svg>
-  `;
-}
-
-function drawSvgBarChart(categories, colName) {
-  if (!categories || categories.length === 0) return "<div class='no-data'>No categories</div>";
-
-  const width = 340;
-  const height = 180;
-  const padLeft = 70;
-  const padRight = 20;
-  const padTop = 15;
-  const padBottom = 25;
-
-  const barHeight = Math.min(22, Math.max(12, (height - padTop - padBottom) / categories.length - 5));
-  const maxCount = Math.max(...categories.map((c) => c.count)) || 1;
-
-  let bars = categories
-    .map((c, idx) => {
-      const y = padTop + idx * (barHeight + 5);
-      const w = ((c.count / maxCount) * (width - padLeft - padRight)).toFixed(1);
-      const label = c.value.length > 9 ? c.value.slice(0, 8) + "…" : c.value;
-      return `
-      <text x="${padLeft - 8}" y="${y + barHeight / 2 + 4}" text-anchor="end" font-size="10" fill="var(--text-muted)">${escapeHtml(
-        label
-      )}</text>
-      <rect x="${padLeft}" y="${y}" width="${w}" height="${barHeight}" rx="3" fill="var(--color-primary)" opacity="0.85">
-        <title>${escapeHtml(c.value)}: ${c.count} (${c.percentage || 0}%)</title>
-      </rect>
-      <text x="${padLeft + Number(w) + 6}" y="${y + barHeight / 2 + 3}" font-size="9" fill="var(--text-dim)">${
-        c.count
-      }</text>
-    `;
-    })
-    .join("");
+  // Trend line calculation
+  let trendLine = "";
+  if (slope !== undefined && intercept !== undefined && slope !== null) {
+    const yAtMinX = slope * minX + intercept;
+    const yAtMaxX = slope * maxX + intercept;
+    const x1 = scaleX(minX);
+    const y1 = scaleY(yAtMinX);
+    const x2 = scaleX(maxX);
+    const y2 = scaleY(yAtMaxX);
+    trendLine = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" class="trend-line" />`;
+  }
 
   return `
     <svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">
-      ${bars}
+      <line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" class="axis-line" />
+      <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${height - padBottom}" class="axis-line" />
+      
+      <text x="${(width + padLeft - padRight) / 2}" y="${height - 10}" text-anchor="middle" class="axis-title">${escapeHtml(xLabel)}</text>
+      <text x="14" y="${(height + padTop - padBottom) / 2}" transform="rotate(-90 14 ${(height + padTop - padBottom) / 2})" text-anchor="middle" class="axis-title">${escapeHtml(yLabel)}</text>
+      
+      ${dots}
+      ${trendLine}
     </svg>
   `;
 }
 
 function drawSvgGroupedBarChart(featName, targetName, groupData) {
-  const cats = Object.keys(groupData).slice(0, 6);
-  if (cats.length === 0) return "<div class='no-data'>No data</div>";
+  const cats = Object.keys(groupData).slice(0, 5);
+  if (cats.length === 0) return "<div class='chart-empty-placeholder'>No data</div>";
 
-  const width = 340;
-  const height = 190;
-  const pad = 35;
-  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899"];
+  const width = 420;
+  const height = 200;
+  const padLeft = 40;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 35;
+  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
 
-  // collect target classes
   const targetClasses = new Set();
-  cats.forEach((c) => {
-    Object.keys(groupData[c]).forEach((t) => targetClasses.add(t));
-  });
+  cats.forEach((c) => Object.keys(groupData[c]).forEach((t) => targetClasses.add(t)));
   const tClassList = Array.from(targetClasses);
 
-  const groupWidth = (width - pad * 2) / cats.length;
-  const barWidth = Math.max(6, (groupWidth - 8) / tClassList.length);
+  const groupWidth = (width - padLeft - padRight) / cats.length;
+  const barWidth = Math.max(4, (groupWidth - 8) / tClassList.length);
 
   let maxVal = 1;
   cats.forEach((c) => {
@@ -2216,25 +2376,23 @@ function drawSvgGroupedBarChart(featName, targetName, groupData) {
   });
 
   let svg = `<svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">`;
-  svg += `<line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />`;
+  svg += `<line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" class="axis-line" />`;
 
   cats.forEach((cat, cIdx) => {
-    const groupX = pad + cIdx * groupWidth;
+    const groupX = padLeft + cIdx * groupWidth;
     const catLabel = cat.length > 7 ? cat.slice(0, 6) + "…" : cat;
 
-    svg += `<text x="${groupX + groupWidth / 2}" y="${height - 10}" text-anchor="middle" font-size="9" fill="var(--text-dim)">${escapeHtml(
-      catLabel
-    )}</text>`;
+    svg += `<text x="${groupX + groupWidth / 2}" y="${height - 12}" text-anchor="middle" font-size="9" fill="#9ca3af">${escapeHtml(catLabel)}</text>`;
 
     tClassList.forEach((tClass, tIdx) => {
       const cnt = groupData[cat][tClass] || 0;
-      const barH = (cnt / maxVal) * (height - pad * 2 - 10);
-      const bx = groupX + 4 + tIdx * barWidth;
-      const by = height - pad - barH;
+      const barH = (cnt / maxVal) * (height - padTop - padBottom);
+      const bx = groupX + 3 + tIdx * barWidth;
+      const by = height - padBottom - barH;
       const bColor = colors[tIdx % colors.length];
 
       svg += `
-        <rect x="${bx}" y="${by}" width="${barWidth - 2}" height="${barH}" rx="2" fill="${bColor}">
+        <rect x="${bx}" y="${by}" width="${barWidth - 2}" height="${barH}" rx="1.5" fill="${bColor}">
           <title>${escapeHtml(cat)} → ${escapeHtml(tClass)}: ${cnt}</title>
         </rect>
       `;
@@ -2246,41 +2404,38 @@ function drawSvgGroupedBarChart(featName, targetName, groupData) {
 }
 
 function drawSvgClassDistributionBars(featName, targetName, groupData) {
-  const classes = Object.keys(groupData).slice(0, 6);
-  const width = 340;
-  const height = 180;
-  const pad = 35;
-  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899"];
+  const classes = Object.keys(groupData).slice(0, 5);
+  const width = 420;
+  const height = 190;
+  const padLeft = 40;
+  const padRight = 20;
+  const padTop = 20;
+  const padBottom = 35;
+  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6"];
 
-  const barW = Math.min(45, (width - pad * 2) / classes.length - 10);
+  const barW = Math.min(50, (width - padLeft - padRight) / classes.length - 12);
   let maxMean = 1;
   classes.forEach((c) => {
     if (groupData[c].mean > maxMean) maxMean = groupData[c].mean;
   });
 
   let svg = `<svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">`;
-  svg += `<line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />`;
+  svg += `<line x1="${padLeft}" y1="${height - padBottom}" x2="${width - padRight}" y2="${height - padBottom}" class="axis-line" />`;
 
   classes.forEach((cls, idx) => {
     const stat = groupData[cls];
-    const bx = pad + idx * (barW + 15) + 10;
-    const bh = (stat.mean / maxMean) * (height - pad * 2 - 10);
-    const by = height - pad - bh;
+    const bx = padLeft + idx * (barW + 16) + 8;
+    const bh = (stat.mean / maxMean) * (height - padTop - padBottom);
+    const by = height - padBottom - bh;
     const clr = colors[idx % colors.length];
     const lbl = cls.length > 8 ? cls.slice(0, 7) + "…" : cls;
 
     svg += `
-      <rect x="${bx}" y="${by}" width="${barW}" height="${bh}" rx="3" fill="${clr}">
-        <title>${escapeHtml(targetName)} = ${escapeHtml(cls)}: Mean ${escapeHtml(featName)} = ${
-      stat.mean
-    }</title>
+      <rect x="${bx}" y="${by}" width="${barW}" height="${bh}" rx="2" fill="${clr}">
+        <title>${escapeHtml(targetName)} = ${escapeHtml(cls)}: Mean ${escapeHtml(featName)} = ${stat.mean}</title>
       </rect>
-      <text x="${bx + barW / 2}" y="${by - 4}" text-anchor="middle" font-size="9" fill="var(--text-main)">${
-      stat.mean
-    }</text>
-      <text x="${bx + barW / 2}" y="${height - 10}" text-anchor="middle" font-size="9" fill="var(--text-dim)">${escapeHtml(
-      lbl
-    )}</text>
+      <text x="${bx + barW / 2}" y="${by - 4}" text-anchor="middle" font-size="9" font-family="monospace" fill="#f3f4f6">${stat.mean}</text>
+      <text x="${bx + barW / 2}" y="${height - 12}" text-anchor="middle" font-size="9" fill="#9ca3af">${escapeHtml(lbl)}</text>
     `;
   });
 
@@ -2288,49 +2443,16 @@ function drawSvgClassDistributionBars(featName, targetName, groupData) {
   return svg;
 }
 
-function drawSvgHistogram(bins, colName) {
-  if (!bins || bins.length === 0) return "<div class='no-data'>No bins</div>";
-
-  const width = 340;
-  const height = 180;
-  const pad = 30;
-  const maxCount = Math.max(...bins.map((b) => b.count)) || 1;
-  const barWidth = (width - pad * 2) / bins.length;
-
-  let bars = bins
-    .map((b, idx) => {
-      const bx = pad + idx * barWidth;
-      const barHeight = ((b.count / maxCount) * (height - pad * 2 - 15)).toFixed(1);
-      const by = height - pad - barHeight;
-      return `
-      <rect x="${bx + 1}" y="${by}" width="${barWidth - 2}" height="${barHeight}" rx="2" fill="var(--color-primary)" opacity="0.85">
-        <title>Range [${b.bin_start} - ${b.bin_end}]: ${b.count} records</title>
-      </rect>
-      <text x="${bx + barWidth / 2}" y="${height - 10}" text-anchor="middle" font-size="8" fill="var(--text-dim)">${
-        b.bin_start
-      }</text>
-    `;
-    })
-    .join("");
-
-  return `
-    <svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">
-      <line x1="${pad}" y1="${height - pad}" x2="${width - pad}" y2="${height - pad}" stroke="var(--border-subtle)" stroke-width="1.5" />
-      ${bars}
-    </svg>
-  `;
-}
-
 function drawSvgBoxPlot(stats, colName) {
-  const width = 340;
-  const height = 180;
+  const width = 380;
+  const height = 150;
   const pad = 40;
 
-  const min = stats.min;
-  const max = stats.max;
-  const q1 = stats.q1 !== undefined ? stats.q1 : stats.min;
-  const q3 = stats.q3 !== undefined ? stats.q3 : stats.max;
-  const med = stats.median !== undefined ? stats.median : stats.mean;
+  const min = stats.min !== undefined ? stats.min : 0;
+  const max = stats.max !== undefined ? stats.max : 100;
+  const q1 = stats.q1 !== undefined ? stats.q1 : min;
+  const q3 = stats.q3 !== undefined ? stats.q3 : max;
+  const med = stats.median !== undefined ? stats.median : stats.mean || 0;
 
   const range = max - min || 1;
   const scale = (val) => pad + ((val - min) / range) * (width - pad * 2);
@@ -2345,152 +2467,578 @@ function drawSvgBoxPlot(stats, colName) {
   return `
     <svg viewBox="0 0 ${width} ${height}" class="eda-chart-svg">
       <!-- Whiskers -->
-      <line x1="${xMin}" y1="${midY}" x2="${xQ1}" y2="${midY}" stroke="var(--color-primary)" stroke-width="2" />
-      <line x1="${xQ3}" y1="${midY}" x2="${xMax}" y2="${midY}" stroke="var(--color-primary)" stroke-width="2" />
-      <line x1="${xMin}" y1="${midY - 15}" x2="${xMin}" y2="${midY + 15}" stroke="var(--color-primary)" stroke-width="2" />
-      <line x1="${xMax}" y1="${midY - 15}" x2="${xMax}" y2="${midY + 15}" stroke="var(--color-primary)" stroke-width="2" />
+      <line x1="${xMin}" y1="${midY}" x2="${xQ1}" y2="${midY}" stroke="#3b82f6" stroke-width="2" />
+      <line x1="${xQ3}" y1="${midY}" x2="${xMax}" y2="${midY}" stroke="#3b82f6" stroke-width="2" />
+      <line x1="${xMin}" y1="${midY - 12}" x2="${xMin}" y2="${midY + 12}" stroke="#3b82f6" stroke-width="2" />
+      <line x1="${xMax}" y1="${midY - 12}" x2="${xMax}" y2="${midY + 12}" stroke="#3b82f6" stroke-width="2" />
 
       <!-- Box (IQR) -->
-      <rect x="${xQ1}" y="${midY - 25}" width="${xQ3 - xQ1 || 2}" height="50" rx="3" fill="rgba(59, 130, 246, 0.25)" stroke="var(--color-primary)" stroke-width="2" />
+      <rect x="${xQ1}" y="${midY - 22}" width="${Math.max(2, xQ3 - xQ1)}" height="44" rx="2" fill="rgba(59, 130, 246, 0.25)" stroke="#3b82f6" stroke-width="2" />
 
       <!-- Median line -->
-      <line x1="${xMed}" y1="${midY - 25}" x2="${xMed}" y2="${midY + 25}" stroke="var(--color-amber)" stroke-width="2.5" />
+      <line x1="${xMed}" y1="${midY - 22}" x2="${xMed}" y2="${midY + 22}" stroke="#f59e0b" stroke-width="2.5" />
 
       <!-- Labels -->
-      <text x="${xMin}" y="${midY + 35}" text-anchor="middle" font-size="9" fill="var(--text-dim)">Min: ${min}</text>
-      <text x="${xMed}" y="${midY - 32}" text-anchor="middle" font-size="9" fill="var(--color-amber)">Med: ${med}</text>
-      <text x="${xMax}" y="${midY + 35}" text-anchor="middle" font-size="9" fill="var(--text-dim)">Max: ${max}</text>
+      <text x="${xMin}" y="${midY + 30}" text-anchor="middle" font-size="8.5" fill="#9ca3af">Min: ${min}</text>
+      <text x="${xMed}" y="${midY - 28}" text-anchor="middle" font-size="8.5" fill="#f59e0b">Med: ${med}</text>
+      <text x="${xMax}" y="${midY + 30}" text-anchor="middle" font-size="8.5" fill="#9ca3af">Max: ${max}</text>
     </svg>
   `;
 }
 
-function drawSvgPieChart(slices, colName) {
-  const width = 340;
-  const height = 200;
-  const cx = width / 2 - 30;
-  const cy = height / 2;
-  const radius = 65;
-  const colors = ["#3b82f6", "#10b981", "#f59e0b", "#ec4899", "#8b5cf6", "#06b6d4"];
+// -------------------------------------------------------------
+// CONFIG POPOVER MODAL LOGIC
+// -------------------------------------------------------------
 
-  const total = slices.reduce((sum, s) => sum + s.count, 0) || 1;
-  let startAngle = 0;
+function populateEdaConfigModal() {
+  if (!currentScanResult) return;
+  const cols = currentScanResult.columns || [];
 
-  let pathEls = slices
-    .map((s, idx) => {
-      const angle = (s.count / total) * 2 * Math.PI;
-      const endAngle = startAngle + angle;
+  // Populate Target List (Checkboxes for multi-target)
+  if (edaTargetCheckboxesList) {
+    edaTargetCheckboxesList.innerHTML = cols
+      .map((c) => {
+        const isChecked = edaState.selectedTargets.includes(c.name) ? "checked" : "";
+        return `
+        <label class="eda-col-check-item">
+          <input type="checkbox" name="targetModalCheck" value="${escapeHtml(c.name)}" ${isChecked} />
+          <span>${escapeHtml(c.name)}</span>
+          <span style="margin-left: auto; font-size: 0.68rem; color: var(--text-dim);">${escapeHtml(c.type)}</span>
+        </label>
+      `;
+      })
+      .join("");
+  }
 
-      const x1 = cx + radius * Math.cos(startAngle);
-      const y1 = cy + radius * Math.sin(startAngle);
-      const x2 = cx + radius * Math.cos(endAngle);
-      const y2 = cy + radius * Math.sin(endAngle);
+  // Populate Features List
+  renderModalFeatureItems();
+}
 
-      const largeArc = angle > Math.PI ? 1 : 0;
-      const pathData = `M ${cx} ${cy} L ${x1} ${y1} A ${radius} ${radius} 0 ${largeArc} 1 ${x2} ${y2} Z`;
-      startAngle = endAngle;
+function autoDetectTargetsInModal() {
+  if (!currentScanResult || !edaTargetCheckboxesList) return;
+  const eda = currentScanResult.eda || {};
+  const suggested = eda.suggested_targets || [];
+  const cbs = edaTargetCheckboxesList.querySelectorAll("input[type='checkbox']");
 
+  if (suggested.length > 0) {
+    const topCol = suggested[0].column;
+    cbs.forEach((cb) => {
+      cb.checked = cb.value === topCol;
+    });
+  } else {
+    cbs.forEach((cb) => (cb.checked = false));
+  }
+}
+
+function autoSelectFeaturesInModal() {
+  if (!currentScanResult || !edaFeatureCheckboxesList) return;
+  const cbs = edaFeatureCheckboxesList.querySelectorAll("input[type='checkbox']");
+  const totalRows = currentScanResult.summary.total_rows || 1;
+
+  cbs.forEach((cb) => {
+    const colName = cb.value;
+    const col = currentScanResult.columns.find((c) => c.name === colName);
+    if (!col) return;
+    const nameLower = colName.toLowerCase();
+    const isId =
+      nameLower.includes("id") ||
+      nameLower.includes("key") ||
+      nameLower.includes("uuid") ||
+      nameLower.includes("guid") ||
+      (col.unique_count / totalRows >= 0.95 && col.type === "Categorical / Text" && totalRows >= 10);
+    cb.checked = !isId;
+  });
+}
+
+function renderModalFeatureItems() {
+  if (!edaFeatureCheckboxesList || !currentScanResult) return;
+  const cols = currentScanResult.columns || [];
+  const selectedSet = new Set(edaState.selectedFeatures.length > 0 ? edaState.selectedFeatures : cols.map((c) => c.name));
+
+  edaFeatureCheckboxesList.innerHTML = cols
+    .map((c) => {
+      const isChecked = selectedSet.has(c.name) ? "checked" : "";
       return `
-      <path d="${pathData}" fill="${colors[idx % colors.length]}" opacity="0.85">
-        <title>${escapeHtml(s.label)}: ${s.count} (${Math.round((s.count / total) * 100)}%)</title>
-      </path>
+      <label class="eda-col-check-item" data-col-name="${escapeHtml(c.name)}" data-col-type="${escapeHtml(c.type)}">
+        <input type="checkbox" value="${escapeHtml(c.name)}" ${isChecked} />
+        <span>${escapeHtml(c.name)}</span>
+        <span style="margin-left: auto; font-size: 0.68rem; color: var(--text-dim);">${escapeHtml(c.type)}</span>
+      </label>
     `;
     })
     .join("");
 
-  return `
-    <svg viewBox="0 0 ${width} ${height}" style="width: 100%; max-height: 220px;">
-      ${pathEls}
-      <!-- Inner donut cut -->
-      <circle cx="${cx}" cy="${cy}" r="32" fill="var(--bg-surface-elevated)" />
-    </svg>
+  filterModalFeatureList();
+}
+
+function filterModalFeatureList() {
+  if (!edaFeatureCheckboxesList) return;
+  const items = edaFeatureCheckboxesList.querySelectorAll(".eda-col-check-item");
+  const filter = edaState.featFilter;
+  const search = edaState.featSearch;
+
+  items.forEach((it) => {
+    const name = it.getAttribute("data-col-name") || "";
+    const type = it.getAttribute("data-col-type") || "";
+
+    let matchType = true;
+    if (filter === "num") matchType = type === "Integer" || type === "Float";
+    else if (filter === "cat") matchType = type === "Categorical / Text" || type === "Boolean";
+    else if (filter === "date") matchType = type === "Date / Time";
+
+    const matchSearch = !search || name.toLowerCase().includes(search);
+
+    it.style.display = matchType && matchSearch ? "flex" : "none";
+  });
+}
+
+async function syncModalSelectionsAndRecompute() {
+  if (!currentScanResult) return;
+  const targetCbs = edaTargetCheckboxesList.querySelectorAll("input[type='checkbox']:checked");
+  const featCbs = edaFeatureCheckboxesList.querySelectorAll("input[type='checkbox']:checked");
+
+  const newTargets = Array.from(targetCbs).map((cb) => cb.value);
+  const newFeatures = Array.from(featCbs).map((cb) => cb.value);
+
+  edaState.selectedTargets = newTargets;
+  edaState.selectedFeatures = newFeatures;
+  edaState.activeTargetTab = newTargets.length > 0 ? newTargets[0] : null;
+
+  await generateEdaAnalysis();
+}
+
+async function generateEdaAnalysis() {
+  if (!currentScanResult) return;
+
+  try {
+    if (btnRegenerateEda) {
+      btnRegenerateEda.disabled = true;
+      btnRegenerateEda.innerHTML = `<span>⚡ Processing...</span>`;
+    }
+
+    const res = await fetch("/api/eda", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        scan_result: currentScanResult,
+        targets: edaState.selectedTargets,
+        features: edaState.selectedFeatures,
+      }),
+    });
+
+    if (res.ok) {
+      const newEda = await res.json();
+      currentScanResult.eda = newEda;
+      renderSmartEdaView();
+    }
+  } catch (err) {
+    console.error("Failed to recompute EDA", err);
+  } finally {
+    if (btnRegenerateEda) {
+      btnRegenerateEda.disabled = false;
+      btnRegenerateEda.innerHTML = `<span>⚡ Regenerate</span>`;
+    }
+  }
+}
+
+// -------------------------------------------------------------
+// MANUAL STUDIO LOGIC
+// -------------------------------------------------------------
+
+function populateManualBuilderControls() {
+  if (!currentScanResult) return;
+  const cols = currentScanResult.columns || [];
+
+  const optHtml = cols
+    .map((c) => `<option value="${escapeHtml(c.name)}">${escapeHtml(c.name)} (${c.type})</option>`)
+    .join("");
+
+  const optNoneHtml = `<option value="">-- None / Default --</option>` + optHtml;
+
+  if (builderXAxis) builderXAxis.innerHTML = optHtml;
+  if (builderYAxis) builderYAxis.innerHTML = optNoneHtml;
+  if (builderColorBy) builderColorBy.innerHTML = optNoneHtml;
+
+  if (cols.length > 1) {
+    if (builderXAxis) builderXAxis.selectedIndex = 0;
+    if (builderYAxis) builderYAxis.selectedIndex = 1;
+  }
+}
+
+function renderManualChart() {
+  if (!currentScanResult || !currentScanResult.preview_rows || !manualChartContainer) return;
+  const chartType = builderChartType ? builderChartType.value : "scatter";
+  const xCol = builderXAxis ? builderXAxis.value : "";
+  const yCol = builderYAxis ? builderYAxis.value : "";
+  const colorCol = builderColorBy ? builderColorBy.value : "";
+  const rows = currentScanResult.preview_rows;
+  const cols = currentScanResult.columns;
+
+  const xObj = cols.find((c) => c.name === xCol);
+  const yObj = cols.find((c) => c.name === yCol);
+
+  if ((chartType === "scatter" || chartType === "line") && !yCol) {
+    manualChartContainer.innerHTML = `
+      <div style="background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); border-radius: var(--radius-sm); padding: 1rem; color: #f87171; font-size: 0.8rem;">
+        ⚠️ <strong>Invalid Specification:</strong> ${escapeHtml(chartType)} chart requires both X and Y axes.
+      </div>
+    `;
+    return;
+  }
+
+  let chartSvg = "";
+  if (chartType === "scatter") {
+    const points = rows
+      .filter((r) => r[xCol] !== null && r[yCol] !== null && !isNaN(Number(r[xCol])) && !isNaN(Number(r[yCol])))
+      .map((r) => ({ x: Number(r[xCol]), y: Number(r[yCol]) }));
+    chartSvg = drawSvgScatterWithTrend(points, xCol, yCol, null, null, null, null);
+  } else if (chartType === "bar") {
+    const counts = {};
+    rows.forEach((r) => {
+      const v = r[xCol] !== undefined && r[xCol] !== null ? String(r[xCol]) : "<null>";
+      counts[v] = (counts[v] || 0) + 1;
+    });
+    const categories = Object.entries(counts)
+      .slice(0, 8)
+      .map(([cls, count]) => ({ class: cls, count, percentage: Math.round((count / rows.length) * 100) }));
+    chartSvg = drawSvgHorizontalBarDistribution(categories, xCol);
+  } else if (chartType === "histogram") {
+    const nums = rows.map((r) => Number(r[xCol])).filter((n) => !isNaN(n));
+    if (nums.length >= 2) {
+      const min = Math.min(...nums);
+      const max = Math.max(...nums);
+      const binCount = 7;
+      const step = (max - min) / binCount || 1;
+      const bins = [];
+      for (let i = 0; i < binCount; i++) {
+        const bMin = min + i * step;
+        const bMax = bMin + step;
+        const count = nums.filter((n) => (i === binCount - 1 ? n >= bMin && n <= bMax : n >= bMin && n < bMax)).length;
+        bins.push({ bin_start: Math.round(bMin * 10) / 10, bin_end: Math.round(bMax * 10) / 10, count });
+      }
+      chartSvg = drawSvgHistogram(bins, xCol);
+    }
+  } else if (chartType === "boxplot" && xObj && xObj.numeric_stats) {
+    chartSvg = drawSvgBoxPlot(xObj.numeric_stats, xCol);
+  } else {
+    chartSvg = `<div class="chart-empty-placeholder">Interactive custom rendering generated.</div>`;
+  }
+
+  manualChartContainer.innerHTML = `
+    <div style="display: flex; flex-direction: column; gap: 0.65rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h4 style="font-size: 0.9rem; color: var(--text-main);">${escapeHtml(chartType.toUpperCase())}: ${escapeHtml(xCol)} ${yCol ? `vs ` + escapeHtml(yCol) : ''}</h4>
+      </div>
+      <div style="background: var(--bg-surface-elevated); padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+        ${chartSvg}
+      </div>
+    </div>
   `;
 }
 
-/* ==========================================================================
-   EDA REPORT EXPORT (HTML & JSON)
-   ========================================================================== */
+// -------------------------------------------------------------
+// PYTHON EDA REPORT EXPORT (Jupyter / Seaborn Report Mode)
+// -------------------------------------------------------------
 
-function exportEdaReport() {
+function exportPythonEdaReport() {
   if (!currentScanResult) return;
-  const s = currentScanResult.summary;
+  const s = currentScanResult.summary || {};
+  const d = currentScanResult.dimensions || {};
+  const cols = currentScanResult.columns || [];
   const eda = currentScanResult.eda || {};
   const insights = eda.smart_insights || [];
-  const corrPairs = (eda.correlations && eda.correlations.ranked_pairs) || [];
   const targets = eda.target_analyses || [];
+  const corr = eda.correlations || {};
+  const corrPairs = corr.ranked_pairs || [];
+  const outliers = eda.outlier_analysis || {};
+  const missing = eda.missing_data || [];
 
   const html = `<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Data Sarthi — Smart EDA Report: ${escapeHtml(s.filename)}</title>
+  <title>Python EDA Audit Report — ${escapeHtml(s.filename)}</title>
   <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #0b0f19; color: #f8fafc; padding: 2.5rem; line-height: 1.5; }
-    .card { background: #131b2e; border: 1px solid #1e293b; border-radius: 12px; padding: 1.5rem; margin-bottom: 1.5rem; }
-    h1, h2, h3, h4 { margin-top: 0; color: #ffffff; }
-    .badge { padding: 4px 10px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; }
-    .badge-primary { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
-    .badge-amber { background: rgba(245, 158, 11, 0.2); color: #fbbf24; }
-    table { width: 100%; border-collapse: collapse; margin-top: 0.8rem; }
-    th, td { text-align: left; padding: 0.65rem 0.85rem; border-bottom: 1px solid #1e293b; font-size: 0.85rem; }
-    th { background: #1e293b; color: #94a3b8; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
-    .insight-item { background: #1a233a; border-left: 4px solid #3b82f6; padding: 1rem; border-radius: 6px; }
+    :root {
+      --bg: #090d16;
+      --card: #111827;
+      --card-sub: #1f2937;
+      --border: #374151;
+      --text: #f9fafb;
+      --text-dim: #9ca3af;
+      --blue: #3b82f6;
+      --emerald: #10b981;
+      --amber: #f59e0b;
+      --rose: #f43f5e;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      padding: 2.5rem;
+      margin: 0;
+      line-height: 1.6;
+    }
+    .notebook-container {
+      max-width: 1040px;
+      margin: 0 auto;
+    }
+    .report-header {
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    .report-title {
+      font-size: 1.85rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      margin: 0 0 0.5rem 0;
+      color: #ffffff;
+    }
+    .report-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.85rem;
+      color: var(--text-dim);
+    }
+    .report-meta strong {
+      color: var(--text);
+    }
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.75rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .tag {
+      font-size: 0.72rem;
+      font-family: monospace;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: rgba(59, 130, 246, 0.15);
+      color: var(--blue);
+      border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 0.85rem;
+      font-size: 0.85rem;
+    }
+    th, td {
+      text-align: left;
+      padding: 0.65rem 0.85rem;
+      border-bottom: 1px solid var(--border);
+    }
+    th {
+      background: var(--card-sub);
+      color: var(--text-dim);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.75rem;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .insight-card {
+      background: var(--card-sub);
+      border-left: 4px solid var(--blue);
+      border-radius: 6px;
+      padding: 1rem;
+    }
+    .insight-card strong {
+      display: block;
+      font-size: 0.9rem;
+      margin-bottom: 0.25rem;
+    }
+    .insight-card p {
+      margin: 0;
+      font-size: 0.82rem;
+      color: var(--text-dim);
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .kpi-item {
+      background: var(--card-sub);
+      border-radius: 8px;
+      padding: 1rem;
+      text-align: center;
+    }
+    .kpi-item span {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--text-dim);
+      text-transform: uppercase;
+    }
+    .kpi-item strong {
+      font-size: 1.4rem;
+      font-family: monospace;
+    }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Data Sarthi — Smart EDA & Visual Analytics Audit</h1>
-    <p>Dataset: <strong>${escapeHtml(s.filename)}</strong> • Generated: ${new Date().toISOString()}</p>
-    <p>${s.total_rows} rows × ${s.total_cols} columns • Overall Quality Health Score: <strong>${
-    s.overall_quality_score
-  }/100</strong></p>
-  </div>
-
-  <div class="card">
-    <h2>1. Key Non-Causal Statistical Insights (${insights.length})</h2>
-    <div class="grid">
-      ${insights
-        .map(
-          (ins) => `
-        <div class="insight-item">
-          <strong>${escapeHtml(ins.title)}</strong> [${escapeHtml(ins.type)}]
-          <p style="margin: 0.5rem 0 0 0; color: #cbd5e1; font-size: 0.85rem;">${escapeHtml(
-            ins.description
-          )}</p>
-        </div>
-      `
-        )
-        .join("")}
+  <div class="notebook-container">
+    <div class="report-header">
+      <div class="report-title">Data Sarthi — Exploratory Data Analysis Report</div>
+      <div class="report-meta">
+        <div>Dataset: <strong>${escapeHtml(s.filename)}</strong></div>
+        <div>Observations: <strong>${(s.total_rows || 0).toLocaleString()}</strong></div>
+        <div>Features: <strong>${s.total_cols || cols.length}</strong></div>
+        <div>Timestamp: <strong>${new Date().toISOString()}</strong></div>
+      </div>
     </div>
-  </div>
 
-  <div class="card">
-    <h2>2. Top Pearson Correlations</h2>
-    <table>
-      <thead><tr><th>Feature Pair</th><th>Correlation (r)</th><th>Strength</th></tr></thead>
-      <tbody>
-        ${corrPairs
-          .slice(0, 10)
-          .map(
-            (cp) => `
-          <tr>
-            <td><strong>${escapeHtml(cp.feature_a)}</strong> ↔ <strong>${escapeHtml(
-              cp.feature_b
-            )}</strong></td>
-            <td>${cp.pearson_r.toFixed(3)}</td>
-            <td><span class="badge badge-primary">${escapeHtml(cp.strength)}</span></td>
-          </tr>
-        `
-          )
-          .join("")}
-      </tbody>
-    </table>
+    <!-- Executive Summary KPIs -->
+    <div class="kpi-grid">
+      <div class="kpi-item">
+        <span>Quality Health</span>
+        <strong style="color: var(--emerald);">${s.overall_quality_score}/100</strong>
+      </div>
+      <div class="kpi-item">
+        <span>Completeness</span>
+        <strong>${d.completeness}%</strong>
+      </div>
+      <div class="kpi-item">
+        <span>Missing Cells</span>
+        <strong style="color: ${(s.total_null_pct || 0) > 5 ? 'var(--amber)' : 'var(--text)'};">${s.total_null_pct || 0}%</strong>
+      </div>
+      <div class="kpi-item">
+        <span>Target(s)</span>
+        <strong style="color: var(--blue); font-size: 1rem;">${edaState.selectedTargets.length > 0 ? escapeHtml(edaState.selectedTargets.join(', ')) : 'None'}</strong>
+      </div>
+    </div>
+
+    <!-- Key Insights -->
+    <div class="section-card">
+      <h2>1. Key Analytical Observations (${insights.length})</h2>
+      <div class="grid-2">
+        ${insights.map((ins, idx) => `
+          <div class="insight-card">
+            <strong>${idx + 1}. ${escapeHtml(ins.title)}</strong>
+            <p>${escapeHtml(ins.description)}</p>
+          </div>
+        `).join("")}
+      </div>
+    </div>
+
+    <!-- Target Analysis -->
+    ${targets.map((t, idx) => `
+      <div class="section-card">
+        <h2>2.${idx + 1} Target Analysis: ${escapeHtml(t.target_column)} <span class="tag">${escapeHtml(t.problem_type)}</span></h2>
+        <p style="font-size: 0.85rem; color: var(--text-dim); margin-top: -0.5rem;">Total Analyzed Records: ${t.total_count.toLocaleString()}</p>
+        
+        ${t.class_distribution ? `
+          <table>
+            <thead><tr><th>Class Label</th><th>Count</th><th>Proportion</th></tr></thead>
+            <tbody>
+              ${t.class_distribution.map(cd => `
+                <tr>
+                  <td><strong>${escapeHtml(String(cd.class))}</strong></td>
+                  <td>${cd.count.toLocaleString()}</td>
+                  <td><strong>${cd.percentage}%</strong></td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        ` : ''}
+
+        ${t.continuous_stats ? `
+          <table>
+            <thead><tr><th>Metric</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td>Mean</td><td>${t.continuous_stats.mean}</td></tr>
+              <tr><td>Median</td><td>${t.continuous_stats.median}</td></tr>
+              <tr><td>Range [Min — Max]</td><td>${t.continuous_stats.min} — ${t.continuous_stats.max}</td></tr>
+            </tbody>
+          </table>
+        ` : ''}
+      </div>
+    `).join("")}
+
+    <!-- Top Correlations -->
+    <div class="section-card">
+      <h2>3. Pearson Correlation Coefficients</h2>
+      <table>
+        <thead><tr><th>Feature A</th><th>Feature B</th><th>Pearson r</th><th>Interpretation</th></tr></thead>
+        <tbody>
+          ${corrPairs.slice(0, 10).map(cp => `
+            <tr>
+              <td><strong>${escapeHtml(cp.feature_a)}</strong></td>
+              <td><strong>${escapeHtml(cp.feature_b)}</strong></td>
+              <td style="font-family: monospace; font-weight: bold; color: ${cp.pearson_r > 0 ? 'var(--emerald)' : 'var(--rose)'};">${cp.pearson_r > 0 ? '+' : ''}${cp.pearson_r.toFixed(3)}</td>
+              <td>${escapeHtml(cp.strength)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Outlier Table -->
+    <div class="section-card">
+      <h2>4. Outlier Detection Summary (IQR Method)</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Outlier Count</th><th>Outlier %</th><th>Acceptable Bounds [Q1-1.5*IQR, Q3+1.5*IQR]</th></tr></thead>
+        <tbody>
+          ${Object.keys(outliers).map(col => {
+            const o = outliers[col];
+            return `
+              <tr>
+                <td><strong>${escapeHtml(col)}</strong></td>
+                <td>${o.outlier_count}</td>
+                <td>${o.outlier_percentage}%</td>
+                <td style="font-family: monospace;">[${o.lower_bound} — ${o.upper_bound}]</td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Missing Data -->
+    <div class="section-card">
+      <h2>5. Missing Value Statistics</h2>
+      <table>
+        <thead><tr><th>Feature</th><th>Missing Count</th><th>Missing %</th></tr></thead>
+        <tbody>
+          ${missing.map(m => `
+            <tr>
+              <td><strong>${escapeHtml(m.column)}</strong></td>
+              <td>${m.null_count.toLocaleString()}</td>
+              <td style="color: var(--amber); font-weight: bold;">${m.percentage}%</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+
+    <div style="text-align: center; color: var(--text-dim); font-size: 0.75rem; margin-top: 2rem;">
+      Generated automatically by Data Sarthi Smart EDA Visual Analytics Engine
+    </div>
   </div>
 </body>
 </html>`;
 
-  downloadFile(html, `${currentFilename}_smart_eda_report.html`, "text/html");
+  downloadFile(html, `${currentFilename}_eda_report.html`, "text/html");
 }
 
-window.exportEdaReport = exportEdaReport;
+window.exportEdaReport = exportPythonEdaReport;
+window.exportPythonEdaReport = exportPythonEdaReport;
+
 
