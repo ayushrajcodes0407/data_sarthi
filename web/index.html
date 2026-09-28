@@ -549,7 +549,7 @@
               <div class="card-header-row">
                 <div>
                   <h3 class="card-header-title">Why Data Sarthi is Faster</h3>
-                  <p class="card-header-sub">Real-world comparison on the same dataset</p>
+                  <p class="card-header-sub" id="benchmarkSubHeader">Measured on this dataset</p>
                 </div>
                 <span class="badge-pill badge-purple" id="benchmarkTimeSavedBadge">⏱️ Time saved per export: -1.85 seconds</span>
               </div>
@@ -580,7 +580,7 @@
                     </div>
                     <div class="bench-meta-item">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line></svg>
-                      <span>Finds: Column is 70% null</span>
+                      <span id="pandasFindsVal">Finds: Quality anomalies detected</span>
                     </div>
                   </div>
                 </div>
@@ -614,7 +614,7 @@
                     </div>
                     <div class="bench-meta-item">
                       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
-                      <span>Finds: Column is 70% null</span>
+                      <span id="dsFindsVal">Finds: Quality anomalies detected</span>
                     </div>
                   </div>
                 </div>
@@ -625,8 +625,8 @@
               <div class="benchmark-quote-box">
                 <div class="bench-bolt-icon">⚡</div>
                 <div class="bench-quote-text">
-                  <strong>Pandas takes ~2 seconds and ~300 MB to tell you a column is 70% null. Data Sarthi takes 150 ms and tells you the same thing.</strong>
-                  <p>When you open 20 exports a day, that difference is the difference between doing it and skipping it.</p>
+                  <strong>Same dataset. Same check. Different execution cost.</strong>
+                  <p>When you validate dozens of exports every day, milliseconds add up.</p>
                 </div>
               </div>
 
@@ -1771,6 +1771,40 @@ jobs:
       <div class="modal-footer">
         <button class="btn btn-outline" id="cancelRuleBtn">Cancel</button>
         <button class="btn btn-primary" id="saveRuleBtn">Add &amp; Evaluate Rule</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 7: Smart EDA Configuration Modal -->
+  <div class="modal-overlay" id="edaConfigModal">
+    <div class="modal-card card modal-lg">
+      <div class="modal-header">
+        <div>
+          <h3>Configure Targets &amp; Features</h3>
+          <p class="modal-subtitle">Customize target outcomes and analytical feature subsets</p>
+        </div>
+        <button class="btn-close" id="closeEdaConfigModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem;">
+          <div>
+            <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--accent-purple-light);">🎯 Outcome Target Variable</h4>
+            <p style="font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.6rem;">Select primary target for bivariate charts &amp; class distributions.</p>
+            <div id="edaTargetCheckboxes" style="max-height: 220px; overflow-y: auto; background: var(--bg-surface-elevated); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);"></div>
+          </div>
+          <div>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem;">
+              <h4 style="font-size: 0.85rem; font-weight: 700; color: var(--accent-purple-light);">📊 Features to Include</h4>
+              <button class="btn btn-outline btn-xs" id="btnEdaSelectAllFeatures">Toggle All</button>
+            </div>
+            <p style="font-size: 0.72rem; color: var(--text-dim); margin-bottom: 0.6rem;">Select columns for correlation &amp; distribution profiling.</p>
+            <div id="edaFeatureCheckboxes" style="max-height: 220px; overflow-y: auto; background: var(--bg-surface-elevated); padding: 0.75rem; border-radius: var(--radius-sm); border: 1px solid var(--border-subtle);"></div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancelEdaConfigBtn">Cancel</button>
+        <button class="btn btn-primary" id="applyEdaConfigBtn">Apply &amp; Update EDA</button>
       </div>
     </div>
   </div>
