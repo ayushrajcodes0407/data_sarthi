@@ -2,13 +2,16 @@
 
 ## Enterprise Data Quality, Issue Detection & Smart EDA Platform
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-data--sarthi.vercel.app-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://data-sarthi.vercel.app/)
 [![Python](https://img.shields.io/badge/Python-3.8+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![JavaScript](https://img.shields.io/badge/JavaScript-ES6+-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 [![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/HTML)
 [![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://developer.mozilla.org/en-US/docs/Web/CSS)
-[![Vercel Deployment](https://img.shields.io/badge/Vercel-Deployment%20Ready-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![Vercel Deployment](https://img.shields.io/badge/Vercel-Live%20on%20Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://data-sarthi.vercel.app/)
 [![Tests](https://img.shields.io/badge/Tests-22%2F22%20Passed-2ea44f?style=for-the-badge&logo=pytest&logoColor=white)](tests/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=for-the-badge)](LICENSE)
+
+> 🚀 **Live Demo:** [https://data-sarthi.vercel.app/](https://data-sarthi.vercel.app/) — Instant in-browser data quality scoring, issue detection, and Smart EDA analytics.
 
 ---
 
@@ -340,11 +343,14 @@ Because Data Sarthi utilizes a native, dependency-free Vanilla ES6+/HTML5/CSS ar
 - **Routing**: Handled by [`vercel.json`](vercel.json):
   ```json
   {
-    "version": 2,
-    "cleanUrls": true,
-    "trailingSlash": false,
     "rewrites": [
       { "source": "/", "destination": "/web/index.html" },
+      { "source": "/index.html", "destination": "/web/index.html" },
+      { "source": "/style.css", "destination": "/web/style.css" },
+      { "source": "/app.js", "destination": "/web/app.js" },
+      { "source": "/web", "destination": "/web/index.html" },
+      { "source": "/web/", "destination": "/web/index.html" },
+      { "source": "/web/(.*)", "destination": "/web/$1" },
       { "source": "/(.*)", "destination": "/web/$1" }
     ]
   }
