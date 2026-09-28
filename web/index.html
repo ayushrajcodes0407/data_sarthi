@@ -3,87 +3,215 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Data Sarthi — Enterprise Data Quality Platform & Smart EDA</title>
+  <title>Data Sarthi — AI-Powered Data Quality & EDA Companion</title>
+  <meta name="description" content="Automated data quality scoring, intelligent issue detection, Smart EDA, and automated data cleaning in milliseconds." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23131b2c'/%3E%3Crect x='6' y='14' width='4' height='12' rx='2' fill='%238b5cf6'/%3E%3Crect x='14' y='8' width='4' height='18' rx='2' fill='%23a855f7'/%3E%3Crect x='22' y='12' width='4' height='14' rx='2' fill='%23c084fc'/%3E%3Ccircle cx='8' cy='11' r='2' fill='%23ffffff'/%3E%3Ccircle cx='16' cy='5' r='2' fill='%23ffffff'/%3E%3Ccircle cx='24' cy='9' r='2' fill='%23ffffff'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="app-layout">
+
+    <!-- Mobile Sidebar Backdrop Overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     
-    <!-- Top Header -->
-    <header class="navbar">
-      <div class="nav-left">
-        <div class="logo-mark">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" />
+    <!-- Collapsible Sidebar -->
+    <aside class="sidebar" id="appSidebar">
+      <div class="sidebar-header">
+        <div class="logo-mark" title="Data Sarthi">
+          <svg width="26" height="26" viewBox="0 0 32 32" fill="none">
+            <rect x="4" y="14" width="4.5" height="13" rx="2.25" fill="var(--accent-purple)" />
+            <rect x="11.5" y="7" width="4.5" height="20" rx="2.25" fill="var(--accent-purple-light)" />
+            <rect x="19" y="11" width="4.5" height="16" rx="2.25" fill="var(--accent-purple-lighter)" />
+            <rect x="26.5" y="16" width="4.5" height="11" rx="2.25" fill="var(--color-emerald)" />
+            <circle cx="6.25" cy="10" r="2" fill="#ffffff" />
+            <circle cx="13.75" cy="4" r="2" fill="#ffffff" />
+            <circle cx="21.25" cy="7.5" r="2" fill="#ffffff" />
+            <circle cx="28.75" cy="12" r="2" fill="#ffffff" />
+            <path d="M6.25 10 L13.75 4 L21.25 7.5 L28.75 12" stroke="rgba(255,255,255,0.4)" stroke-width="1.2" stroke-linecap="round" stroke-dasharray="2 2" />
           </svg>
         </div>
-        <div class="brand-info">
-          <div class="brand-title-wrap">
-            <h1 class="brand-title">Data Sarthi</h1>
-            <span class="badge-version">Platform v1.6</span>
-          </div>
-          <p class="brand-subtitle">Enterprise data quality scoring, issue detection & Smart EDA analytics</p>
+        <div class="sidebar-brand-text">
+          <span class="brand-title">Data Sarthi</span>
+          <span class="badge-version">v1.6</span>
         </div>
-      </div>
-
-      <div class="nav-right">
-        <div class="quick-stats-pill" id="scanSpeedBadge" style="display: none;">
-          <span class="pulse-dot"></span>
-          <span id="scanSpeedText">Profiled in 12ms</span>
-        </div>
-        
-        <button class="btn btn-secondary btn-sm" id="btnExportModal" title="Export Reports & Data">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-          </svg>
-          <span>Export</span>
-        </button>
-
-        <button class="btn btn-icon" id="themeToggle" title="Toggle Dark/Light Mode">
-          <svg class="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <circle cx="12" cy="12" r="5"></circle>
-            <line x1="12" y1="1" x2="12" y2="3"></line>
-            <line x1="12" y1="21" x2="12" y2="23"></line>
-            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-            <line x1="1" y1="12" x2="3" y2="12"></line>
-            <line x1="21" y1="12" x2="23" y2="12"></line>
-            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-          </svg>
-          <svg class="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        <button class="sidebar-toggle-btn" id="sidebarCollapseBtn" title="Toggle Sidebar">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="15 18 9 12 15 6"></polyline>
           </svg>
         </button>
       </div>
-    </header>
 
-    <!-- Primary Navigation Bar -->
-    <nav class="primary-nav-bar">
-      <div class="nav-container">
-        <ul class="nav-items-list">
-          <li><button class="nav-tab-btn active" data-view="viewOverview">Overview</button></li>
+      <nav class="sidebar-nav">
+        <div class="nav-section-label">WORKSPACE</div>
+        <ul class="sidebar-menu">
           <li>
-            <button class="nav-tab-btn" data-view="viewIssues">
-              <span>Issues</span>
-              <span class="nav-badge-count" id="navIssuesBadge">0</span>
+            <button class="sidebar-item active" data-view="viewOverview" id="navItemOverview">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              <span class="nav-text">Home / Overview</span>
             </button>
           </li>
-          <li><button class="nav-tab-btn" data-view="viewColumns">Columns</button></li>
-          <li><button class="nav-tab-btn" data-view="viewDataPreview">Data Preview</button></li>
-          <li><button class="nav-tab-btn nav-tab-highlight" data-view="viewSmartEda">✨ Smart EDA</button></li>
-          <li><button class="nav-tab-btn" data-view="viewCleaning">Cleaning</button></li>
-          <li><button class="nav-tab-btn" data-view="viewRules">Rules</button></li>
-          <li><button class="nav-tab-btn" data-view="viewReports">Reports</button></li>
-          <li><button class="nav-tab-btn" data-view="viewCiCd">CI/CD</button></li>
+          <li>
+            <button class="sidebar-item" data-view="viewUpload" id="navItemUpload">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+              </svg>
+              <span class="nav-text">Upload Dataset</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewColumns" id="navItemColumns">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="20" x2="12" y2="10"></line>
+                <line x1="18" y1="20" x2="18" y2="4"></line>
+                <line x1="6" y1="20" x2="6" y2="16"></line>
+              </svg>
+              <span class="nav-text">Analysis / Schema</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewIssues" id="navItemIssues">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+              <span class="nav-text">Issues Center</span>
+              <span class="sidebar-badge-count" id="sidebarIssuesBadge">0</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item highlight-item" data-view="viewSmartEda" id="navItemSmartEda">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+              <span class="nav-text">Smart EDA</span>
+              <span class="sidebar-badge-tag">AI</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewCleaning" id="navItemCleaning">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path>
+              </svg>
+              <span class="nav-text">Data Cleaning</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewRules" id="navItemRules">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+              <span class="nav-text">Quality Rules</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewReports" id="navItemReports">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span class="nav-text">Reports Hub</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewDataPreview" id="navItemPreview">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                <line x1="3" y1="9" x2="21" y2="9"></line>
+                <line x1="9" y1="21" x2="9" y2="9"></line>
+              </svg>
+              <span class="nav-text">Data Preview</span>
+            </button>
+          </li>
+          <li>
+            <button class="sidebar-item" data-view="viewCiCd" id="navItemCiCd">
+              <svg class="nav-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span class="nav-text">Settings / CI/CD</span>
+            </button>
+          </li>
         </ul>
+      </nav>
 
-        <!-- Ingestion Quick Controls -->
-        <div class="nav-quick-ingest">
-          <div class="delimiter-select-wrap">
+      <div class="sidebar-footer">
+        <div class="sidebar-status-card">
+          <div class="status-indicator-dot online"></div>
+          <div class="status-info">
+            <span class="status-title">Engine Active</span>
+            <span class="status-sub">Zero-Dependency Native</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Application Wrapper -->
+    <div class="main-wrapper">
+      
+      <!-- Top Application Header -->
+      <header class="app-header">
+        <div class="header-left">
+          <button class="mobile-hamburger-btn" id="mobileMenuBtn" aria-label="Open Navigation Menu">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          
+          <div class="header-brand">
+            <div class="header-logo-mark">
+              <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+                <rect x="4" y="14" width="4.5" height="13" rx="2.25" fill="var(--accent-purple)" />
+                <rect x="11.5" y="7" width="4.5" height="20" rx="2.25" fill="var(--accent-purple-light)" />
+                <rect x="19" y="11" width="4.5" height="16" rx="2.25" fill="var(--accent-purple-lighter)" />
+                <rect x="26.5" y="16" width="4.5" height="11" rx="2.25" fill="var(--color-emerald)" />
+                <circle cx="6.25" cy="10" r="2" fill="#ffffff" />
+                <circle cx="13.75" cy="4" r="2" fill="#ffffff" />
+                <circle cx="21.25" cy="7.5" r="2" fill="#ffffff" />
+                <circle cx="28.75" cy="12" r="2" fill="#ffffff" />
+              </svg>
+            </div>
+            <div class="header-brand-info">
+              <div class="header-title-row">
+                <h1 class="header-title">Data Sarthi</h1>
+                <span class="header-badge-version">v1.6</span>
+              </div>
+              <p class="header-subtitle">Your AI-Powered Data Quality & EDA Companion</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <!-- Dataset Selector Dropdown -->
+          <div class="dataset-dropdown-wrap">
+            <svg class="dropdown-lead-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+              <polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline>
+              <line x1="12" y1="22.08" x2="12" y2="12"></line>
+            </svg>
+            <select id="datasetDropdownSelect" class="header-dataset-select" aria-label="Select Dataset">
+              <option value="ecommerce_orders">ecommerce_orders.csv (Preset)</option>
+              <option value="customer_churn">customer_churn.csv (Preset)</option>
+              <option value="patient_clinical">patient_clinical.csv (Preset)</option>
+              <option value="__paste__">📋 Paste CSV...</option>
+              <option value="__upload__">➕ Upload File (.csv, .tsv, .xlsx)...</option>
+            </select>
+          </div>
+
+          <div class="delimiter-select-wrap header-delim-wrap">
             <label for="delimiterSelect">Delim:</label>
             <select id="delimiterSelect" class="form-select-sm">
               <option value="auto">Auto</option>
@@ -93,947 +221,1336 @@
               <option value="|">Pipe (|)</option>
             </select>
           </div>
-          <button class="btn btn-outline btn-xs" id="navUploadBtn">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+
+          <button class="btn btn-outline btn-sm header-upload-btn" id="navUploadBtn" title="Upload new CSV, TSV or XLSX file">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
             </svg>
             <span>Upload CSV</span>
           </button>
-          <input type="file" id="fileInput" accept=".csv,.tsv,.txt" hidden />
-        </div>
-      </div>
-    </nav>
+          <input type="file" id="fileInput" accept=".csv,.tsv,.txt,.xlsx,.xls" hidden />
 
-    <!-- Main Views Container -->
-    <main class="main-container">
-
-      <!-- ========================================================
-           VIEW 1: OVERVIEW DASHBOARD
-      ======================================================== -->
-      <section id="viewOverview" class="app-view active">
-        
-        <!-- Quick Preset Switcher Banner -->
-        <div class="preset-banner card glass">
-          <div class="preset-left">
-            <span class="preset-label">Active Dataset:</span>
-            <strong id="overviewFileName">ecommerce_orders.csv</strong>
-            <span class="preset-size" id="overviewFileSize">(2.4 KB)</span>
-          </div>
-          <div class="preset-right">
-            <span class="preset-sub">Quick Switch Presets:</span>
-            <div class="preset-buttons-group">
-              <button class="sample-btn-sm active" data-sample="ecommerce_orders">🛒 Orders</button>
-              <button class="sample-btn-sm" data-sample="customer_churn">📊 SaaS Churn</button>
-              <button class="sample-btn-sm" data-sample="patient_clinical">🏥 Clinical Vitals</button>
-              <button class="sample-btn-sm" id="btnOpenPaste">📋 Paste CSV</button>
-            </div>
-          </div>
-        </div>
-
-        <!-- High-level KPI Row -->
-        <div class="kpi-grid">
-          
-          <!-- Quality Score Card with Transparency Button -->
-          <div class="kpi-card glass score-card">
-            <div class="score-left">
-              <div class="radial-progress">
-                <svg class="radial-ring" viewBox="0 0 36 36">
-                  <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                  <path id="scoreProgressPath" class="ring-fill" stroke-dasharray="90, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
-                </svg>
-                <div class="score-number-wrap">
-                  <span class="score-val" id="kpiScore">95</span>
-                  <span class="score-unit">/100</span>
-                </div>
-              </div>
-            </div>
-            <div class="score-right">
-              <div class="score-title-row">
-                <span class="kpi-tag" id="scoreRatingTag">EXCELLENT QUALITY</span>
-                <button class="btn-text-link" id="btnWhyScore">Why this score? ⓘ</button>
-              </div>
-              <h3 class="kpi-title">Data Health Score</h3>
-              <p class="kpi-desc" id="scoreVerdict">Minimal nulls and high structural integrity.</p>
-            </div>
-          </div>
-
-          <!-- Dataset Dimensions -->
-          <div class="kpi-card glass">
-            <div class="kpi-icon icon-blue">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="3" y1="9" x2="21" y2="9"></line>
-                <line x1="9" y1="21" x2="9" y2="9"></line>
-              </svg>
-            </div>
-            <div class="kpi-body">
-              <span class="kpi-label">Dimensions</span>
-              <div class="kpi-val-group">
-                <span class="kpi-main-val" id="kpiRows">0</span>
-                <span class="kpi-sub-text">rows</span>
-                <span class="kpi-sep">×</span>
-                <span class="kpi-main-val" id="kpiCols">0</span>
-                <span class="kpi-sub-text">cols</span>
-              </div>
-              <div class="kpi-footer-text" id="kpiTotalCells">0 total cells analyzed</div>
-            </div>
-          </div>
-
-          <!-- Missing Values / Completeness -->
-          <div class="kpi-card glass">
-            <div class="kpi-icon icon-amber">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="10"></circle>
-                <line x1="12" y1="8" x2="12" y2="12"></line>
-                <line x1="12" y1="16" x2="12.01" y2="16"></line>
-              </svg>
-            </div>
-            <div class="kpi-body">
-              <span class="kpi-label">Missing Values</span>
-              <div class="kpi-val-group">
-                <span class="kpi-main-val text-amber" id="kpiNulls">0</span>
-                <span class="kpi-pill-pct" id="kpiNullPct">0.0%</span>
-              </div>
-              <div class="kpi-footer-text" id="kpiCleanCols">0 clean columns</div>
-            </div>
-          </div>
-
-          <!-- Issue Counts -->
-          <div class="kpi-card glass">
-            <div class="kpi-icon icon-purple">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-                <line x1="12" y1="9" x2="12" y2="13"></line>
-                <line x1="12" y1="17" x2="12.01" y2="17"></line>
-              </svg>
-            </div>
-            <div class="kpi-body">
-              <span class="kpi-label">Active Issues</span>
-              <div class="kpi-val-group">
-                <span class="kpi-main-val text-purple" id="kpiIssues">0</span>
-                <span class="kpi-sub-text">total flags</span>
-              </div>
-              <div class="kpi-footer-text" id="kpiIssueBreakdown">0 critical &bull; 0 warnings</div>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Middle Row: 4 Quality Dimensions + Issues Summary Deck -->
-        <div class="overview-dual-grid">
-          
-          <!-- Quality Breakdown (4 Dimensions) -->
-          <div class="card glass overview-card">
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-header-title">Quality Dimensions Breakdown</h3>
-                <p class="card-header-sub">Core pillars powering the overall Health Score formula</p>
-              </div>
-              <span class="badge-pill">4 Core Pillars</span>
-            </div>
-
-            <div class="dimensions-list">
-              <div class="dimension-row">
-                <div class="dim-info">
-                  <div class="dim-name-wrap">
-                    <strong>Completeness</strong>
-                    <span class="dim-weight">(35% weight)</span>
-                  </div>
-                  <span class="dim-val" id="dimCompletenessVal">100%</span>
-                </div>
-                <div class="dim-bar-track">
-                  <div class="dim-bar-fill fill-emerald" id="dimCompletenessBar" style="width: 100%"></div>
-                </div>
-                <span class="dim-subtext">Absence of nulls, empty strings, and missing values.</span>
-              </div>
-
-              <div class="dimension-row">
-                <div class="dim-info">
-                  <div class="dim-name-wrap">
-                    <strong>Validity</strong>
-                    <span class="dim-weight">(30% weight)</span>
-                  </div>
-                  <span class="dim-val" id="dimValidityVal">100%</span>
-                </div>
-                <div class="dim-bar-track">
-                  <div class="dim-bar-fill fill-blue" id="dimValidityBar" style="width: 100%"></div>
-                </div>
-                <span class="dim-subtext">Format conformance for emails, dates, numbers, and types.</span>
-              </div>
-
-              <div class="dimension-row">
-                <div class="dim-info">
-                  <div class="dim-name-wrap">
-                    <strong>Uniqueness</strong>
-                    <span class="dim-weight">(20% weight)</span>
-                  </div>
-                  <span class="dim-val" id="dimUniquenessVal">100%</span>
-                </div>
-                <div class="dim-bar-track">
-                  <div class="dim-bar-fill fill-purple" id="dimUniquenessBar" style="width: 100%"></div>
-                </div>
-                <span class="dim-subtext">Absence of duplicate records and primary key collisions.</span>
-              </div>
-
-              <div class="dimension-row">
-                <div class="dim-info">
-                  <div class="dim-name-wrap">
-                    <strong>Consistency</strong>
-                    <span class="dim-weight">(15% weight)</span>
-                  </div>
-                  <span class="dim-val" id="dimConsistencyVal">100%</span>
-                </div>
-                <div class="dim-bar-track">
-                  <div class="dim-bar-fill fill-amber" id="dimConsistencyBar" style="width: 100%"></div>
-                </div>
-                <span class="dim-subtext">Uniform casing, untrimmed whitespace, and type purity.</span>
-              </div>
-            </div>
-          </div>
-
-          <!-- Issue Summary Deck -->
-          <div class="card glass overview-card">
-            <div class="card-header-row">
-              <div>
-                <h3 class="card-header-title">Issue Severity Summary</h3>
-                <p class="card-header-sub">Actionable flags requiring review or data remediation</p>
-              </div>
-              <button class="btn btn-primary btn-xs" id="btnGoToIssues">View All Issues &rarr;</button>
-            </div>
-
-            <div class="issues-summary-boxes">
-              <div class="issue-summary-box crit-box">
-                <div class="is-box-header">
-                  <span class="is-dot red"></span>
-                  <span class="is-title">Critical Issues</span>
-                </div>
-                <div class="is-number" id="overviewCritCount">0</div>
-                <p class="is-desc">Severe missing data (&gt;50%), broken types, or malformed formats.</p>
-              </div>
-
-              <div class="issue-summary-box warn-box">
-                <div class="is-box-header">
-                  <span class="is-dot amber"></span>
-                  <span class="is-title">Warnings</span>
-                </div>
-                <div class="is-number" id="overviewWarnCount">0</div>
-                <p class="is-desc">Missing values, negative values, casing variance, or duplicates.</p>
-              </div>
-
-              <div class="issue-summary-box pass-box">
-                <div class="is-box-header">
-                  <span class="is-dot green"></span>
-                  <span class="is-title">Passed Checks</span>
-                </div>
-                <div class="is-number" id="overviewPassCount">0</div>
-                <p class="is-desc">Data rules and formatting constraints satisfied cleanly.</p>
-              </div>
-            </div>
-
-            <div class="quick-recommendation-box" id="overviewRecommendationBox">
-              <strong>💡 Top Recommendation:</strong>
-              <span id="overviewTopRec">Everything looks clean and ready for downstream pipelines.</span>
-            </div>
-          </div>
-
-        </div>
-
-        <!-- Ingest Drop Zone -->
-        <div class="drop-zone card glass" id="dropZone">
-          <div class="drop-zone-icon">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-              <polyline points="14 2 14 8 20 8"></polyline>
-              <line x1="12" y1="18" x2="12" y2="12"></line>
-              <line x1="9" y1="15" x2="12" y2="12"></line>
-              <line x1="15" y1="15" x2="12" y2="12"></line>
-            </svg>
-          </div>
-          <div class="drop-zone-content">
-            <h3>Drop any CSV or TSV file to scan instantly</h3>
-            <p>or <button type="button" class="link-btn" id="browseBtn">browse local file</button> from your system</p>
-            <div class="drop-zone-meta">Zero upload to external servers &bull; Instant local profiling</div>
-          </div>
-        </div>
-
-      </section>
-
-
-      <!-- ========================================================
-           VIEW 2: ISSUES CENTER
-      ======================================================== -->
-      <section id="viewIssues" class="app-view">
-        <div class="issues-center-header">
-          <div>
-            <h2 class="view-title">Data Quality Issues Center</h2>
-            <p class="view-subtitle">Detailed audit of all detected quality anomalies, rule violations, and remediation steps</p>
-          </div>
-          <div class="issues-stats-pills">
-            <span class="pill-stat crit" id="pillCrit">0 Critical</span>
-            <span class="pill-stat warn" id="pillWarn">0 Warnings</span>
-            <span class="pill-stat info" id="pillInfo">0 Info</span>
-          </div>
-        </div>
-
-        <!-- Issues Filter & Search Bar -->
-        <div class="issues-toolbar card glass">
-          <div class="filter-pills-group">
-            <button class="filter-pill active" data-severity="all">All (<span id="cntFilterAll">0</span>)</button>
-            <button class="filter-pill" data-severity="CRITICAL">Critical (<span id="cntFilterCrit">0</span>)</button>
-            <button class="filter-pill" data-severity="WARNING">Warning (<span id="cntFilterWarn">0</span>)</button>
-            <button class="filter-pill" data-severity="INFO">Info (<span id="cntFilterInfo">0</span>)</button>
-            <button class="filter-pill" data-severity="RESOLVED">Resolved (0)</button>
-          </div>
-
-          <div class="issues-search-sort">
-            <div class="search-input-wrap">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input type="text" id="issuesSearchInput" placeholder="Search issues, rules, columns..." />
-            </div>
-            
-            <div class="sort-select-wrap">
-              <label for="issuesSortSelect">Sort by:</label>
-              <select id="issuesSortSelect" class="form-select-sm">
-                <option value="severity">Severity (High to Low)</option>
-                <option value="affected_rows">Affected Rows (Desc)</option>
-                <option value="affected_pct">Percentage (Desc)</option>
-                <option value="column">Column (A-Z)</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <!-- Issues List Grid -->
-        <div class="issues-cards-list" id="issuesCardsContainer"></div>
-      </section>
-
-
-      <!-- ========================================================
-           VIEW 3: COLUMNS PROFILING
-      ======================================================== -->
-      <section id="viewColumns" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Column Profiles & Schema Intelligence</h2>
-            <p class="view-subtitle">Per-column deep statistics, distributions, and cardinality analysis. Click any column for full detail.</p>
-          </div>
-          
-          <div class="column-view-toggles">
-            <div class="search-input-wrap">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-              </svg>
-              <input type="text" id="columnSearchInput" placeholder="Filter columns..." />
-            </div>
-            <select id="columnSortSelect" class="form-select-sm">
-              <option value="order">Original Order</option>
-              <option value="nulls-desc">Highest Nulls First</option>
-              <option value="score-asc">Lowest Health First</option>
-              <option value="unique-desc">Highest Cardinality</option>
-              <option value="name-asc">Alphabetical (A-Z)</option>
-            </select>
-          </div>
-        </div>
-
-        <!-- Columns Grid -->
-        <div class="columns-cards-grid" id="columnsGrid"></div>
-
-        <!-- Summary Matrix Table -->
-        <div class="card glass table-card mt-6">
-          <div class="card-header-row mb-3">
-            <h3 class="card-header-title">Columns Summary Matrix Table</h3>
-            <span class="preview-subtitle" id="matrixColCountText">All columns overview</span>
-          </div>
-          <div class="table-responsive">
-            <table class="data-quality-table">
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Column Name</th>
-                  <th>Inferred Type</th>
-                  <th>Nulls</th>
-                  <th>Null %</th>
-                  <th>Unique</th>
-                  <th>Duplicates</th>
-                  <th>Key Statistics / Top Values</th>
-                  <th>Health</th>
-                  <th>Action</th>
-                </tr>
-              </thead>
-              <tbody id="matrixTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ========================================================
-           VIEW 4: DATA PREVIEW & CELL DIAGNOSTICS
-      ======================================================== -->
-      <section id="viewDataPreview" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Data Grid Preview</h2>
-            <p class="view-subtitle">Interactive grid with highlighted problematic cells. Click any highlighted cell to view diagnostic details.</p>
-          </div>
-          <div class="preview-legend">
-            <span class="legend-item"><span class="legend-dot red"></span> Missing / Null</span>
-            <span class="legend-item"><span class="legend-dot amber"></span> Anomaly / Format</span>
-            <span class="legend-item"><span class="legend-dot purple"></span> Outlier</span>
-          </div>
-        </div>
-
-        <div class="card glass table-card">
-          <div class="preview-header-bar">
-            <div class="preview-title">
-              <strong id="previewGridFileName">ecommerce_orders.csv</strong>
-              <span class="preview-subtitle" id="previewSubTitle">Showing first 50 rows</span>
-            </div>
-            <div class="preview-search-wrap">
-              <input type="text" id="gridSearchInput" placeholder="Filter rows in grid..." class="form-input-sm" />
-            </div>
-          </div>
-          <div class="table-responsive" style="max-height: 540px; overflow-y: auto;">
-            <table class="data-preview-table" id="dataPreviewTable">
-              <thead id="previewTableHead"></thead>
-              <tbody id="previewTableBody"></tbody>
-            </table>
-          </div>
-        </div>
-      </section>
-
-
-      <!-- ========================================================
-           VIEW 5: SMART EDA & VISUAL ANALYTICS (PREMIUM REDESIGN)
-      ======================================================== -->
-      <section id="viewSmartEda" class="app-view">
-        
-        <!-- Smart EDA Header Bar -->
-        <div class="eda-header-card card glass">
-          <div class="eda-header-left">
-            <div class="eda-title-block">
-              <span class="eda-badge-label">PYTHON VISUAL ANALYTICS</span>
-              <h2 class="view-title">Smart EDA</h2>
-              <p class="view-subtitle">Automated exploratory analysis of your dataset</p>
-            </div>
-            <div class="eda-header-meta-chips">
-              <div class="eda-meta-chip">Dataset: <strong id="edaDatasetNameChip">ecommerce_orders.csv</strong></div>
-              <div class="eda-meta-chip">Rows: <strong id="edaRowsChip">12,430</strong></div>
-              <div class="eda-meta-chip">Cols: <strong id="edaColsChip">18</strong></div>
-              <div class="eda-meta-chip highlight" id="edaActiveTargetChip">Target: <strong>churned</strong></div>
-            </div>
-          </div>
-
-          <div class="eda-header-right">
-            <div class="eda-mode-pill-toggle">
-              <button class="eda-mode-btn active" id="btnModeSmart" data-mode="smart">● Smart Report</button>
-              <button class="eda-mode-btn" id="btnModeManual" data-mode="manual">○ Manual Studio</button>
-            </div>
-            <div class="eda-actions-group">
-              <button class="btn btn-outline btn-sm" id="btnOpenEdaConfig" title="Configure Targets & Features">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <circle cx="12" cy="12" r="3"></circle>
-                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                </svg>
-                <span>Select Targets & Features</span>
-              </button>
-              <button class="btn btn-primary btn-sm" id="btnGenerateEda">
-                <span>⚡ Regenerate Analysis</span>
-              </button>
-              <button class="btn btn-secondary btn-sm" id="btnExportEdaReport" title="Download standalone Jupyter/Seaborn styled report">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
-                </svg>
-                <span>Generate Python EDA Report</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Target Selector Tabs (for Multi-Target datasets) -->
-        <div class="eda-target-tabs-bar" id="edaTargetTabsBar" style="display: none;">
-          <span class="tabs-label">🎯 Active Target:</span>
-          <div class="target-tabs-list" id="edaTargetTabsList"></div>
-        </div>
-
-        <!-- ================= SMART ANALYSIS REPORT CONTAINER ================= -->
-        <div id="edaSmartAnalysisContainer" class="eda-sub-container">
-
-          <!-- 1. Executive Summary KPI Row -->
-          <div class="eda-executive-summary" id="edaExecutiveSummary">
-            <!-- 8 compact KPI cards generated by app.js -->
-          </div>
-
-          <!-- 2. Target Analysis Section (Primary Analytical Section) -->
-          <div class="card glass eda-section-card" id="edaTargetSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">PRIMARY ANALYTICS</span>
-                <h3 class="eda-section-title">TARGET ANALYSIS</h3>
-                <p class="eda-section-subtitle" id="edaTargetSubtitle">Target distribution & class breakdown</p>
-              </div>
-              <div class="eda-target-meta-badges" id="edaTargetMetaBadges"></div>
-            </div>
-            
-            <div class="eda-target-content-layout" id="edaTargetContentLayout">
-              <!-- Target distribution chart & class statistics populated by app.js -->
-            </div>
-          </div>
-
-          <!-- 3. Key Insights Section -->
-          <div class="card glass eda-section-card" id="edaKeyInsightsSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">STATISTICAL SYNTHESIS</span>
-                <h3 class="eda-section-title">KEY INSIGHTS</h3>
-                <p class="eda-section-subtitle">Non-causal statistical observations across distributions, correlations, and target associations</p>
-              </div>
-              <span class="badge-pill" id="edaInsightsCountBadge">4 Key Insights</span>
-            </div>
-            <div class="eda-insights-numbered-grid" id="edaInsightsContainer">
-              <!-- Numbered 01, 02, 03 insight cards populated by app.js -->
-            </div>
-          </div>
-
-          <!-- 4. Feature vs Target Relationships (2-column desktop grid) -->
-          <div class="card glass eda-section-card" id="edaFeatureRelationshipsSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">BIVARIATE ASSOCIATIONS</span>
-                <h3 class="eda-section-title">FEATURE RELATIONSHIPS</h3>
-                <p class="eda-section-subtitle" id="edaFeatureRelSubtitle">Feature associations and class breakdowns against selected target outcome</p>
-              </div>
-              <span class="badge-pill" id="edaBivariateCountBadge">4 Relationships</span>
-            </div>
-            <div class="eda-bivariate-grid" id="edaTargetChartsGrid">
-              <!-- 2-column Seaborn-styled bivariate charts populated by app.js -->
-            </div>
-          </div>
-
-          <!-- 5. Numerical Distributions -->
-          <div class="card glass eda-section-card" id="edaNumericalDistributionsSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">CONTINUOUS DISTRIBUTIONS</span>
-                <h3 class="eda-section-title">NUMERICAL DISTRIBUTIONS</h3>
-                <p class="eda-section-subtitle">Histograms, 5-number box plots, and continuous statistical moments</p>
-              </div>
-              <button class="btn btn-outline btn-xs" id="btnToggleAllNumCharts">Show All Numerical Features</button>
-            </div>
-            <div class="eda-distributions-grid" id="edaNumericalGrid">
-              <!-- 2-column compact numerical distribution cards populated by app.js -->
-            </div>
-          </div>
-
-          <!-- 6. Categorical Distributions -->
-          <div class="card glass eda-section-card" id="edaCategoricalDistributionsSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">DISCRETE FREQUENCIES</span>
-                <h3 class="eda-section-title">CATEGORICAL DISTRIBUTIONS</h3>
-                <p class="eda-section-subtitle">Horizontal frequency breakdowns across discrete category levels</p>
-              </div>
-              <button class="btn btn-outline btn-xs" id="btnToggleAllCatCharts">Show All Categorical Features</button>
-            </div>
-            <div class="eda-distributions-grid" id="edaCategoricalGrid">
-              <!-- 2-column compact horizontal bar charts populated by app.js -->
-            </div>
-          </div>
-
-          <!-- 7. Correlation Analysis -->
-          <div class="card glass eda-section-card" id="edaCorrelationSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">MULTIVARIATE MATRIX</span>
-                <h3 class="eda-section-title">CORRELATION ANALYSIS</h3>
-                <p class="eda-section-subtitle">Pairwise Pearson linear correlation (r) and Spearman rank correlation (ρ)</p>
-              </div>
-              <span class="badge-pill">Diverging [-1.0 ... +1.0]</span>
-            </div>
-            
-            <div class="eda-correlation-layout">
-              <div class="eda-heatmap-centered-box" id="edaHeatmapVisual">
-                <!-- Centered square heatmap SVG generated by app.js -->
-              </div>
-
-              <div class="eda-correlation-tables-row">
-                <div class="eda-corr-table-card">
-                  <div class="corr-table-header positive">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                    <span>Strongest Positive Relationships</span>
-                  </div>
-                  <table class="data-quality-table compact-table">
-                    <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
-                    <tbody id="edaPosCorrelationsBody"></tbody>
-                  </table>
-                </div>
-
-                <div class="eda-corr-table-card">
-                  <div class="corr-table-header negative">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
-                    <span>Strongest Negative / Inverse Relationships</span>
-                  </div>
-                  <table class="data-quality-table compact-table">
-                    <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
-                    <tbody id="edaNegCorrelationsBody"></tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- 8. Outlier Analysis -->
-          <div class="card glass eda-section-card" id="edaOutlierSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">ANOMALY AUDIT</span>
-                <h3 class="eda-section-title">OUTLIER ANALYSIS</h3>
-                <p class="eda-section-subtitle">Statistical outlier summary based on 1.5× Interquartile Range (IQR)</p>
-              </div>
-              <button class="btn btn-outline btn-xs" id="btnToggleOutlierPlots">Toggle Outlier Box Plots</button>
-            </div>
-            <div class="table-responsive">
-              <table class="data-quality-table">
-                <thead><tr><th>Feature</th><th>Outliers Count</th><th>Percentage</th><th>IQR Range</th><th>Min Boundary</th><th>Max Boundary</th><th>Status</th></tr></thead>
-                <tbody id="edaOutlierTableBody"></tbody>
-              </table>
-            </div>
-            <div class="eda-outlier-charts-grid mt-3" id="edaOutlierChartsGrid" style="display: none;"></div>
-          </div>
-
-          <!-- 9. Missing Data Analysis -->
-          <div class="card glass eda-section-card" id="edaMissingnessSection">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">COMPLETENESS PROFILING</span>
-                <h3 class="eda-section-title">MISSING DATA ANALYSIS</h3>
-                <p class="eda-section-subtitle">Per-feature null count and missingness proportion across dataset records</p>
-              </div>
-            </div>
-            <div class="eda-missingness-layout" id="edaMissingnessContent">
-              <!-- Clean horizontal bars populated by app.js -->
-            </div>
-          </div>
-
-        </div>
-
-        <!-- ================= MANUAL EXPLORATION STUDIO SUB-VIEW ================= -->
-        <div id="edaManualExplorationContainer" class="eda-sub-container" style="display: none;">
-          <div class="card glass eda-section-card">
-            <div class="eda-card-header-banner">
-              <div>
-                <span class="eda-section-tag">CUSTOM STUDIO</span>
-                <h3 class="eda-section-title">INTERACTIVE MANUAL CHART BUILDER</h3>
-                <p class="eda-section-subtitle">Custom bivariate, multivariate, and distribution visual explorer</p>
-              </div>
-            </div>
-
-            <div class="manual-builder-toolbar mt-3">
-              <div class="builder-select-item">
-                <label>Chart Type:</label>
-                <select id="builderChartType" class="form-select-sm">
-                  <option value="scatter">Scatter Plot & Trend</option>
-                  <option value="bar">Bar Chart</option>
-                  <option value="histogram">Histogram Distribution</option>
-                  <option value="boxplot">Box Plot</option>
-                  <option value="line">Line / Trend Chart</option>
-                  <option value="stackedbar">Stacked Bar Chart</option>
-                  <option value="pie">Pie / Donut Chart</option>
-                </select>
-              </div>
-
-              <div class="builder-select-item">
-                <label>X-Axis Feature:</label>
-                <select id="builderXAxis" class="form-select-sm"></select>
-              </div>
-
-              <div class="builder-select-item">
-                <label>Y-Axis Feature:</label>
-                <select id="builderYAxis" class="form-select-sm"></select>
-              </div>
-
-              <div class="builder-select-item">
-                <label>Color / Group By:</label>
-                <select id="builderColorBy" class="form-select-sm"></select>
-              </div>
-
-              <button class="btn btn-primary btn-sm" id="btnRenderManualChart">Render Chart</button>
-            </div>
-
-            <div class="manual-chart-display-card mt-3" id="manualChartContainer">
-              <div class="chart-empty-placeholder">Select features and click "Render Chart" to generate visual analytics.</div>
-            </div>
-          </div>
-        </div>
-
-      </section>
-
-      <!-- Target & Feature Configuration Modal -->
-      <div class="modal-overlay" id="edaConfigModal">
-        <div class="modal-card modal-lg">
-          <div class="modal-header">
-            <div>
-              <h3 class="card-header-title">Configure Target & Feature Columns</h3>
-              <p class="modal-subtitle">Select target outcomes and filter analytical features for Smart EDA</p>
-            </div>
-            <button class="btn-close" id="closeEdaConfigModal">&times;</button>
-          </div>
-          <div class="modal-body">
-            <div class="eda-config-modal-grid">
-              
-              <!-- Targets Column -->
-              <div class="eda-modal-col">
-                <div class="eda-modal-col-header">
-                  <strong>Target Columns (Multi-select)</strong>
-                  <div class="target-quick-btns">
-                    <button class="btn btn-outline btn-xs" id="btnEdaAutoDetect">⚡ Auto Detect</button>
-                    <button class="btn btn-outline btn-xs" id="btnEdaNoTarget">No Target</button>
-                  </div>
-                </div>
-                <div class="target-suggestion-alert mb-2" id="targetSuggestionBox">
-                  <span id="targetSuggestionText">Suggested Target: <strong>status</strong></span>
-                </div>
-                <div class="checkbox-options-scroll" id="edaTargetCheckboxes"></div>
-                <div class="problem-type-pill mt-2" id="edaProblemTypeBadge">
-                  Problem Type: <strong>Binary Classification</strong>
-                </div>
-              </div>
-
-              <!-- Features Column -->
-              <div class="eda-modal-col">
-                <div class="eda-modal-col-header">
-                  <strong>Feature Columns</strong>
-                  <div class="feature-quick-btns">
-                    <button class="btn btn-outline btn-xs" id="btnEdaSelectAllFeatures">All</button>
-                    <button class="btn btn-outline btn-xs" id="btnEdaAutoFeatures">Auto (Exclude IDs)</button>
-                    <button class="btn btn-outline btn-xs" id="btnEdaClearFeatures">Clear</button>
-                  </div>
-                </div>
-                <div class="search-input-wrap mb-2">
-                  <input type="text" id="edaFeatureFilterInput" placeholder="Filter feature names..." style="width: 100%;" />
-                </div>
-                <div class="checkbox-options-scroll" id="edaFeatureCheckboxes"></div>
-              </div>
-
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button class="btn btn-secondary btn-sm" id="cancelEdaConfigBtn">Cancel</button>
-            <button class="btn btn-primary btn-sm" id="applyEdaConfigBtn">Apply & Regenerate</button>
-          </div>
-        </div>
-      </div>
-
-
-      <!-- ========================================================
-           VIEW 6: DATA CLEANING RECIPES
-      ======================================================== -->
-      <section id="viewCleaning" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Data Cleaning & Remediation Hub</h2>
-            <p class="view-subtitle">Apply automated cleaning recipes to resolve detected anomalies and download the sanitized dataset.</p>
-          </div>
-          <button class="btn btn-primary btn-sm" id="btnExportCleanedCsv">
+          <button class="btn btn-primary btn-sm header-export-btn" id="btnExportModal" title="Export Reports & Data">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
             </svg>
-            <span>Download Cleaned Dataset</span>
+            <span>Export Report</span>
           </button>
+
+          <button class="btn btn-icon header-theme-toggle" id="themeToggle" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <svg class="icon-sun" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+            <svg class="icon-moon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+            </svg>
+          </button>
+
+          <div class="user-avatar" title="Data Sarthi User Session">A</div>
         </div>
+      </header>
 
-        <div class="cleaning-grid">
+      <!-- Main Views Container -->
+      <main class="main-container">
+
+        <!-- ========================================================
+             VIEW 1: OVERVIEW DASHBOARD (MATCHES REFERENCE IMAGE 2)
+        ======================================================== -->
+        <section id="viewOverview" class="app-view active">
           
-          <div class="cleaning-recipes-panel card glass">
-            <h3 class="card-header-title mb-3">Available Cleaning Recipes</h3>
-            
-            <div class="recipes-list">
-              <div class="recipe-item active">
-                <input type="checkbox" id="chkTrim" checked />
-                <div class="recipe-item-body">
-                  <strong>1. Trim Whitespace & Fix Empty Strings</strong>
-                  <p>Strip leading/trailing spaces, replace literal "null"/"nan" with genuine nulls.</p>
-                </div>
-              </div>
-
-              <div class="recipe-item active">
-                <input type="checkbox" id="chkCasing" checked />
-                <div class="recipe-item-body">
-                  <strong>2. Standardize Categorical Casing</strong>
-                  <p>Harmonize mixed casing ("Completed", "completed", "eur", "EUR") to titlecase/standard.</p>
-                </div>
-              </div>
-
-              <div class="recipe-item active">
-                <input type="checkbox" id="chkDedupe" checked />
-                <div class="recipe-item-body">
-                  <strong>3. Deduplicate Identical Rows</strong>
-                  <p>Detect and eliminate duplicate rows with matching business identifiers.</p>
-                </div>
-              </div>
-
-              <div class="recipe-item">
-                <input type="checkbox" id="chkImpute" />
-                <div class="recipe-item-body">
-                  <strong>4. Impute Missing Numeric Values</strong>
-                  <p>Fill null numeric cells with median or column mean.</p>
-                </div>
+          <!-- Hero Section (Matches Reference Image 2) -->
+          <div class="hero-card card" id="heroBanner">
+            <div class="hero-left">
+              <div class="hero-tag-badge">DATA SARTHI</div>
+              <h2 class="hero-title">From Raw Data to<br /><span class="hero-highlight">Actionable Insights</span></h2>
+              <p class="hero-subtitle">Automated data quality scoring, intelligent issue detection, smart EDA and cleaning — in milliseconds, not minutes.</p>
+              
+              <div class="hero-actions">
+                <button class="btn btn-primary" id="heroUploadBtn">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                  </svg>
+                  <span>Upload CSV</span>
+                </button>
+                <button class="btn btn-ghost" id="heroSampleBtn">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                  </svg>
+                  <span>View Sample</span>
+                </button>
               </div>
             </div>
 
-            <button class="btn btn-secondary btn-sm w-full mt-4" id="btnApplyCleaning">
-              <span>Preview Cleaned Output</span>
-            </button>
+            <div class="hero-right">
+              <div class="hero-feature-matrix">
+                <div class="hero-feat-item">
+                  <div class="feat-icon emerald">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg>
+                  </div>
+                  <div class="feat-info">
+                    <strong>Data Quality Scoring</strong>
+                    <span>Instant health assessment</span>
+                  </div>
+                </div>
+
+                <div class="hero-feat-item">
+                  <div class="feat-icon purple">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <line x1="18" y1="20" x2="18" y2="10"></line>
+                      <line x1="12" y1="20" x2="12" y2="4"></line>
+                      <line x1="6" y1="20" x2="6" y2="14"></line>
+                    </svg>
+                  </div>
+                  <div class="feat-info">
+                    <strong>Smart EDA</strong>
+                    <span>AI-powered insights</span>
+                  </div>
+                </div>
+
+                <div class="hero-feat-item">
+                  <div class="feat-icon amber">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                      <line x1="12" y1="9" x2="12" y2="13"></line>
+                      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                    </svg>
+                  </div>
+                  <div class="feat-info">
+                    <strong>Issue Detection</strong>
+                    <span>Find &amp; fix data problems</span>
+                  </div>
+                </div>
+
+                <div class="hero-feat-item">
+                  <div class="feat-icon blue">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                      <circle cx="12" cy="12" r="3"></circle>
+                      <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                  </div>
+                  <div class="feat-info">
+                    <strong>Automated Cleaning</strong>
+                    <span>Get production-ready data</span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
 
-          <div class="cleaning-preview-panel card glass">
-            <div class="card-header-row mb-3">
-              <h3 class="card-header-title">Cleaned Data Preview</h3>
-              <span class="badge-health good" id="cleaningStatusBadge">Remediations Ready</span>
+          <!-- Quick Preset Switcher Banner -->
+          <div class="preset-banner card">
+            <div class="preset-left">
+              <span class="preset-label">ACTIVE DATASET:</span>
+              <strong id="overviewFileName">ecommerce_orders.csv</strong>
+              <span class="preset-size" id="overviewFileSize">(2.4 KB)</span>
             </div>
-            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-              <table class="data-preview-table">
-                <thead id="cleaningTableHead"></thead>
-                <tbody id="cleaningTableBody"></tbody>
+            <div class="preset-right">
+              <span class="preset-sub">QUICK SWITCH PRESETS:</span>
+              <div class="preset-buttons-group">
+                <button class="sample-btn-sm active" data-sample="ecommerce_orders">🛒 Orders</button>
+                <button class="sample-btn-sm" data-sample="customer_churn">📊 SaaS Churn</button>
+                <button class="sample-btn-sm" data-sample="patient_clinical">🏥 Clinical Vitals</button>
+                <button class="sample-btn-sm" id="btnOpenPaste">📋 Paste CSV</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- High-level KPI Row (Matches Reference Image 2) -->
+          <div class="kpi-grid">
+            
+            <!-- Quality Score Card with Transparency Button -->
+            <div class="kpi-card score-card">
+              <div class="score-left">
+                <div class="radial-progress">
+                  <svg class="radial-ring" viewBox="0 0 36 36">
+                    <path class="ring-bg" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                    <path id="scoreProgressPath" class="ring-fill" stroke-dasharray="95, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" />
+                  </svg>
+                  <div class="score-number-wrap">
+                    <span class="score-val" id="kpiScore">95</span>
+                    <span class="score-unit">/100</span>
+                  </div>
+                </div>
+              </div>
+              <div class="score-right">
+                <div class="score-title-row">
+                  <span class="kpi-tag tag-emerald" id="scoreRatingTag">EXCELLENT QUALITY</span>
+                  <button class="btn-text-link" id="btnWhyScore">Why this score? ⓘ</button>
+                </div>
+                <h3 class="kpi-title">Data Health Score</h3>
+                <p class="kpi-desc" id="scoreVerdict">Minimal nulls and high structural integrity.</p>
+              </div>
+            </div>
+
+            <!-- Dataset Dimensions -->
+            <div class="kpi-card">
+              <div class="kpi-icon icon-purple">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
+                  <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path>
+                  <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-val-group">
+                  <span class="kpi-main-val" id="kpiRows">1,234,567</span>
+                  <span class="kpi-sub-text">rows</span>
+                </div>
+                <div class="kpi-sub-info">
+                  <span id="kpiCols">32</span> columns
+                </div>
+                <div class="kpi-footer-text" id="kpiTotalCells">39,506,144 total cells analyzed</div>
+              </div>
+            </div>
+
+            <!-- Missing Values / Completeness -->
+            <div class="kpi-card">
+              <div class="kpi-icon icon-amber">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="8" x2="12" y2="12"></line>
+                  <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-val-group">
+                  <span class="kpi-main-val text-amber" id="kpiNullPct">0.8%</span>
+                  <span class="kpi-sub-text">missing values</span>
+                </div>
+                <div class="kpi-sub-info">
+                  <span id="kpiNulls">3,421</span> missing cells
+                </div>
+                <div class="kpi-footer-text" id="kpiCleanCols">0 clean columns</div>
+              </div>
+            </div>
+
+            <!-- Issue Counts (Clickable to jump to Issues) -->
+            <div class="kpi-card clickable-card" id="cardGoToIssues" title="Click to view all issues">
+              <div class="kpi-icon icon-rose">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                  <line x1="12" y1="9" x2="12" y2="13"></line>
+                  <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+              </div>
+              <div class="kpi-body">
+                <div class="kpi-val-group">
+                  <span class="kpi-main-val text-rose" id="kpiIssues">12</span>
+                  <span class="kpi-sub-text">total issues</span>
+                </div>
+                <div class="kpi-sub-info" id="kpiIssueBreakdown">
+                  2 critical &bull; 10 warnings
+                </div>
+                <div class="kpi-footer-link">
+                  <span>Explore Issues Center</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Middle Row 1: Quality Dimensions Breakdown + Why Data Sarthi is Faster -->
+          <div class="overview-dual-grid">
+            
+            <!-- Quality Breakdown (4 Dimensions) -->
+            <div class="card overview-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 class="card-header-title">Quality Dimensions Breakdown</h3>
+                  <p class="card-header-sub">Core pillars powering the overall Health Score formula.</p>
+                </div>
+                <span class="badge-pill">4 Core Pillars</span>
+              </div>
+
+              <div class="dimensions-list">
+                <div class="dimension-row clickable-dim" data-dim="completeness">
+                  <div class="dim-info">
+                    <div class="dim-name-wrap">
+                      <strong>Completeness</strong>
+                      <span class="dim-weight">(35% weight)</span>
+                    </div>
+                    <div class="dim-right-wrap">
+                      <span class="dim-val" id="dimCompletenessVal">96%</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                  </div>
+                  <div class="dim-bar-track">
+                    <div class="dim-bar-fill fill-emerald" id="dimCompletenessBar" style="width: 96%"></div>
+                  </div>
+                  <span class="dim-subtext">Absence of nulls, empty strings, and missing values.</span>
+                </div>
+
+                <div class="dimension-row clickable-dim" data-dim="validity">
+                  <div class="dim-info">
+                    <div class="dim-name-wrap">
+                      <strong>Validity</strong>
+                      <span class="dim-weight">(30% weight)</span>
+                    </div>
+                    <div class="dim-right-wrap">
+                      <span class="dim-val" id="dimValidityVal">94%</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                  </div>
+                  <div class="dim-bar-track">
+                    <div class="dim-bar-fill fill-purple" id="dimValidityBar" style="width: 94%"></div>
+                  </div>
+                  <span class="dim-subtext">Correct data types, valid formats and ranges.</span>
+                </div>
+
+                <div class="dimension-row clickable-dim" data-dim="uniqueness">
+                  <div class="dim-info">
+                    <div class="dim-name-wrap">
+                      <strong>Uniqueness</strong>
+                      <span class="dim-weight">(20% weight)</span>
+                    </div>
+                    <div class="dim-right-wrap">
+                      <span class="dim-val" id="dimUniquenessVal">98%</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                  </div>
+                  <div class="dim-bar-track">
+                    <div class="dim-bar-fill fill-amber" id="dimUniquenessBar" style="width: 98%"></div>
+                  </div>
+                  <span class="dim-subtext">Minimal duplicate records and key collisions.</span>
+                </div>
+
+                <div class="dimension-row clickable-dim" data-dim="consistency">
+                  <div class="dim-info">
+                    <div class="dim-name-wrap">
+                      <strong>Consistency</strong>
+                      <span class="dim-weight">(15% weight)</span>
+                    </div>
+                    <div class="dim-right-wrap">
+                      <span class="dim-val" id="dimConsistencyVal">92%</span>
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                    </div>
+                  </div>
+                  <div class="dim-bar-track">
+                    <div class="dim-bar-fill fill-rose" id="dimConsistencyBar" style="width: 92%"></div>
+                  </div>
+                  <span class="dim-subtext">Uniform casing, whitespace and category consistency.</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- "Why Data Sarthi is Faster" Real-World Benchmark Card (Matches Image 2) -->
+            <div class="card overview-card benchmark-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 class="card-header-title">Why Data Sarthi is Faster</h3>
+                  <p class="card-header-sub">Real-world comparison on the same dataset</p>
+                </div>
+                <span class="badge-pill badge-purple" id="benchmarkTimeSavedBadge">⏱️ Time saved per export: -1.85 seconds</span>
+              </div>
+
+              <div class="benchmark-comparison-grid">
+                
+                <!-- Left: Pandas (Manual Check) -->
+                <div class="bench-column bench-pandas">
+                  <div class="bench-col-header">
+                    <div class="bench-icon python-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M12 2a5 5 0 0 0-5 5v2h10V7a5 5 0 0 0-5-5z"></path>
+                        <path d="M7 9v6a5 5 0 0 0 5 5 5 5 0 0 0 5-5V9H7z"></path>
+                      </svg>
+                    </div>
+                    <div>
+                      <strong>Pandas (Manual Check)</strong>
+                    </div>
+                  </div>
+                  <div class="bench-stat-val" id="pandasTimeVal">2,000 milliseconds</div>
+                  <div class="bench-progress-bar">
+                    <div class="bench-bar-fill pandas-fill" style="width: 100%;"></div>
+                  </div>
+                  <div class="bench-meta-row">
+                    <div class="bench-meta-item">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect></svg>
+                      <span id="pandasMemVal">~300 MB memory</span>
+                    </div>
+                    <div class="bench-meta-item">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line></svg>
+                      <span>Finds: Column is 70% null</span>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="bench-vs-divider">
+                  <span>VS</span>
+                </div>
+
+                <!-- Right: Data Sarthi (Smart Scan) -->
+                <div class="bench-column bench-sarthi">
+                  <div class="bench-col-header">
+                    <div class="bench-icon sarthi-icon">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="20" x2="18" y2="10"></line>
+                        <line x1="12" y1="20" x2="12" y2="4"></line>
+                        <line x1="6" y1="20" x2="6" y2="14"></line>
+                      </svg>
+                    </div>
+                    <div>
+                      <strong>Data Sarthi (Smart Scan)</strong>
+                    </div>
+                  </div>
+                  <div class="bench-stat-val text-purple" id="dsTimeVal">150 milliseconds</div>
+                  <div class="bench-progress-bar">
+                    <div class="bench-bar-fill sarthi-fill" style="width: 12%;"></div>
+                  </div>
+                  <div class="bench-meta-row">
+                    <div class="bench-meta-item">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect></svg>
+                      <span id="dsMemVal">~25 MB memory</span>
+                    </div>
+                    <div class="bench-meta-item">
+                      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 14 14"></polyline></svg>
+                      <span>Finds: Column is 70% null</span>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Benchmark Quote Callout (Matches Image 2) -->
+              <div class="benchmark-quote-box">
+                <div class="bench-bolt-icon">⚡</div>
+                <div class="bench-quote-text">
+                  <strong>Pandas takes ~2 seconds and ~300 MB to tell you a column is 70% null. Data Sarthi takes 150 ms and tells you the same thing.</strong>
+                  <p>When you open 20 exports a day, that difference is the difference between doing it and skipping it.</p>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+
+          <!-- Middle Row 2: Issue Severity Summary + Execution Summary (Matches Image 2) -->
+          <div class="overview-dual-grid">
+            
+            <!-- Issue Severity Summary Deck -->
+            <div class="card overview-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 class="card-header-title">Issue Severity Summary</h3>
+                  <p class="card-header-sub">Actionable flags requiring review or data remediation</p>
+                </div>
+                <button class="btn btn-primary btn-xs" id="btnGoToIssues">View All Issues &rarr;</button>
+              </div>
+
+              <div class="issues-summary-boxes">
+                <div class="issue-summary-box crit-box">
+                  <div class="is-box-header">
+                    <span class="is-dot red"></span>
+                    <span class="is-title">Critical Issues</span>
+                  </div>
+                  <div class="is-number" id="overviewCritCount">2</div>
+                  <p class="is-desc">Severe data problems requiring immediate attention.</p>
+                </div>
+
+                <div class="issue-summary-box warn-box">
+                  <div class="is-box-header">
+                    <span class="is-dot amber"></span>
+                    <span class="is-title">Warnings</span>
+                  </div>
+                  <div class="is-number" id="overviewWarnCount">10</div>
+                  <p class="is-desc">Potential data quality issues to review.</p>
+                </div>
+
+                <div class="issue-summary-box pass-box">
+                  <div class="is-box-header">
+                    <span class="is-dot green"></span>
+                    <span class="is-title">Passed Checks</span>
+                  </div>
+                  <div class="is-number" id="overviewPassCount">48</div>
+                  <p class="is-desc">Data rules and formatting constraints satisfied.</p>
+                </div>
+              </div>
+
+              <div class="quick-recommendation-box" id="overviewRecommendationBox">
+                <strong>💡 Top Recommendation:</strong>
+                <span id="overviewTopRec">Everything looks clean and ready for downstream pipelines.</span>
+              </div>
+            </div>
+
+            <!-- Execution Summary Card (Matches Image 2) -->
+            <div class="card overview-card exec-summary-card">
+              <div class="card-header-row">
+                <div>
+                  <h3 class="card-header-title">Execution Summary</h3>
+                  <p class="card-header-sub">Processing performance and resource usage.</p>
+                </div>
+                <div class="exec-timestamp" id="execLastRunTimestamp">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                  <span>Last Run: Just now</span>
+                </div>
+              </div>
+
+              <div class="exec-metrics-grid">
+                
+                <div class="exec-metric-tile">
+                  <div class="exec-tile-icon emerald">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                  </div>
+                  <div class="exec-tile-body">
+                    <strong class="exec-tile-val" id="execScanTime">150 ms</strong>
+                    <span class="exec-tile-label">Complete analysis</span>
+                    <span class="exec-tile-sub" id="execScanRows">(1.2M rows)</span>
+                  </div>
+                </div>
+
+                <div class="exec-metric-tile">
+                  <div class="exec-tile-icon blue">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><line x1="8" y1="6" x2="16" y2="6"></line><line x1="8" y1="10" x2="16" y2="10"></line></svg>
+                  </div>
+                  <div class="exec-tile-body">
+                    <strong class="exec-tile-val" id="execMemory">25 MB</strong>
+                    <span class="exec-tile-label">Peak memory usage</span>
+                    <span class="exec-tile-sub">In-memory buffer</span>
+                  </div>
+                </div>
+
+                <div class="exec-metric-tile">
+                  <div class="exec-tile-icon purple">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  </div>
+                  <div class="exec-tile-body">
+                    <strong class="exec-tile-val" id="execEdaTime">2.3 seconds</strong>
+                    <span class="exec-tile-label">Smart EDA insights</span>
+                    <span class="exec-tile-sub">(all columns)</span>
+                  </div>
+                </div>
+
+                <div class="exec-metric-tile">
+                  <div class="exec-tile-icon cyan">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                  </div>
+                  <div class="exec-tile-body">
+                    <strong class="exec-tile-val" id="execTotalTime">4.4 seconds</strong>
+                    <span class="exec-tile-label">Total runtime</span>
+                    <span class="exec-tile-sub">(end-to-end)</span>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Ingest Drop Zone (Matches Image 2) -->
+          <div class="drop-zone card" id="dropZone">
+            <div class="drop-zone-icon">
+              <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="12" y1="18" x2="12" y2="12"></line>
+                <line x1="9" y1="15" x2="12" y2="12"></line>
+                <line x1="15" y1="15" x2="12" y2="12"></line>
+              </svg>
+            </div>
+            <div class="drop-zone-content">
+              <h3>Drop your CSV, TSV or XLSX file here</h3>
+              <p>or <button type="button" class="link-btn" id="browseBtn">browse files from your system</button></p>
+              <div class="drop-zone-pills">
+                <span class="drop-pill">📄 CSV, TSV, XLSX</span>
+                <span class="drop-pill">💾 Up to 1GB</span>
+                <span class="drop-pill">⚡ Instant Analysis</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 2: UPLOAD & INGESTION HUB
+        ======================================================== -->
+        <section id="viewUpload" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Dataset Ingestion & File Parser</h2>
+              <p class="view-subtitle">Upload any CSV, TSV, or XLSX dataset for zero-server client-side validation and automated profiling.</p>
+            </div>
+          </div>
+
+          <div class="upload-hub-grid">
+            <div class="upload-main-card card" id="uploadPageDropZone">
+              <div class="upload-illustration-wrap">
+                <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--accent-purple)" stroke-width="1.5">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                </svg>
+              </div>
+              <h3>Drag &amp; Drop Data File Here</h3>
+              <p>Supports .csv, .tsv, .txt, .xlsx, .xls formats with automatic delimiter detection.</p>
+              
+              <div class="upload-options-row">
+                <button class="btn btn-primary" id="btnPageUploadSelect">
+                  <span>Browse Local File</span>
+                </button>
+                <button class="btn btn-outline" id="btnPageOpenPaste">
+                  <span>Paste Raw CSV Text</span>
+                </button>
+              </div>
+
+              <div class="upload-features-list">
+                <div class="up-feat">🔒 100% In-Memory Privacy — Data never leaves your machine</div>
+                <div class="up-feat">⚡ Millisecond parse time with standard memory footprint</div>
+                <div class="up-feat">🔍 Automatic type inference across dates, currencies, and numeric categories</div>
+              </div>
+            </div>
+
+            <div class="upload-presets-card card">
+              <h3 class="card-header-title mb-2">Or Load a Curated Sample Dataset</h3>
+              <p class="card-header-sub mb-3">Pre-packaged enterprise datasets containing realistic issues, nulls, and target distributions:</p>
+              
+              <div class="sample-dataset-items-list">
+                <div class="sample-preset-box" data-sample="ecommerce_orders">
+                  <div class="preset-box-icon">🛒</div>
+                  <div class="preset-box-body">
+                    <strong>E-Commerce Order Operations</strong>
+                    <span>12,430 transactions &bull; Mixed currencies, missing amounts, cancelled orders</span>
+                  </div>
+                  <button class="btn btn-secondary btn-xs">Load</button>
+                </div>
+
+                <div class="sample-preset-box" data-sample="customer_churn">
+                  <div class="preset-box-icon">📊</div>
+                  <div class="preset-box-body">
+                    <strong>SaaS Customer Churn &amp; MRR</strong>
+                    <span>5,200 accounts &bull; Tenure, monthly charges, churn outcome target</span>
+                  </div>
+                  <button class="btn btn-secondary btn-xs">Load</button>
+                </div>
+
+                <div class="sample-preset-box" data-sample="patient_clinical">
+                  <div class="preset-box-icon">🏥</div>
+                  <div class="preset-box-body">
+                    <strong>Clinical Vitals &amp; Lab Outcomes</strong>
+                    <span>3,850 patients &bull; Blood pressure, cholesterol, diagnosis target</span>
+                  </div>
+                  <button class="btn btn-secondary btn-xs">Load</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 3: ISSUES CENTER
+        ======================================================== -->
+        <section id="viewIssues" class="app-view">
+          <div class="issues-center-header">
+            <div>
+              <h2 class="view-title">Data Quality Issues Center</h2>
+              <p class="view-subtitle">Detailed audit of all detected quality anomalies, rule violations, and remediation steps</p>
+            </div>
+            <div class="issues-stats-pills">
+              <span class="pill-stat crit" id="pillCrit">0 Critical</span>
+              <span class="pill-stat warn" id="pillWarn">0 Warnings</span>
+              <span class="pill-stat info" id="pillInfo">0 Info</span>
+            </div>
+          </div>
+
+          <!-- Issues Filter & Search Bar -->
+          <div class="issues-toolbar card">
+            <div class="filter-pills-group">
+              <button class="filter-pill active" data-severity="all">All (<span id="cntFilterAll">0</span>)</button>
+              <button class="filter-pill" data-severity="CRITICAL">Critical (<span id="cntFilterCrit">0</span>)</button>
+              <button class="filter-pill" data-severity="WARNING">Warning (<span id="cntFilterWarn">0</span>)</button>
+              <button class="filter-pill" data-severity="INFO">Info (<span id="cntFilterInfo">0</span>)</button>
+              <button class="filter-pill" data-severity="RESOLVED">Resolved (0)</button>
+            </div>
+
+            <div class="issues-search-sort">
+              <div class="search-input-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="issuesSearchInput" placeholder="Search issues, rules, columns..." />
+              </div>
+              
+              <div class="sort-select-wrap">
+                <label for="issuesSortSelect">Sort by:</label>
+                <select id="issuesSortSelect" class="form-select-sm">
+                  <option value="severity">Severity (High to Low)</option>
+                  <option value="affected_rows">Affected Rows (Desc)</option>
+                  <option value="affected_pct">Percentage (Desc)</option>
+                  <option value="column">Column (A-Z)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <!-- Issues List Grid -->
+          <div class="issues-cards-list" id="issuesCardsContainer"></div>
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 4: COLUMNS PROFILING
+        ======================================================== -->
+        <section id="viewColumns" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Column Profiles &amp; Schema Intelligence</h2>
+              <p class="view-subtitle">Per-column deep statistics, distributions, and cardinality analysis. Click any column for full detail.</p>
+            </div>
+            
+            <div class="column-view-toggles">
+              <div class="search-input-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8"></circle>
+                  <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" id="columnSearchInput" placeholder="Filter columns..." />
+              </div>
+              <select id="columnSortSelect" class="form-select-sm">
+                <option value="order">Original Order</option>
+                <option value="nulls-desc">Highest Nulls First</option>
+                <option value="score-asc">Lowest Health First</option>
+                <option value="unique-desc">Highest Cardinality</option>
+                <option value="name-asc">Alphabetical (A-Z)</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Columns Grid -->
+          <div class="columns-cards-grid" id="columnsGrid"></div>
+
+          <!-- Summary Matrix Table -->
+          <div class="card table-card mt-6">
+            <div class="card-header-row mb-3">
+              <h3 class="card-header-title">Columns Summary Matrix Table</h3>
+              <span class="preview-subtitle" id="matrixColCountText">All columns overview</span>
+            </div>
+            <div class="table-responsive">
+              <table class="data-quality-table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Column Name</th>
+                    <th>Inferred Type</th>
+                    <th>Nulls</th>
+                    <th>Null %</th>
+                    <th>Unique</th>
+                    <th>Duplicates</th>
+                    <th>Key Statistics / Top Values</th>
+                    <th>Health</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody id="matrixTableBody"></tbody>
               </table>
             </div>
           </div>
-
-        </div>
-      </section>
+        </section>
 
 
-      <!-- ========================================================
-           VIEW 7: QUALITY RULES CATALOG
-      ======================================================== -->
-      <section id="viewRules" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Active Data Quality Rules Catalog</h2>
-            <p class="view-subtitle">Built-in validation checks, constraints, and statistical thresholds active for this dataset.</p>
+        <!-- ========================================================
+             VIEW 5: DATA PREVIEW & CELL DIAGNOSTICS
+        ======================================================== -->
+        <section id="viewDataPreview" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Data Grid Preview</h2>
+              <p class="view-subtitle">Interactive grid with highlighted problematic cells. Click any highlighted cell to view diagnostic details.</p>
+            </div>
+            <div class="preview-legend">
+              <span class="legend-item"><span class="legend-dot red"></span> Missing / Null</span>
+              <span class="legend-item"><span class="legend-dot amber"></span> Anomaly / Format</span>
+              <span class="legend-item"><span class="legend-dot purple"></span> Outlier</span>
+            </div>
           </div>
-          <span class="badge-pill">12 Standard Quality Checks</span>
-        </div>
 
-        <div class="rules-catalog-grid" id="rulesCatalogContainer"></div>
-      </section>
+          <div class="card table-card">
+            <div class="preview-header-bar">
+              <div class="preview-title">
+                <strong id="previewGridFileName">ecommerce_orders.csv</strong>
+                <span class="preview-subtitle" id="previewSubTitle">Showing page 1</span>
+              </div>
+              
+              <div class="preview-controls-right">
+                <div class="preview-search-wrap">
+                  <input type="text" id="gridSearchInput" placeholder="Filter rows in grid..." class="form-input-sm" />
+                </div>
+                
+                <div class="pagination-controls">
+                  <button class="btn btn-outline btn-xs" id="btnPrevPage" title="Previous Page">&larr;</button>
+                  <span class="page-info-label" id="pageInfoText">Page 1 / 1</span>
+                  <button class="btn btn-outline btn-xs" id="btnNextPage" title="Next Page">&rarr;</button>
+                  
+                  <select id="selectRowsPerPage" class="form-select-sm" title="Rows per page">
+                    <option value="25">25 rows</option>
+                    <option value="50" selected>50 rows</option>
+                    <option value="100">100 rows</option>
+                  </select>
+                </div>
+              </div>
+            </div>
 
-
-      <!-- ========================================================
-           VIEW 8: REPORTS HUB
-      ======================================================== -->
-      <section id="viewReports" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Data Quality Reports & Exports</h2>
-            <p class="view-subtitle">Generate formatted executive summaries, audit reports, and structured schemas.</p>
+            <div class="table-responsive" style="max-height: 540px; overflow-y: auto;">
+              <table class="data-preview-table" id="dataPreviewTable">
+                <thead id="previewTableHead"></thead>
+                <tbody id="previewTableBody"></tbody>
+              </table>
+            </div>
           </div>
-        </div>
+        </section>
 
-        <div class="reports-hub-grid">
+
+        <!-- ========================================================
+             VIEW 6: SMART EDA & VISUAL ANALYTICS
+        ======================================================== -->
+        <section id="viewSmartEda" class="app-view">
           
-          <div class="report-card card glass" id="repCardHtml">
-            <div class="report-card-icon">🌐</div>
-            <div class="report-card-body">
-              <h3>Standalone HTML Quality Report</h3>
-              <p>Self-contained, shareable interactive HTML report containing all charts, scores, and issue matrices.</p>
-              <button class="btn btn-primary btn-sm mt-3" id="btnDownloadHtmlReport">Download HTML Report</button>
+          <!-- Smart EDA Header Bar -->
+          <div class="eda-header-card card">
+            <div class="eda-header-left">
+              <div class="eda-title-block">
+                <span class="eda-badge-label">AI STATISTICAL ENGINE</span>
+                <h2 class="view-title">Smart EDA</h2>
+                <p class="view-subtitle">Automated exploratory data analysis, target detection, and bivariate feature interactions</p>
+              </div>
+              <div class="eda-header-meta-chips">
+                <div class="eda-meta-chip">Dataset: <strong id="edaDatasetNameChip">ecommerce_orders.csv</strong></div>
+                <div class="eda-meta-chip">Rows: <strong id="edaRowsChip">12,430</strong></div>
+                <div class="eda-meta-chip">Cols: <strong id="edaColsChip">18</strong></div>
+                <div class="eda-meta-chip highlight" id="edaActiveTargetChip">Target: <strong>churned</strong></div>
+              </div>
+            </div>
+
+            <div class="eda-header-right">
+              <div class="eda-mode-pill-toggle">
+                <button class="eda-mode-btn active" id="btnModeSmart" data-mode="smart">● Smart Report</button>
+                <button class="eda-mode-btn" id="btnModeManual" data-mode="manual">○ Manual Studio</button>
+              </div>
+              <div class="eda-actions-group">
+                <button class="btn btn-outline btn-sm" id="btnOpenEdaConfig" title="Configure Targets & Features">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="3"></circle>
+                    <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                  </svg>
+                  <span>Select Targets &amp; Features</span>
+                </button>
+                <button class="btn btn-primary btn-sm" id="btnGenerateEda">
+                  <span>⚡ Regenerate Analysis</span>
+                </button>
+                <button class="btn btn-secondary btn-sm" id="btnExportEdaReport" title="Download standalone analytical EDA report">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                  </svg>
+                  <span>Export HTML EDA Report</span>
+                </button>
+              </div>
             </div>
           </div>
 
-          <div class="report-card card glass" id="repCardJson">
-            <div class="report-card-icon">{ }</div>
-            <div class="report-card-body">
-              <h3>JSON Profiling Schema</h3>
-              <p>Complete JSON payload including dimensions, column statistics, histograms, and structured issues.</p>
-              <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadJsonReport">Download JSON</button>
+          <!-- Target Selector Tabs (for Multi-Target datasets) -->
+          <div class="eda-target-tabs-bar" id="edaTargetTabsBar" style="display: none;">
+            <span class="tabs-label">🎯 Active Target:</span>
+            <div class="target-tabs-list" id="edaTargetTabsList"></div>
+          </div>
+
+          <!-- ================= SMART ANALYSIS REPORT CONTAINER ================= -->
+          <div id="edaSmartAnalysisContainer" class="eda-sub-container">
+
+            <!-- 1. Executive Summary KPI Row -->
+            <div class="eda-executive-summary" id="edaExecutiveSummary"></div>
+
+            <!-- 2. Target Analysis Section (Primary Analytical Section) -->
+            <div class="card eda-section-card" id="edaTargetSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">PRIMARY ANALYTICS</span>
+                  <h3 class="eda-section-title">TARGET ANALYSIS</h3>
+                  <p class="eda-section-subtitle" id="edaTargetSubtitle">Target distribution &amp; class breakdown</p>
+                </div>
+                <div class="eda-target-meta-badges" id="edaTargetMetaBadges"></div>
+              </div>
+              
+              <div class="eda-target-content-layout" id="edaTargetContentLayout"></div>
+            </div>
+
+            <!-- 3. Key Insights Section -->
+            <div class="card eda-section-card" id="edaKeyInsightsSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">STATISTICAL SYNTHESIS</span>
+                  <h3 class="eda-section-title">KEY INSIGHTS</h3>
+                  <p class="eda-section-subtitle">Non-causal statistical observations across distributions, correlations, and target associations</p>
+                </div>
+                <span class="badge-pill" id="edaInsightsCountBadge">4 Key Insights</span>
+              </div>
+              <div class="eda-insights-numbered-grid" id="edaInsightsContainer"></div>
+            </div>
+
+            <!-- 4. Feature vs Target Relationships -->
+            <div class="card eda-section-card" id="edaFeatureRelationshipsSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">BIVARIATE ASSOCIATIONS</span>
+                  <h3 class="eda-section-title">FEATURE RELATIONSHIPS</h3>
+                  <p class="eda-section-subtitle" id="edaFeatureRelSubtitle">Feature associations and class breakdowns against selected target outcome</p>
+                </div>
+                <span class="badge-pill" id="edaBivariateCountBadge">4 Relationships</span>
+              </div>
+              <div class="eda-bivariate-grid" id="edaTargetChartsGrid"></div>
+            </div>
+
+            <!-- 5. Numerical Distributions -->
+            <div class="card eda-section-card" id="edaNumericalDistributionsSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">CONTINUOUS DISTRIBUTIONS</span>
+                  <h3 class="eda-section-title">NUMERICAL DISTRIBUTIONS</h3>
+                  <p class="eda-section-subtitle">Histograms, 5-number box plots, and continuous statistical moments</p>
+                </div>
+                <button class="btn btn-outline btn-xs" id="btnToggleAllNumCharts">Show All Numerical Features</button>
+              </div>
+              <div class="eda-distributions-grid" id="edaNumericalGrid"></div>
+            </div>
+
+            <!-- 6. Categorical Distributions -->
+            <div class="card eda-section-card" id="edaCategoricalDistributionsSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">DISCRETE FREQUENCIES</span>
+                  <h3 class="eda-section-title">CATEGORICAL DISTRIBUTIONS</h3>
+                  <p class="eda-section-subtitle">Horizontal frequency breakdowns across discrete category levels</p>
+                </div>
+                <button class="btn btn-outline btn-xs" id="btnToggleAllCatCharts">Show All Categorical Features</button>
+              </div>
+              <div class="eda-distributions-grid" id="edaCategoricalGrid"></div>
+            </div>
+
+            <!-- 7. Correlation Analysis -->
+            <div class="card eda-section-card" id="edaCorrelationSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">MULTIVARIATE MATRIX</span>
+                  <h3 class="eda-section-title">CORRELATION ANALYSIS</h3>
+                  <p class="eda-section-subtitle">Pairwise Pearson linear correlation (r) and Spearman rank correlation (ρ)</p>
+                </div>
+                <span class="badge-pill">Diverging [-1.0 ... +1.0]</span>
+              </div>
+              
+              <div class="eda-correlation-layout">
+                <div class="eda-heatmap-centered-box" id="edaHeatmapVisual"></div>
+
+                <div class="eda-correlation-tables-row">
+                  <div class="eda-corr-table-card">
+                    <div class="corr-table-header positive">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"></polyline></svg>
+                      <span>Strongest Positive Relationships</span>
+                    </div>
+                    <table class="data-quality-table compact-table">
+                      <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
+                      <tbody id="edaPosCorrelationsBody"></tbody>
+                    </table>
+                  </div>
+
+                  <div class="eda-corr-table-card">
+                    <div class="corr-table-header negative">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                      <span>Strongest Negative / Inverse Relationships</span>
+                    </div>
+                    <table class="data-quality-table compact-table">
+                      <thead><tr><th>Feature Pair</th><th>Pearson r</th><th>Spearman ρ</th><th>Strength</th></tr></thead>
+                      <tbody id="edaNegCorrelationsBody"></tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- 8. Outlier Analysis -->
+            <div class="card eda-section-card" id="edaOutlierSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">ANOMALY AUDIT</span>
+                  <h3 class="eda-section-title">OUTLIER ANALYSIS</h3>
+                  <p class="eda-section-subtitle">Statistical outlier summary based on 1.5× Interquartile Range (IQR)</p>
+                </div>
+                <button class="btn btn-outline btn-xs" id="btnToggleOutlierPlots">Toggle Outlier Box Plots</button>
+              </div>
+              <div class="table-responsive">
+                <table class="data-quality-table">
+                  <thead><tr><th>Feature</th><th>Outliers Count</th><th>Percentage</th><th>IQR Range</th><th>Min Boundary</th><th>Max Boundary</th><th>Status</th></tr></thead>
+                  <tbody id="edaOutlierTableBody"></tbody>
+                </table>
+              </div>
+              <div class="eda-outlier-charts-grid mt-3" id="edaOutlierChartsGrid" style="display: none;"></div>
+            </div>
+
+            <!-- 9. Missing Data Analysis -->
+            <div class="card eda-section-card" id="edaMissingnessSection">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">COMPLETENESS PROFILING</span>
+                  <h3 class="eda-section-title">MISSING DATA ANALYSIS</h3>
+                  <p class="eda-section-subtitle">Per-feature null count and missingness proportion across dataset records</p>
+                </div>
+              </div>
+              <div class="eda-missingness-layout" id="edaMissingnessContent"></div>
+            </div>
+
+          </div>
+
+          <!-- ================= MANUAL EXPLORATION STUDIO SUB-VIEW ================= -->
+          <div id="edaManualExplorationContainer" class="eda-sub-container" style="display: none;">
+            <div class="card eda-section-card">
+              <div class="eda-card-header-banner">
+                <div>
+                  <span class="eda-section-tag">CUSTOM STUDIO</span>
+                  <h3 class="eda-section-title">INTERACTIVE MANUAL CHART BUILDER</h3>
+                  <p class="eda-section-subtitle">Custom bivariate, multivariate, and distribution visual explorer</p>
+                </div>
+              </div>
+
+              <div class="manual-builder-toolbar mt-3">
+                <div class="builder-select-item">
+                  <label>Chart Type:</label>
+                  <select id="builderChartType" class="form-select-sm">
+                    <option value="scatter">Scatter Plot &amp; Trend</option>
+                    <option value="bar">Bar Chart</option>
+                    <option value="histogram">Histogram Distribution</option>
+                    <option value="boxplot">Box Plot</option>
+                    <option value="line">Line / Trend Chart</option>
+                    <option value="stackedbar">Stacked Bar Chart</option>
+                    <option value="pie">Pie / Donut Chart</option>
+                  </select>
+                </div>
+
+                <div class="builder-select-item">
+                  <label>X-Axis Feature:</label>
+                  <select id="builderXAxis" class="form-select-sm"></select>
+                </div>
+
+                <div class="builder-select-item">
+                  <label>Y-Axis Feature:</label>
+                  <select id="builderYAxis" class="form-select-sm"></select>
+                </div>
+
+                <div class="builder-select-item">
+                  <label>Color / Group By:</label>
+                  <select id="builderColorBy" class="form-select-sm"></select>
+                </div>
+
+                <button class="btn btn-primary btn-sm" id="btnRenderManualChart">Render Chart</button>
+              </div>
+
+              <div class="manual-chart-display-card mt-3" id="manualChartContainer">
+                <div class="chart-empty-placeholder">Select features and click "Render Chart" to generate visual analytics.</div>
+              </div>
             </div>
           </div>
 
-          <div class="report-card card glass" id="repCardMd">
-            <div class="report-card-icon">📝</div>
-            <div class="report-card-body">
-              <h3>Markdown Pull Request / README Audit</h3>
-              <p>Clean Markdown formatted table ready to paste into GitHub PRs, documentation, or Slack updates.</p>
-              <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadMdReport">Download Markdown</button>
-            </div>
-          </div>
+        </section>
 
-          <div class="report-card card glass" id="repCardCsv">
-            <div class="report-card-icon">📊</div>
-            <div class="report-card-body">
-              <h3>CSV Metrics Summary</h3>
-              <p>Tabular CSV summary listing every column, inferred type, null counts, duplicates, and health score.</p>
-              <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadCsvSummary">Download CSV Summary</button>
-            </div>
-          </div>
-
-        </div>
-      </section>
-
-
-      <!-- ========================================================
-           VIEW 9: CI/CD INTEGRATION & CLI
-      ======================================================== -->
-      <section id="viewCiCd" class="app-view">
-        <div class="view-header-row">
-          <div>
-            <h2 class="view-title">Automated CI/CD & CLI Integration</h2>
-            <p class="view-subtitle">Embed zero-dependency data quality gates into your local terminal or GitHub Actions pipeline.</p>
-          </div>
-          <button class="btn btn-secondary btn-sm" id="btnCopyCli">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-            </svg>
-            <span>Copy Terminal Command</span>
-          </button>
-        </div>
-
-        <div class="cicd-layout-grid">
-          
-          <div class="card glass cli-card">
-            <div class="cli-header">
+        <!-- Target & Feature Configuration Modal -->
+        <div class="modal-overlay" id="edaConfigModal">
+          <div class="modal-card modal-lg">
+            <div class="modal-header">
               <div>
-                <h3>Terminal Command Line Equivalent</h3>
-                <p>Run instant audit with zero dependencies in any environment.</p>
+                <h3 class="card-header-title">Configure Target &amp; Feature Columns</h3>
+                <p class="modal-subtitle">Select target outcomes and filter analytical features for Smart EDA</p>
+              </div>
+              <button class="btn-close" id="closeEdaConfigModal">&times;</button>
+            </div>
+            <div class="modal-body">
+              <div class="eda-config-modal-grid">
+                
+                <!-- Targets Column -->
+                <div class="eda-modal-col">
+                  <div class="eda-modal-col-header">
+                    <strong>Target Columns (Multi-select)</strong>
+                    <div class="target-quick-btns">
+                      <button class="btn btn-outline btn-xs" id="btnEdaAutoDetect">⚡ Auto Detect</button>
+                      <button class="btn btn-outline btn-xs" id="btnEdaNoTarget">No Target</button>
+                    </div>
+                  </div>
+                  <div class="target-suggestion-alert mb-2" id="targetSuggestionBox">
+                    <span id="targetSuggestionText">Suggested Target: <strong>status</strong></span>
+                  </div>
+                  <div class="checkbox-options-scroll" id="edaTargetCheckboxes"></div>
+                  <div class="problem-type-pill mt-2" id="edaProblemTypeBadge">
+                    Problem Type: <strong>Binary Classification</strong>
+                  </div>
+                </div>
+
+                <!-- Features Column -->
+                <div class="eda-modal-col">
+                  <div class="eda-modal-col-header">
+                    <strong>Feature Columns</strong>
+                    <div class="feature-quick-btns">
+                      <button class="btn btn-outline btn-xs" id="btnEdaSelectAllFeatures">All</button>
+                      <button class="btn btn-outline btn-xs" id="btnEdaAutoFeatures">Auto (Exclude IDs)</button>
+                      <button class="btn btn-outline btn-xs" id="btnEdaClearFeatures">Clear</button>
+                    </div>
+                  </div>
+                  <div class="search-input-wrap mb-2">
+                    <input type="text" id="edaFeatureFilterInput" placeholder="Filter feature names..." style="width: 100%;" />
+                  </div>
+                  <div class="checkbox-options-scroll" id="edaFeatureCheckboxes"></div>
+                </div>
+
               </div>
             </div>
-            <div class="code-terminal">
-              <div class="terminal-bar">
-                <span class="term-btn red"></span>
-                <span class="term-btn yellow"></span>
-                <span class="term-btn green"></span>
-                <span class="term-title">terminal</span>
-              </div>
-              <pre><code id="cliCodeBlock">python dq_scan.py export.csv</code></pre>
+            <div class="modal-footer">
+              <button class="btn btn-secondary btn-sm" id="cancelEdaConfigBtn">Cancel</button>
+              <button class="btn btn-primary btn-sm" id="applyEdaConfigBtn">Apply &amp; Regenerate</button>
             </div>
-            <div class="cli-output-wrap">
-              <h4>Console Output</h4>
-              <pre class="cli-raw-output" id="cliOutputBlock"></pre>
+          </div>
+        </div>
+
+
+        <!-- ========================================================
+             VIEW 7: DATA CLEANING STUDIO
+        ======================================================== -->
+        <section id="viewCleaning" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Data Cleaning &amp; Remediation Hub</h2>
+              <p class="view-subtitle">Apply automated cleaning recipes to resolve detected anomalies and download the sanitized dataset.</p>
+            </div>
+            <div class="cleaning-header-actions">
+              <button class="btn btn-outline btn-sm" id="btnResetCleaning">
+                <span>Reset to Original</span>
+              </button>
+              <button class="btn btn-primary btn-sm" id="btnExportCleanedCsv">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" />
+                </svg>
+                <span>Download Cleaned CSV</span>
+              </button>
             </div>
           </div>
 
-          <div class="card glass cicd-yaml-card">
-            <div class="cli-header">
-              <div>
-                <h3>GitHub Actions Workflow Template</h3>
-                <p>Automated pre-merge check to enforce quality thresholds on CSV datasets.</p>
+          <div class="cleaning-grid">
+            
+            <div class="cleaning-recipes-panel card">
+              <h3 class="card-header-title mb-3">Available Cleaning Recipes</h3>
+              
+              <div class="recipes-list">
+                <div class="recipe-item active">
+                  <input type="checkbox" id="chkTrim" checked />
+                  <div class="recipe-item-body">
+                    <strong>1. Trim Whitespace &amp; Normalize Literals</strong>
+                    <p>Strip leading/trailing spaces, normalize literal "null", "nan", "-" to empty values.</p>
+                  </div>
+                </div>
+
+                <div class="recipe-item active">
+                  <input type="checkbox" id="chkCasing" checked />
+                  <div class="recipe-item-body">
+                    <strong>2. Standardize Categorical Casing</strong>
+                    <p>Harmonize mixed casing ("Completed", "completed", "EUR", "eur") to uniform titlecase.</p>
+                  </div>
+                </div>
+
+                <div class="recipe-item active">
+                  <input type="checkbox" id="chkDedupe" checked />
+                  <div class="recipe-item-body">
+                    <strong>3. Deduplicate Identical Rows</strong>
+                    <p>Detect and eliminate duplicate rows matching all features or primary identifiers.</p>
+                  </div>
+                </div>
+
+                <div class="recipe-item">
+                  <input type="checkbox" id="chkImpute" />
+                  <div class="recipe-item-body">
+                    <strong>4. Impute Missing Numeric Values</strong>
+                    <p>Fill null numeric cells with computed column median.</p>
+                  </div>
+                </div>
               </div>
-              <button class="btn btn-outline btn-xs" id="btnCopyYaml">Copy YAML</button>
+
+              <div class="cleaning-recipe-actions mt-4">
+                <button class="btn btn-primary btn-sm w-full" id="btnApplyCleaning">
+                  <span>⚡ Apply Recipes &amp; Update Preview</span>
+                </button>
+              </div>
             </div>
-            <div class="code-terminal">
-              <div class="terminal-bar">
-                <span class="term-btn red"></span>
-                <span class="term-btn yellow"></span>
-                <span class="term-btn green"></span>
-                <span class="term-title">.github/workflows/data-quality-gate.yml</span>
+
+            <div class="cleaning-preview-panel card">
+              <div class="card-header-row mb-3">
+                <div>
+                  <h3 class="card-header-title">Cleaned Data Preview (Sanitized State)</h3>
+                  <span class="preview-subtitle">Comparing sanitized rows against original input</span>
+                </div>
+                <span class="badge-health good" id="cleaningStatusBadge">Remediations Ready</span>
               </div>
-              <pre><code>name: Data Quality Gate
+              <div class="table-responsive" style="max-height: 440px; overflow-y: auto;">
+                <table class="data-preview-table">
+                  <thead id="cleaningTableHead"></thead>
+                  <tbody id="cleaningTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 8: QUALITY RULES CATALOG
+        ======================================================== -->
+        <section id="viewRules" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Active Data Quality Rules Catalog</h2>
+              <p class="view-subtitle">Built-in validation checks, constraints, and statistical thresholds active for this dataset.</p>
+            </div>
+            <div class="rules-header-right">
+              <span class="badge-pill" id="ruleCountBadge">12 Standard Quality Checks</span>
+              <button class="btn btn-primary btn-xs" id="btnAddRuleModalBtn">+ Add Custom Rule</button>
+            </div>
+          </div>
+
+          <div class="rules-catalog-grid" id="rulesCatalogContainer"></div>
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 9: REPORTS HUB
+        ======================================================== -->
+        <section id="viewReports" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Data Quality Reports &amp; Exports</h2>
+              <p class="view-subtitle">Generate formatted executive summaries, audit reports, and structured schemas.</p>
+            </div>
+          </div>
+
+          <div class="reports-hub-grid">
+            
+            <div class="report-card card" id="repCardHtml">
+              <div class="report-card-icon">🌐</div>
+              <div class="report-card-body">
+                <h3>Standalone HTML Quality Report</h3>
+                <p>Self-contained, shareable interactive HTML report containing all charts, scores, and issue matrices.</p>
+                <button class="btn btn-primary btn-sm mt-3" id="btnDownloadHtmlReport">Download HTML Report</button>
+              </div>
+            </div>
+
+            <div class="report-card card" id="repCardEdaHtml">
+              <div class="report-card-icon">📈</div>
+              <div class="report-card-body">
+                <h3>Interactive HTML EDA Analytics Report</h3>
+                <p>Comprehensive statistical report with correlations, distributions, target analysis, and insights.</p>
+                <button class="btn btn-primary btn-sm mt-3" id="btnDownloadEdaHtmlReport">Download EDA Report</button>
+              </div>
+            </div>
+
+            <div class="report-card card" id="repCardJson">
+              <div class="report-card-icon">{ }</div>
+              <div class="report-card-body">
+                <h3>JSON Profiling Schema</h3>
+                <p>Complete JSON payload including dimensions, column statistics, histograms, and structured issues.</p>
+                <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadJsonReport">Download JSON</button>
+              </div>
+            </div>
+
+            <div class="report-card card" id="repCardMd">
+              <div class="report-card-icon">📝</div>
+              <div class="report-card-body">
+                <h3>Markdown Pull Request / README Audit</h3>
+                <p>Clean Markdown formatted table ready to paste into GitHub PRs, documentation, or Slack updates.</p>
+                <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadMdReport">Download Markdown</button>
+              </div>
+            </div>
+
+            <div class="report-card card" id="repCardCsv">
+              <div class="report-card-icon">📊</div>
+              <div class="report-card-body">
+                <h3>CSV Metrics Summary</h3>
+                <p>Tabular CSV summary listing every column, inferred type, null counts, duplicates, and health score.</p>
+                <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadCsvSummary">Download CSV Summary</button>
+              </div>
+            </div>
+
+            <div class="report-card card" id="repCardCleanCsv">
+              <div class="report-card-icon">✨</div>
+              <div class="report-card-body">
+                <h3>Cleaned Dataset CSV</h3>
+                <p>Sanitized dataset with all whitespace trimmed, categories normalized, and duplicates removed.</p>
+                <button class="btn btn-secondary btn-sm mt-3" id="btnDownloadCleanCsvCard">Download Cleaned CSV</button>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+
+        <!-- ========================================================
+             VIEW 10: CI/CD INTEGRATION & CLI
+        ======================================================== -->
+        <section id="viewCiCd" class="app-view">
+          <div class="view-header-row">
+            <div>
+              <h2 class="view-title">Automated CI/CD &amp; CLI Integration</h2>
+              <p class="view-subtitle">Embed zero-dependency data quality gates into your local terminal or GitHub Actions pipeline.</p>
+            </div>
+            <button class="btn btn-secondary btn-sm" id="btnCopyCli">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+              <span>Copy Terminal Command</span>
+            </button>
+          </div>
+
+          <div class="cicd-layout-grid">
+            
+            <div class="card cli-card">
+              <div class="cli-header">
+                <div>
+                  <h3>Terminal Command Line Equivalent</h3>
+                  <p>Run instant audit with zero dependencies in any environment.</p>
+                </div>
+              </div>
+              <div class="code-terminal">
+                <div class="terminal-bar">
+                  <span class="term-btn red"></span>
+                  <span class="term-btn yellow"></span>
+                  <span class="term-btn green"></span>
+                  <span class="term-title">terminal</span>
+                </div>
+                <pre><code id="cliCodeBlock">python dq_scan.py export.csv</code></pre>
+              </div>
+              <div class="cli-output-wrap">
+                <h4>Console Output</h4>
+                <pre class="cli-raw-output" id="cliOutputBlock"></pre>
+              </div>
+            </div>
+
+            <div class="card cicd-yaml-card">
+              <div class="cli-header">
+                <div>
+                  <h3>GitHub Actions Workflow Template</h3>
+                  <p>Automated pre-merge check to enforce quality thresholds on CSV datasets.</p>
+                </div>
+                <button class="btn btn-outline btn-xs" id="btnCopyYaml">Copy YAML</button>
+              </div>
+              <div class="code-terminal">
+                <div class="terminal-bar">
+                  <span class="term-btn red"></span>
+                  <span class="term-btn yellow"></span>
+                  <span class="term-btn green"></span>
+                  <span class="term-title">.github/workflows/data-quality-gate.yml</span>
+                </div>
+                <pre><code>name: Data Quality Gate
 on: [push, pull_request]
 
 jobs:
@@ -1048,31 +1565,33 @@ jobs:
       - name: Run Data Sarthi Quality Scan
         run: |
           python dq_scan.py data/export.csv</code></pre>
+              </div>
             </div>
+
           </div>
+        </section>
 
+      </main>
+
+      <!-- Footer -->
+      <footer class="app-footer">
+        <div class="footer-content">
+          <span><strong>Data Sarthi</strong> &bull; AI-Powered Data Quality &amp; EDA Companion</span>
+          <span class="footer-sub">Zero dependencies &bull; Instant startup &bull; Native Standard Web &amp; Python</span>
         </div>
-      </section>
+      </footer>
 
-    </main>
-
-    <!-- Footer -->
-    <footer class="app-footer">
-      <div class="footer-content">
-        <span><strong>Data Sarthi</strong> &bull; Enterprise Data Quality & Smart EDA Analytics</span>
-        <span class="footer-sub">Zero pandas &bull; Instant startup &bull; Standard Python 3 + Modern Web</span>
-      </div>
-    </footer>
+    </div>
 
   </div>
 
   <!-- Modals -->
   <!-- Modal 1: Why This Score? -->
   <div class="modal-overlay" id="scoreModal">
-    <div class="modal-card card glass">
+    <div class="modal-card card">
       <div class="modal-header">
         <div>
-          <h3>Quality Score Formula & Transparency</h3>
+          <h3>Quality Score Formula &amp; Transparency</h3>
           <p class="modal-subtitle">How your overall Data Health Score is calculated</p>
         </div>
         <button class="btn-close" id="closeScoreModal">&times;</button>
@@ -1104,7 +1623,7 @@ jobs:
 
   <!-- Modal 2: Column Detail Drawer -->
   <div class="modal-overlay" id="columnDetailModal">
-    <div class="modal-card card glass modal-lg">
+    <div class="modal-card card modal-lg">
       <div class="modal-header">
         <div>
           <h3 id="colDetailTitle">Column Detail</h3>
@@ -1121,7 +1640,7 @@ jobs:
 
   <!-- Modal 3: Problematic Cell Diagnostic Modal -->
   <div class="modal-overlay" id="cellDiagnosticModal">
-    <div class="modal-card card glass">
+    <div class="modal-card card">
       <div class="modal-header">
         <div>
           <h3 id="diagModalTitle">Cell Diagnostic Inspection</h3>
@@ -1138,9 +1657,12 @@ jobs:
 
   <!-- Modal 4: Paste Raw CSV -->
   <div class="modal-overlay" id="pasteModal">
-    <div class="modal-card card glass">
+    <div class="modal-card card">
       <div class="modal-header">
-        <h3>Paste Raw CSV Content</h3>
+        <div>
+          <h3>Paste Raw CSV Content</h3>
+          <p class="modal-subtitle">Paste comma, tab or semicolon delimited text directly</p>
+        </div>
         <button class="btn-close" id="closePasteModal">&times;</button>
       </div>
       <div class="modal-body">
@@ -1148,16 +1670,19 @@ jobs:
       </div>
       <div class="modal-footer">
         <button class="btn btn-outline" id="cancelPasteBtn">Cancel</button>
-        <button class="btn btn-primary" id="runPasteBtn">Analyze CSV</button>
+        <button class="btn btn-primary" id="runPasteBtn">Analyze Dataset</button>
       </div>
     </div>
   </div>
 
   <!-- Modal 5: Export Options -->
   <div class="modal-overlay" id="exportModal">
-    <div class="modal-card card glass">
+    <div class="modal-card card">
       <div class="modal-header">
-        <h3>Export Reports & Datasets</h3>
+        <div>
+          <h3>Export Reports &amp; Datasets</h3>
+          <p class="modal-subtitle">Download audit artifacts and cleaned data</p>
+        </div>
         <button class="btn-close" id="closeExportModal">&times;</button>
       </div>
       <div class="modal-body">
@@ -1166,21 +1691,21 @@ jobs:
             <div class="export-icon">📈</div>
             <div class="export-info">
               <strong>Interactive HTML EDA Report</strong>
-              <span>Standalone analytics report with charts, target analysis & correlations</span>
+              <span>Standalone analytics report with charts, target analysis &amp; correlations</span>
             </div>
           </div>
           <div class="export-option-card" id="exportHtmlCard">
             <div class="export-icon">🌐</div>
             <div class="export-info">
               <strong>Quality Audit HTML Report</strong>
-              <span>Standalone HTML file with quality dimensions & issues</span>
+              <span>Standalone HTML file with quality dimensions &amp; issues</span>
             </div>
           </div>
           <div class="export-option-card" id="exportJsonCard">
             <div class="export-icon">{ }</div>
             <div class="export-info">
-              <strong>JSON Profiling & EDA Report</strong>
-              <span>Full structured summary, correlations, histograms & schema</span>
+              <strong>JSON Profiling &amp; EDA Report</strong>
+              <span>Full structured summary, correlations, histograms &amp; schema</span>
             </div>
           </div>
           <div class="export-option-card" id="exportMdCard">
@@ -1205,6 +1730,47 @@ jobs:
             </div>
           </div>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal 6: Add Custom Rule Modal -->
+  <div class="modal-overlay" id="addRuleModal">
+    <div class="modal-card card">
+      <div class="modal-header">
+        <div>
+          <h3>Add Custom Quality Rule</h3>
+          <p class="modal-subtitle">Define an automated assertion for your active dataset</p>
+        </div>
+        <button class="btn-close" id="closeRuleModal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="rule-form-group mb-3">
+          <label for="ruleTargetCol">Target Column:</label>
+          <select id="ruleTargetCol" class="form-select-sm w-full"></select>
+        </div>
+        <div class="rule-form-group mb-3">
+          <label for="ruleTypeSelect">Rule Type:</label>
+          <select id="ruleTypeSelect" class="form-select-sm w-full">
+            <option value="not_null">Must Not Be Null / Empty</option>
+            <option value="numeric">Must Be Numeric</option>
+            <option value="non_negative">Must Be Non-Negative (&gt;= 0)</option>
+            <option value="unique">Must Be Unique (Primary Key)</option>
+            <option value="email_format">Must Be Valid Email Format</option>
+          </select>
+        </div>
+        <div class="rule-form-group">
+          <label for="ruleSeveritySelect">Severity on Failure:</label>
+          <select id="ruleSeveritySelect" class="form-select-sm w-full">
+            <option value="CRITICAL">Critical Issue</option>
+            <option value="WARNING" selected>Warning</option>
+            <option value="INFO">Informational</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-outline" id="cancelRuleBtn">Cancel</button>
+        <button class="btn btn-primary" id="saveRuleBtn">Add &amp; Evaluate Rule</button>
       </div>
     </div>
   </div>
