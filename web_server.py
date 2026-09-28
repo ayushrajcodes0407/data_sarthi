@@ -13,7 +13,10 @@ import statistics
 import sys
 from collections import Counter, defaultdict
 from datetime import datetime
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+try:
+    from http.server import ThreadingHTTPServer as HTTPServer, SimpleHTTPRequestHandler
+except ImportError:
+    from http.server import HTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import parse_qs, urlparse
 
 from eda_engine import build_smart_eda_payload, detect_target_candidates, is_id_column
